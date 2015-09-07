@@ -7,7 +7,7 @@
         <description>
             Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide
         </description>
-        <provider> org.hibernate.ejb.HibernatePersistence </provider>
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <class>DataAccess.Entity.User</class>
 
         <properties>

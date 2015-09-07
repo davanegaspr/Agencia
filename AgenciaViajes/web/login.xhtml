@@ -12,41 +12,23 @@
     </h:head>
     <h:body>
         <ui:include src="/header.xhtml"></ui:include>    
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <div class="panel panel-primary" style="border-radius: 2em; margin-top:25%;">
-                        <div class="panel-heading" style="border-top-left-radius: 2em; border-top-right-radius: 2em;">
-                            <strong class="">LOGIN</strong>
-                        </div>
-                        <div class="panel-body">
-                            <form class="form-horizontal" role="form" id="form1">
-                                <div class="form-group">
-                                    <div class="col-sm-9">
-                                        <h:form id="loginForm">                    
-                                                <h:panelGrid id="loginPanel" columns="2"> 
-                                                    <h:outputLabel value="Correo electronico" />
-                                                    <h:inputText value="#{loginUserBean.email}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px" requiredMessage="Se requiere un correo"></h:inputText>
-                                                    <h:outputLabel value="Contraseña"></h:outputLabel>
-                                                    <h:inputSecret value="#{loginUserBean.password}" required="true" class="form-control" id="inputPassword"
-										style="border-radius: 0; border-bottom-left-radius: 2em; height: 50px; margin-top: 0px;" requiredMessage="Se requiere un nombre"/>
-                                                    <h:commandButton action="#{loginUserBean.loginUser()}" value="ACEPTAR &raquo;" class="btn btn-success btn-sm" ></h:commandButton>
-                                                    <h:commandButton type="reset" class="btn btn-default btn-sm"  value="LIMPIAR"></h:commandButton>
-                                                </h:panelGrid>
-                                        </h:form>
-                                    </div>
-                                </div>
-                                <div id="alertError" class="row alert alert-danger" style="margin-left: 3%; margin-right: 15%; color: red; display: none">El correo electrónico o la contraseña que ingresaste son incorrectos.</div>
-                                <div class="form-group last" style="margin-left: 10px;"></div>
-                                <h:form><div class="panel-footer" style="border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;"> ¿No estás registrado? <h:commandLink  action="renderSignUp"> Regístrate aquí!</h:commandLink></div></h:form>
-				
-                            </form>
-                        </div>
-                            
-                    </div>
+            <h:form id="loginForm" style="margin-left: 35%; margin-top: 8%;">    
+                <div class="panel panel-default" style="width: 50%; border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;border-top-left-radius: 2em; border-top-right-radius: 2em;">
+                <div class="panel-heading" style="border-top-left-radius: 2em; border-top-right-radius: 2em;"><strong>Inicio de sesión</strong></div>
+                <div class="panel-body">
+                <h:panelGrid id="loginPanel" columns="2"> 
+                        <h:outputLabel value="Correo electronico" />
+                        <h:inputText value="#{loginUserBean.email}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px" requiredMessage="Se requiere un correo"></h:inputText>
+                        <h:outputLabel value="Contraseña"></h:outputLabel>
+                        <h:inputSecret value="#{loginUserBean.password}" required="true" class="form-control" id="inputPassword" style="border-radius: 0; border-bottom-left-radius: 2em; height: 50px; margin-top: 0px;" requiredMessage="Se requiere un nombre"/>
+                        <h:commandButton action="#{loginUserBean.loginUser()}" style="margin-left: 120%;" value="ACEPTAR &raquo;" class="btn btn-success btn-sm" ></h:commandButton>
+                        <h:commandButton type="reset" style="margin-left: 50%;" class="btn btn-default btn-sm"  value="LIMPIAR"></h:commandButton>
+                </h:panelGrid>
                 </div>
-            </div>
-        </div>
+                <div class="panel-footer" style="border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;"> ¿No estás registrado?</div>
+                </div>
+            </h:form>
+				
     </h:body>
 </html>
 

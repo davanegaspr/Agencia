@@ -194,7 +194,7 @@ public class CreateUserBean {
         this.message = message;
     }
     
-    public void createUser() throws NoSuchAlgorithmException, IOException {
+    public void createUser() throws  IOException, NoSuchAlgorithmException {
         ManageUser manageUser = new ManageUser();
         manageUser.createUser(getUsername(), getFirstname(), getLastname(), getPassword(), getEmail(),"Admin", getPhone(),(long)0, getDocumentType(), getDocument());
     }

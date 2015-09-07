@@ -8,7 +8,6 @@ package BusinessLogic.Controller;
 import DataAccess.DAO.UserDAO;
 import DataAccess.Entity.User;
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,16 +15,9 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.servlet.http.HttpSession;
 
 
@@ -68,8 +60,10 @@ public class ManageUser implements Serializable {
         UserDAO userDAO = new UserDAO();
         User userE = userDAO.persist(user);
         if(userE != null){
-            UserDAO.query(email);
-            renderIndex();
+                UserDAO.query(email);
+                renderIndex();
+            
+           
                            
         }
         else{

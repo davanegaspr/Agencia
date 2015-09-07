@@ -6,9 +6,12 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.ManageUser;
+import java.io.IOException;
 import java.sql.SQLException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -63,8 +66,5 @@ public class loginUserBean {
     public void logoutUser() throws SQLException {
         ManageUser manageUser = new ManageUser();        
         manageUser.logout();
-    }
-    
-    
-    
+    }    
 }
