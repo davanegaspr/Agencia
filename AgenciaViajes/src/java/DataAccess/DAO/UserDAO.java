@@ -16,6 +16,48 @@ import javax.servlet.http.HttpSession;
  * @author Richar
  */
 public class UserDAO {
+
+    public static boolean validateEmail(String email) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select email from user where email= ?");
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            
+            return rs.next(); // found
+            
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return false;
+        } finally {
+            Database.close(con);
+        }
+    }
+
+    public static boolean validateUsername(String username) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select username from user where username= ?");
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            
+            return rs.next(); // found
+            
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return false;
+        } finally {
+            Database.close(con);
+        }
+    
+    
+    }
     
     public User persist(User user){
         EntityManager em;        

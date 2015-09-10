@@ -25,6 +25,7 @@ public class CreateUserBean {
     private String lastname;
     private String email;
     private String password;
+    private String password2;
     private String username;
     private long phone;
     private String role;
@@ -196,7 +197,43 @@ public class CreateUserBean {
     
     public void createUser() throws  IOException, NoSuchAlgorithmException {
         ManageUser manageUser = new ManageUser();
-        manageUser.createUser(getUsername(), getFirstname(), getLastname(), getPassword(), getEmail(),"Admin", getPhone(),(long)0, getDocumentType(), getDocument());
+        if(manageUser.passwordCheck(getPassword(),getPassword2()) && !manageUser.validateEmail(getEmail()) && !manageUser.validateUsername(getUsername()) ){
+            System.out.println("validacion 1");
+            manageUser.createUser(getUsername(), getFirstname(), getLastname(), manageUser.sha256(getPassword()), getEmail(),"Admin", getPhone(),(long)0, getDocumentType(), getDocument());
+            manageUser.renderIndex();            
+        }else if(manageUser.passwordCheck(getPassword(),getPassword2()) == false){
+            setMessage("Las contraseñas no coinciden");
+            System.out.println("validacion 2");
+            //manageUser.renderSignup();
+        }else if(manageUser.validateEmail(getEmail())){
+            setMessage("El correo " + getEmail() +" ya esta en uso");
+            System.out.println("validacion 3");
+        }
+        else if(manageUser.validateUsername(getUsername())){
+            setMessage("El usuario " + getUsername() +" ya esta en uso");            
+            System.out.println("validacion 4");
+        }
+        else {
+            setMessage("Ninguna de las anteriores" + manageUser.passwordCheck(getPassword(),getPassword2()) + manageUser.validateEmail(getEmail()) + manageUser.validateUsername(getUsername()));            
+            System.out.println("validacion 4");
+        
+        }
+        
+    
+    }
+
+    /**
+     * @return the password2
+     */
+    public String getPassword2() {
+        return password2;
+    }
+
+    /**
+     * @param password2 the password2 to set
+     */
+    public void setPassword2(String password2) {
+        this.password2 = password2;
     }
     
 }

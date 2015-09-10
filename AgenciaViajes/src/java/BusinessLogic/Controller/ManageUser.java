@@ -55,16 +55,12 @@ public class ManageUser implements Serializable {
         user.setRole(role);
         user.setBalance(balance);
         user.setDocumentType(documentType);
-        user.setDocument(document);
-        
+        user.setDocument(document);        
         UserDAO userDAO = new UserDAO();
         User userE = userDAO.persist(user);
         if(userE != null){
                 UserDAO.query(email);
-                renderIndex();
-            
-           
-                           
+                renderIndex(); 
         }
         else{
             
@@ -82,9 +78,20 @@ public class ManageUser implements Serializable {
             }
     
     }
+    public void renderSignup(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest origRequest = (HttpServletRequest)context.getExternalContext().getRequest();
+        String contextPath = origRequest.getContextPath();
+        try {
+            FacesContext.getCurrentInstance().getExternalContext()
+            .redirect(contextPath  + "/faces/signup.xhtml");
+            } catch (IOException e) {
+            }
     
+    }
     public void login(String email, String password) throws SQLException {
-        boolean result = UserDAO.login(email, password);   
+        String passwordHash = sha256(password);
+        boolean result = UserDAO.login(email, passwordHash);   
         UserDAO.query(email);       
         if (result) {
             // get Http Session and store username           
@@ -101,14 +108,7 @@ public class ManageUser implements Serializable {
             // invalidate session, and redirect to other pages
  
             //message = "Invalid Login. Please Try Again!";
-            FacesContext context = FacesContext.getCurrentInstance();
-            HttpServletRequest origRequest = (HttpServletRequest)context.getExternalContext().getRequest();
-            String contextPath = origRequest.getContextPath();
-            try {
-                    FacesContext.getCurrentInstance().getExternalContext()
-                            .redirect(contextPath  + "/faces/signup.xhtml");
-                } catch (IOException e) {
-                }
+            
         }
     } 
     public void logout() {
@@ -130,5 +130,17 @@ public class ManageUser implements Serializable {
 
         }
         return null;
+    }
+
+    public boolean passwordCheck(String password, String password2) {
+        return password.equals(password2);
+    }
+
+    public boolean validateEmail(String email) {
+        return UserDAO.validateEmail(email); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean validateUsername(String username) {
+        return UserDAO.validateUsername(username); //To change body of generated methods, choose Tools | Templates.
     }
 }
