@@ -43,7 +43,7 @@ public class ManageUser implements Serializable {
      */
     
     private static final long serialVersionUID = 1L;
-    public void createUser(String username, String firstname, String lastname, String password, String email, String role, long phone, double balance, String documentType, String document ) throws NoSuchAlgorithmException, IOException{
+    public void createUser(String username, String firstname, String lastname, String password, String email, String role, String phone, double balance, String documentType, String document ) throws NoSuchAlgorithmException, IOException{
         
         User user = new User();
         user.setUsername(username);

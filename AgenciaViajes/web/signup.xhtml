@@ -13,7 +13,8 @@
     <h:body>
         <ui:include src="/header.xhtml"></ui:include>  
         <h4><strong><h:outputText value="#{createUserBean.message}" style="margin-top: 30%; margin-left: 35%; color:#fa0000;" /></strong></h4>
-        <h:form id="FormAdd" style="margin-left: 35%;">            
+        <h4><strong><h:message for="email" style="margin-top: 30%; margin-left: 35%; color:#fa0000;" /></strong></h4>
+        <h:form id="FormAdd" style="margin-left: 35%;">                
             <div class="panel panel-default" style="width: 50%; border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;border-top-left-radius: 2em; border-top-right-radius: 2em;">
                 <div class="panel-heading" style="border-top-left-radius: 2em; border-top-right-radius: 2em;"><strong>Formulario de registro</strong></div>
                 <div class="panel-body">
@@ -22,16 +23,23 @@
                 <h:inputText value="#{createUserBean.firstname}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px" requiredMessage="Se requiere un nombre"/>
                 <h:outputLabel value="Apellido"></h:outputLabel>
                 <h:inputText value="#{createUserBean.lastname}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px"  requiredMessage="Se requiere un apellido"/>
-                <h:outputLabel value="Correo"></h:outputLabel>
-                <h:inputText value="#{createUserBean.email}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un correo" />
+                <h:outputLabel value="Correo" />                
+                <h:inputText value="#{createUserBean.email}" required="true" id="email" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un correo" >
+                </h:inputText>                
                 <h:outputLabel value="Nombre Usuario"></h:outputLabel>
-                <h:inputText value="#{createUserBean.username}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un nombre de usuario"/>
+                <h:inputText value="#{createUserBean.username}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un nombre de usuario">                    
+                </h:inputText>
+                <h:outputLabel value="Tipo usuario"></h:outputLabel>
+                <h:selectOneMenu id="role" value="#{createUserBean.role}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage=" ">
+                    <f:selectItem id="estandar" itemLabel="Estandar" itemValue="Estandar" />
+                    <f:selectItem id="vip" itemLabel="VIP" itemValue="VIP" />
+                </h:selectOneMenu>
                 <h:outputLabel value="Celular"></h:outputLabel>
                 <h:inputText value="#{createUserBean.phone}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un celular"/>
                 <h:outputLabel value="Tipo documento"></h:outputLabel>
                 <h:selectOneMenu id="documentType" value="#{createUserBean.documentType}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage=" ">
-                    <f:selectItem id="item1" itemLabel="CC" itemValue="CC" />
-                    <f:selectItem id="item2" itemLabel="Cedula extranjeria" itemValue="Cedula extranjeria" />
+                    <f:selectItem id="cc" itemLabel="CC" itemValue="CC" />
+                    <f:selectItem id="ce" itemLabel="Cedula extranjeria" itemValue="Cedula extranjeria" />
                 </h:selectOneMenu>
                 <h:outputLabel value="Documento"></h:outputLabel>
                 <h:inputText value="#{createUserBean.document}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere numero de documento"/> 

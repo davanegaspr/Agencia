@@ -6,13 +6,14 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.ManageUser;
-import DataAccess.Entity.User;
-import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIConversion;
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 /**
  *
@@ -27,7 +28,7 @@ public class CreateUserBean {
     private String password;
     private String password2;
     private String username;
-    private long phone;
+    private String phone;
     private String role;
     private double balance;
     private String documentType;
@@ -114,14 +115,14 @@ public class CreateUserBean {
     /**
      * @return the phone
      */
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
     /**
      * @param phone the phone to set
      */
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -195,33 +196,6 @@ public class CreateUserBean {
         this.message = message;
     }
     
-    public void createUser() throws  IOException, NoSuchAlgorithmException {
-        ManageUser manageUser = new ManageUser();
-        if(manageUser.passwordCheck(getPassword(),getPassword2()) && !manageUser.validateEmail(getEmail()) && !manageUser.validateUsername(getUsername()) ){
-            System.out.println("validacion 1");
-            manageUser.createUser(getUsername(), getFirstname(), getLastname(), manageUser.sha256(getPassword()), getEmail(),"Admin", getPhone(),(long)0, getDocumentType(), getDocument());
-            manageUser.renderIndex();            
-        }else if(manageUser.passwordCheck(getPassword(),getPassword2()) == false){
-            setMessage("Las contraseñas no coinciden");
-            System.out.println("validacion 2");
-            //manageUser.renderSignup();
-        }else if(manageUser.validateEmail(getEmail())){
-            setMessage("El correo " + getEmail() +" ya esta en uso");
-            System.out.println("validacion 3");
-        }
-        else if(manageUser.validateUsername(getUsername())){
-            setMessage("El usuario " + getUsername() +" ya esta en uso");            
-            System.out.println("validacion 4");
-        }
-        else {
-            setMessage("Ninguna de las anteriores" + manageUser.passwordCheck(getPassword(),getPassword2()) + manageUser.validateEmail(getEmail()) + manageUser.validateUsername(getUsername()));            
-            System.out.println("validacion 4");
-        
-        }
-        
-    
-    }
-
     /**
      * @return the password2
      */
@@ -234,6 +208,33 @@ public class CreateUserBean {
      */
     public void setPassword2(String password2) {
         this.password2 = password2;
+    }
+    
+    
+    public void createUser() throws  IOException, NoSuchAlgorithmException {
+        ManageUser manageUser = new ManageUser();
+        String pattern = "[\\w\\.-]*[a-zA-Z0-9_]@[\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]";
+        
+        if(manageUser.passwordCheck(getPassword(),getPassword2()) && !manageUser.validateEmail(getEmail()) && !manageUser.validateUsername(getUsername()) && getEmail().matches(pattern) && getPhone().matches("[0-9]{10}")){            
+            manageUser.createUser(getUsername(), getFirstname(), getLastname(), manageUser.sha256(getPassword()), getEmail(),getRole(), getPhone(),(long)0, getDocumentType(), getDocument());
+            manageUser.renderIndex();            
+        }else if(manageUser.passwordCheck(getPassword(),getPassword2()) == false){
+            setMessage("Las contraseñas no coinciden");
+            //manageUser.renderSignup();
+        }else if(manageUser.validateEmail(getEmail())){
+            setMessage("El correo " + getEmail() +" ya esta en uso");
+        }
+        else if(manageUser.validateUsername(getUsername())){
+            setMessage("El usuario " + getUsername() +" ya esta en uso");   
+        }
+        else if(!(getEmail().matches(pattern))) {
+            setMessage("El correo electronico no tiene un formato valido");            
+        }
+        
+        else if(!getPhone().matches("[0-9]{10}")) {
+            setMessage("El número de celular no es valido");            
+        }
+    
     }
     
 }

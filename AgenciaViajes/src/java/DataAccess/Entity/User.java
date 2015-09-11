@@ -81,8 +81,9 @@ public class User implements Serializable {
     private double balance;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 12)
     @Column(name = "phone")
-    private long phone;
+    private String phone;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -106,7 +107,7 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public User(Long userId, String username, String firstname, String lastname, String email, String password, double balance, long phone, String documentType, String document, String role) {
+    public User(Long userId, String username, String firstname, String lastname, String email, String password, double balance, String phone, String documentType, String document, String role) {
         this.userId = userId;
         this.username = username;
         this.firstname = firstname;
@@ -176,11 +177,11 @@ public class User implements Serializable {
         this.balance = balance;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
