@@ -6,12 +6,9 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.ManageUser;
-import java.io.IOException;
 import java.sql.SQLException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -22,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 public class loginUserBean {
     private String email;
     private String password;
+    private String message;
     
     
 
@@ -60,11 +58,26 @@ public class loginUserBean {
     }
     
     public void loginUser() throws SQLException {
-        ManageUser manageUser = new ManageUser();        
-        manageUser.login(getEmail(), getPassword());
+        ManageUser manageUser = new ManageUser(); 
+        if( manageUser.login(getEmail(), getPassword()) ) manageUser.renderIndex();
+        else setMessage("Correo y/o contraseña incorrectos, intente nuevamente");
     }
     public void logoutUser() throws SQLException {
         ManageUser manageUser = new ManageUser();        
         manageUser.logout();
     }    
+
+    /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * @param message the message to set
+     */
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

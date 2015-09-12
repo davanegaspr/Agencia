@@ -86,30 +86,13 @@ public class ManageUser implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext()
             .redirect(contextPath  + "/faces/signup.xhtml");
             } catch (IOException e) {
-            }
-    
+            }  
     }
-    public void login(String email, String password) throws SQLException {
+    public boolean login(String email, String password) throws SQLException {
         String passwordHash = sha256(password);
         boolean result = UserDAO.login(email, passwordHash);   
         UserDAO.query(email);       
-        if (result) {
-            // get Http Session and store username           
-            renderIndex();
-            
-        } else {
- 
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Invalid Login!",
-                    "Please Try Again!"));
- 
-            // invalidate session, and redirect to other pages
- 
-            //message = "Invalid Login. Please Try Again!";
-            
-        }
+        return result;      
     } 
     public void logout() {
         HttpSession session = Util.getSession();
@@ -125,9 +108,7 @@ public class ManageUser implements Serializable {
             BigInteger bigInt = new BigInteger(1, digest);
             String output = bigInt.toString(16);           
             return output;
-
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
-
         }
         return null;
     }
