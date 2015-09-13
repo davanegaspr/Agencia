@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <link rel="stylesheet" href="css/bootstrap.css"/>
+        <link rel="stylesheet" href="css/styleLogin.css"/>
+        <title>Mi saldo</title>
+    </h:head>
+    <h:body>
+        <ui:include src="/header.xhtml"></ui:include>  
+        <c:if test="${email == null}">
+            <h:form>
+                <h1 style="text-align: center;"><h:outputText value="Aún no ha iniciado sesión, por favor incie sesión "/><h:commandLink action="login" value="Aquí"/></h1>
+            </h:form>
+        </c:if>
+        <c:if test="${email != null}">
+            <h4><strong><h:outputText value="#{manageUserBean.message}" style="margin-top: 0px; margin-left: 35%; color:#fa0000;" /></strong></h4>
+            <h:form id="FormAdd" style="margin-left: 35%;">                
+            <div class="panel panel-default" style="width: 50%; border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;border-top-left-radius: 2em; border-top-right-radius: 2em;">
+                <div class="panel-heading" style="border-top-left-radius: 2em; border-top-right-radius: 2em;"><strong><h2>Actualizar datos</h2></strong></div>
+                <div class="panel-body">
+                <h:panelGrid columns="2">
+                <h:outputLabel value="Saldo actual " />
+                <h:outputText value="$${balance} pesos" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px"/>
+                <h:outputLabel value="Nuevo saldo  " />
+                <h:inputText value="#{manageUserBean.balance}" id="newBalance" required="true" style="border-radius: 0; border-bottom-left-radius: 2em; height: 50px; width: 240px" requiredMessage="Se requiere un valor de saldo">
+                </h:inputText>                
+                </h:panelGrid><br/>          
+                <button type="button" class="btn btn-success btn-sm" style=" margin-left: 40%;" data-toggle="modal" data-target="#balanceModal">COMPRAR &raquo;</button>
+            </div>
+            </div>  
+                
+                <div class="modal fade modal-white" id="balanceModal" role="dialog">
+                    <div class="modal-dialog modal-sm" style="margin-top: 40px;">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Confirmar</h4>
+                      </div>
+                      <div class="modal-body">
+                          <h3>Esta seguro de que desea realizar esta transacción?</h3>
+                      </div>
+                      <div class="modal-footer">
+                      <h:commandButton action="#{manageUserBean.updateBalance()}" value="ACEPTAR &raquo;" style="margin-right: 15%;" class="btn btn-success btn-sm"/><button type="button" style="margin-right: 15%;" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                
+            </h:form>
+        </c:if>
+    </h:body>
+</html>
+

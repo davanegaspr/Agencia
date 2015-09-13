@@ -153,8 +153,24 @@ public class UserDAO {
             return false;
         } finally {
             Database.close(con);
-        }
-    
-    
+        }   
+    }
+    public boolean updateBalance(long userId, double balance) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "UPDATE user SET balance = ? WHERE userId = ?");            
+            ps.setDouble(1,balance);
+            ps.setString(2, String.valueOf(userId));
+            int rs = ps.executeUpdate();
+                return rs==1;
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return false;
+        } finally {
+            Database.close(con);
+        }   
     }
 }

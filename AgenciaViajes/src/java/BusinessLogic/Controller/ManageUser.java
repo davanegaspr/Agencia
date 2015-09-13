@@ -140,10 +140,14 @@ public class ManageUser implements Serializable {
         UserDAO userDAO = new UserDAO();
         if(userDAO.updateUser((long)session.getAttribute("userId"), firstname, lastname, role, phone)){
                 UserDAO.query((String)session.getAttribute("email"));
-        }
-        else{           
-        }  
-        
+        } 
+    }
     
+    public void updateBalance(double balance) {
+        HttpSession session = Util.getSession();
+        UserDAO userDAO = new UserDAO();
+        if(userDAO.updateBalance((long)session.getAttribute("userId"), (double)session.getAttribute("balance") + balance)){
+                UserDAO.query((String)session.getAttribute("email"));
+        } 
     }
 }

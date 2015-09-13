@@ -43,6 +43,17 @@ public class ManageUserBean {
     
     }
     
+    
+    public void updateBalance() throws  IOException, NoSuchAlgorithmException {
+        ManageUser manageUser = new ManageUser();         
+        if(getBalance()>= 0){            
+            manageUser.updateBalance(getBalance());
+            manageUser.renderIndex();            
+        }else{
+            setMessage("El valor ingresado no es valido");            
+        }  
+    }
+    
     public void seeTrips(){}
     public void setBalance(){}
 
