@@ -86,13 +86,7 @@ public class UserDAO {
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) // found
-            {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return rs.next(); // found
         } catch (Exception ex) {
             System.out.println("Error in login() -->" + ex.getMessage());
             return false;
@@ -173,4 +167,24 @@ public class UserDAO {
             Database.close(con);
         }   
     }
+
+    public boolean updatePassword(long userId, String newPassword) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "UPDATE user SET password = ? WHERE userId = ?");            
+            ps.setString(1,newPassword);
+            ps.setString(2, String.valueOf(userId));
+            int rs = ps.executeUpdate();
+                return rs==1;
+                
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return false;
+        } finally {
+            Database.close(con);
+        }  
+}
 }

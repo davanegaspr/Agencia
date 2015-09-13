@@ -9,6 +9,7 @@ import BusinessLogic.Controller.ManageUser;
 import BusinessLogic.Controller.Util;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.servlet.http.HttpSession;
@@ -26,6 +27,9 @@ public class ManageUserBean {
     private String phone;
     private String message;
     private double balance;
+    private String oldPassword;
+    private String newPassword;
+    private String newPassword2;
    /**
      * Creates a new instance of ManageUserBean
      */
@@ -39,10 +43,8 @@ public class ManageUserBean {
             manageUser.renderProfile();            
         }else if(!getPhone().matches("[0-9]{10}")) {
             setMessage("El número de celular no es valido");            
-        }
-    
-    }
-    
+        }  
+    }  
     
     public void updateBalance() throws  IOException, NoSuchAlgorithmException {
         ManageUser manageUser = new ManageUser();         
@@ -54,8 +56,22 @@ public class ManageUserBean {
         }  
     }
     
+    public void updatePassword() throws  IOException, NoSuchAlgorithmException, SQLException {
+        ManageUser manageUser = new ManageUser();         
+        HttpSession session = Util.getSession();
+        String email = (String)session.getAttribute("email");
+        if(manageUser.passwordCheck(getNewPassword(),getNewPassword2()) && manageUser.login(email, getOldPassword())){            
+            manageUser.updatePassword(manageUser.sha256(getNewPassword()));
+            manageUser.renderIndex();            
+        }else if(!manageUser.login(email, getOldPassword())){
+            setMessage("La contraseña antigua no es correcta");
+        }else if(manageUser.passwordCheck(getNewPassword(),getNewPassword2()) == false){
+            setMessage("Las contraseñas no coinciden");
+            //manageUser.renderSignup();
+        } 
+    }
+    
     public void seeTrips(){}
-    public void setBalance(){}
 
     /**
      * @return the firstname
@@ -139,6 +155,48 @@ public class ManageUserBean {
      */
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    /**
+     * @return the oldPassword
+     */
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    /**
+     * @param oldPassword the oldPassword to set
+     */
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    /**
+     * @return the newPassword
+     */
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    /**
+     * @param newPassword the newPassword to set
+     */
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    /**
+     * @return the newPassword2
+     */
+    public String getNewPassword2() {
+        return newPassword2;
+    }
+
+    /**
+     * @param newPassword2 the newPassword2 to set
+     */
+    public void setNewPassword2(String newPassword2) {
+        this.newPassword2 = newPassword2;
     }
 
     
