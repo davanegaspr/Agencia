@@ -4,8 +4,10 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <link rel="stylesheet" href="css/bootstrap.css"/>
         <link rel="stylesheet" href="css/styleLogin.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min2.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     </h:head>
     <h:body>
         <h:form>
@@ -20,9 +22,33 @@
                        <h3><h:commandButton action="login" style="text-decoration:none" class="btn btn-primary" value="iniciar Sesión" ></h:commandButton><h:commandButton action="signup" style="text-decoration:none" class="btn btn-success" value="Registrarse"></h:commandButton></h3>
                    </c:if>
                    <c:if test="${email != null}">
-                       <h4>Bienvenido ${username}</h4><h4><h:commandButton action="#{loginUserBean.logoutUser()}" class="btn btn-danger" value="Salir" style="text-decoration:none"></h:commandButton></h4>
+                       
+                       <h4>Bienvenido <button type="button" style="background-color: #BDBDBD; border: none;" class="btn btn-default btn-xs" data-toggle="modal" data-target="#profileModal"><h4 style=" color: #5cb85c;"><strong>${username}</strong></h4></button></h4>
+                       
                    </c:if>
-               </ul>                
+               </ul>  
+                <!-- Modal -->
+                <div class="modal fade modal-white" id="profileModal" role="dialog">
+                    <div class="modal-dialog modal-sm" style="margin-right: 110px; margin-top: 40px;">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Administrar mi cuenta</h4>
+                      </div>
+                      <div class="modal-body">
+                          <h:commandLink action="viewProfile" value="Ver mi perfil" style="text-decoration:none"></h:commandLink><br/>
+                          <h:commandLink action="updateProfile" value="Actualizar mi información" style="text-decoration:none"></h:commandLink><br/>
+                          <h:commandLink action="#{manageUserBean.seeTrips()}" value="Ver mis planes" style="text-decoration:none"></h:commandLink><br/>
+                          <h:commandLink action="setBalance" value="Agregar saldo" style="text-decoration:none"></h:commandLink><br/>
+                          <h:commandLink action="#{loginUserBean.logoutUser()}" value="Cerrar sesión" style="text-decoration:none"></h:commandLink>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
             </div>
             </nav>
             </div>

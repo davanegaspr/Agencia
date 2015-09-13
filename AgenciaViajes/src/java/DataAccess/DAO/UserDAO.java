@@ -123,6 +123,7 @@ public class UserDAO {
                 session.setAttribute("documentType", rs.getString("documentType"));
                 session.setAttribute("document", rs.getString("document"));
                 session.setAttribute("role", rs.getString("role"));
+                session.setAttribute("password", rs.getString("password"));
             }
             else {
             }
@@ -130,7 +131,30 @@ public class UserDAO {
             System.out.println("Error in login() -->" + ex.getMessage());
         } finally {
             Database.close(con);
+        }      
+    }
+
+    public boolean updateUser(long userId, String firstname, String lastname, String role, String phone) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "UPDATE user SET firstname = ?, lastname =?, role = ?, phone =? WHERE userId = ?");            
+            ps.setString(1,firstname);
+            ps.setString(2,lastname);
+            ps.setString(3,role);
+            ps.setString(4,phone);
+            ps.setString(5, String.valueOf(userId));
+            int rs = ps.executeUpdate();
+                return rs==1;
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return false;
+        } finally {
+            Database.close(con);
         }
-        
+    
+    
     }
 }

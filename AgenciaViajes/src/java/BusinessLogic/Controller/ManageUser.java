@@ -88,6 +88,16 @@ public class ManageUser implements Serializable {
             } catch (IOException e) {
             }  
     }
+    public void renderProfile(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest origRequest = (HttpServletRequest)context.getExternalContext().getRequest();
+        String contextPath = origRequest.getContextPath();
+        try {
+            FacesContext.getCurrentInstance().getExternalContext()
+            .redirect(contextPath  + "/faces/viewProfile.xhtml");
+            } catch (IOException e) {
+            }  
+    }
     public boolean login(String email, String password) throws SQLException {
         String passwordHash = sha256(password);
         boolean result = UserDAO.login(email, passwordHash);   
@@ -123,5 +133,17 @@ public class ManageUser implements Serializable {
 
     public boolean validateUsername(String username) {
         return UserDAO.validateUsername(username); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void updateUser(String firstname, String lastname, String role, String phone) {
+        HttpSession session = Util.getSession();
+        UserDAO userDAO = new UserDAO();
+        if(userDAO.updateUser((long)session.getAttribute("userId"), firstname, lastname, role, phone)){
+                UserDAO.query((String)session.getAttribute("email"));
+        }
+        else{           
+        }  
+        
+    
     }
 }
