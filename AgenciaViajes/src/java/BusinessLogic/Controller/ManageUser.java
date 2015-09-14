@@ -7,6 +7,7 @@ package BusinessLogic.Controller;
 
 import DataAccess.DAO.UserDAO;
 import DataAccess.Entity.User;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,6 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.sql.SQLException;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -43,7 +43,7 @@ public class ManageUser implements Serializable {
      */
     
     private static final long serialVersionUID = 1L;
-    public void createUser(String username, String firstname, String lastname, String password, String email, String role, String phone, double balance, String documentType, String document ) throws NoSuchAlgorithmException, IOException{
+    public void createUser(String username, String firstname, String lastname, String password, String email, String role, String phone, double balance, String documentType, String document) throws NoSuchAlgorithmException, IOException{
         
         User user = new User();
         user.setUsername(username);
@@ -55,7 +55,7 @@ public class ManageUser implements Serializable {
         user.setRole(role);
         user.setBalance(balance);
         user.setDocumentType(documentType);
-        user.setDocument(document);        
+        user.setDocument(document); 
         UserDAO userDAO = new UserDAO();
         User userE = userDAO.persist(user);
         if(userE != null){
@@ -159,4 +159,5 @@ public class ManageUser implements Serializable {
         }
         
     }
+
 }

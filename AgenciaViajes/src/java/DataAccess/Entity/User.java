@@ -6,8 +6,6 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,29 +29,43 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
-    @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
+    @NamedQuery(name = "User.findByBalance", query = "SELECT u FROM User u WHERE u.balance = :balance"),
+    @NamedQuery(name = "User.findByDocument", query = "SELECT u FROM User u WHERE u.document = :document"),
+    @NamedQuery(name = "User.findByDocumentType", query = "SELECT u FROM User u WHERE u.documentType = :documentType"),
+    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"),
     @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"),
-    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-    @NamedQuery(name = "User.findByBalance", query = "SELECT u FROM User u WHERE u.balance = :balance"),
-    @NamedQuery(name = "User.findByPhone", query = "SELECT u FROM User u WHERE u.phone = :phone"),
-    @NamedQuery(name = "User.findByDocumentType", query = "SELECT u FROM User u WHERE u.documentType = :documentType"),
-    @NamedQuery(name = "User.findByDocument", query = "SELECT u FROM User u WHERE u.document = :document"),
-    @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role")})
+    @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role"),
+    @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
+    @NamedQuery(name = "User.findByPhone", query = "SELECT u FROM User u WHERE u.phone = :phone")})
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    //@NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     @Column(name = "userId")
     private Long userId;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "balance")
+    private double balance;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 15)
+    @Column(name = "document")
+    private String document;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "documentType")
+    private String documentType;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "username")
-    private String username;
+    @Column(name = "email")
+    private String email;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 15)
@@ -64,12 +76,6 @@ public class User implements Serializable {
     @Size(min = 1, max = 15)
     @Column(name = "lastname")
     private String lastname;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "email")
-    private String email;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -77,28 +83,20 @@ public class User implements Serializable {
     private String password;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "balance")
-    private double balance;
+    @Size(min = 1, max = 10)
+    @Column(name = "role")
+    private String role;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "username")
+    private String username;
+    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 12)
     @Column(name = "phone")
     private String phone;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "documentType")
-    private String documentType;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 15)
-    @Column(name = "document")
-    private String document;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "role")
-    private String role;
 
     public User() {
     }
@@ -107,18 +105,18 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public User(Long userId, String username, String firstname, String lastname, String email, String password, double balance, String phone, String documentType, String document, String role) {
+    public User(Long userId, double balance, String document, String documentType, String email, String firstname, String lastname, String password, String role, String username, String phone) {
         this.userId = userId;
-        this.username = username;
+        this.balance = balance;
+        this.document = document;
+        this.documentType = documentType;
+        this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.email = email;
         this.password = password;
-        this.balance = balance;
-        this.phone = phone;
-        this.documentType = documentType;
-        this.document = document;
         this.role = role;
+        this.username = username;
+        this.phone = phone;
     }
 
     public Long getUserId() {
@@ -129,12 +127,36 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public double getBalance() {
+        return balance;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
+    }
+
+    public String getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstname() {
@@ -153,14 +175,6 @@ public class User implements Serializable {
         this.lastname = lastname;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -169,12 +183,20 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public double getBalance() {
-        return balance;
+    public String getRole() {
+        return role;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPhone() {
@@ -185,29 +207,6 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-    public String getDocumentType() {
-        return documentType;
-    }
-
-    public void setDocumentType(String documentType) {
-        this.documentType = documentType;
-    }
-
-    public String getDocument() {
-        return document;
-    }
-
-    public void setDocument(String document) {
-        this.document = document;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     @Override
     public int hashCode() {

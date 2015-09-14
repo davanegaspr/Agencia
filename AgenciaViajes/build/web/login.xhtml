@@ -19,7 +19,7 @@
                         <h:outputLabel value="Correo electronico" />
                         <h:inputText value="#{loginUserBean.email}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px" requiredMessage="Se requiere un correo"></h:inputText>
                         <h:outputLabel value="Contraseña"></h:outputLabel>
-                        <h:inputSecret value="#{loginUserBean.password}" required="true" class="form-control" id="inputPassword" style="border-radius: 0; border-bottom-left-radius: 2em; height: 50px; margin-top: 0px;" requiredMessage="Se requiere un nombre"/>
+                        <h:inputSecret value="#{loginUserBean.password}" required="true" class="form-control" id="inputPassword" style="border-radius: 0; border-bottom-left-radius: 2em; height: 50px; margin-top: 0px;" requiredMessage="Se requiere una contraseña"/>
                         <h:commandButton action="#{loginUserBean.loginUser()}" style="margin-left: 120%;" value="ACEPTAR &raquo;" class="btn btn-success btn-sm" ></h:commandButton>
                         <h:commandButton type="reset" style="margin-left: 50%;" class="btn btn-default btn-sm"  value="LIMPIAR"></h:commandButton>
                 </h:panelGrid>

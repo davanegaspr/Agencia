@@ -6,10 +6,14 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.ManageUser;
+import DataAccess.DAO.UserDAO;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -30,6 +34,8 @@ public class CreateUserBean {
     private String documentType;
     private String document;
     private String message;
+    private byte[] image;
+    private Part file;
 
     /**
      * Creates a new instance of CreateUserBean
@@ -231,6 +237,34 @@ public class CreateUserBean {
             setMessage("El número de celular no es valido");            
         }
     
+    }
+    
+    /**
+     * @return the image
+     */
+    public byte[] getImage() {
+        return image;
+    }
+
+    /**
+     * @param image the image to set
+     */
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    /**
+     * @return the file
+     */
+    public Part getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(Part file) {
+        this.file = file;
     }
     
 }

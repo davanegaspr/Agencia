@@ -7,9 +7,14 @@ package DataAccess.DAO;
 
 import BusinessLogic.Controller.Util;
 import DataAccess.Entity.User;
+import java.awt.Image;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.sql.*;
 import javax.persistence.*;
 import javax.servlet.http.HttpSession;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -118,6 +123,7 @@ public class UserDAO {
                 session.setAttribute("document", rs.getString("document"));
                 session.setAttribute("role", rs.getString("role"));
                 session.setAttribute("password", rs.getString("password"));
+                
             }
             else {
             }
@@ -186,5 +192,8 @@ public class UserDAO {
         } finally {
             Database.close(con);
         }  
-}
+    }
+    
+    
+
 }
