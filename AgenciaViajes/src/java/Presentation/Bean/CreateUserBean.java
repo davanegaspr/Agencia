@@ -6,9 +6,6 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.ManageUser;
-import DataAccess.DAO.UserDAO;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import javax.faces.bean.ManagedBean;
@@ -215,8 +212,7 @@ public class CreateUserBean {
     
     public void createUser() throws  IOException, NoSuchAlgorithmException {
         ManageUser manageUser = new ManageUser();
-        String pattern = "[\\w\\.-]*[a-zA-Z0-9_]@[\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]";
-        
+        String pattern = "[\\w\\.-]*[a-zA-Z0-9_]@[\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]";        
         if(manageUser.passwordCheck(getPassword(),getPassword2()) && !manageUser.validateEmail(getEmail()) && !manageUser.validateUsername(getUsername()) && getEmail().matches(pattern) && getPhone().matches("[0-9]{10}")){            
             manageUser.createUser(getUsername(), getFirstname(), getLastname(), manageUser.sha256(getPassword()), getEmail(),getRole(), getPhone(),(long)0, getDocumentType(), getDocument());
             manageUser.renderIndex();            
