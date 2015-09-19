@@ -7,7 +7,6 @@ package BusinessLogic.Controller;
 
 import DataAccess.DAO.UserDAO;
 import DataAccess.Entity.User;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +16,8 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -88,6 +89,18 @@ public class ManageUser implements Serializable {
             } catch (IOException e) {
             }  
     }
+    
+    public void renderShowUsers(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest origRequest = (HttpServletRequest)context.getExternalContext().getRequest();
+        String contextPath = origRequest.getContextPath();
+        try {
+            FacesContext.getCurrentInstance().getExternalContext()
+            .redirect(contextPath  + "/faces/showUsers.xhtml");
+            } catch (IOException e) {
+            }  
+    }
+    
     public void renderProfile(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest origRequest = (HttpServletRequest)context.getExternalContext().getRequest();
@@ -158,6 +171,11 @@ public class ManageUser implements Serializable {
                 UserDAO.query((String)session.getAttribute("email"));
         }
         
+    }
+
+    public ArrayList<User> getUsers() {        
+        UserDAO userDAO = new UserDAO();
+        return userDAO.getUsers();
     }
 
 }

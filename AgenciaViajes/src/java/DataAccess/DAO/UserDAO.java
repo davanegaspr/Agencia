@@ -7,14 +7,11 @@ package DataAccess.DAO;
 
 import BusinessLogic.Controller.Util;
 import DataAccess.Entity.User;
-import java.awt.Image;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 import javax.servlet.http.HttpSession;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -193,6 +190,29 @@ public class UserDAO {
             Database.close(con);
         }  
     }
+    
+    public ArrayList<User> getUsers(){
+        
+        Connection con = null;
+        PreparedStatement ps = null;
+        ArrayList<User> userList = new ArrayList<>();
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from user");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                userList.add(new User(rs.getLong("userId"), rs.getDouble("balance"), rs.getString("document"), rs.getString("documentType"), rs.getString("email"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("password"), rs.getString("role"), rs.getString("username"), rs.getString("phone")));            
+                
+            }          
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+        } finally {
+            Database.close(con);
+        } 
+        return userList;
+    
+    } 
     
     
 

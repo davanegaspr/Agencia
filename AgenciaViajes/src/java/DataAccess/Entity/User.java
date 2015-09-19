@@ -118,7 +118,7 @@ public class User implements Serializable {
         this.username = username;
         this.phone = phone;
     }
-
+    
     public Long getUserId() {
         return userId;
     }

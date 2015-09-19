@@ -18,7 +18,7 @@
             </h:form>
         </c:if>
         <c:if test="${email != null}">
-            <h4><strong><h:outputText value="#{manageUserBean.message}" style="margin-top: 0px; margin-left: 35%; color:#fa0000;" /></strong></h4>
+            <h4><strong><h:outputText value="#{manageUser.message}" style="margin-top: 0px; margin-left: 35%; color:#fa0000;" /></strong></h4>
             <h:form id="FormAdd" style="margin-left: 35%;">                
             <div class="panel panel-default" style="width: 50%; border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;border-top-left-radius: 2em; border-top-right-radius: 2em;">
                 <div class="panel-heading" style="border-top-left-radius: 2em; border-top-right-radius: 2em;"><strong><h2>Actualizar datos</h2></strong></div>
@@ -27,27 +27,27 @@
                 <h:outputLabel value="Nombre usuario" />
                 <h:outputText value="${username}" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px"/>
                 <h:outputLabel value="Nombre"></h:outputLabel>
-                <h:inputText value="#{manageUserBean.firstname}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un nombre">
+                <h:inputText value="#{manageUser.firstname}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un nombre">
                 </h:inputText>
                 <h:outputLabel value="Apellido"></h:outputLabel>
-                <h:inputText value="#{manageUserBean.lastname}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px"  requiredMessage="Se requiere un apellido"/>
+                <h:inputText value="#{manageUser.lastname}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px"  requiredMessage="Se requiere un apellido"/>
                 <h:outputLabel value="Correo" />                
                 <h:outputText value="${email}" id="email" class="form-control" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" >
                 </h:outputText>                 
                 <h:outputLabel value="Tipo usuario"></h:outputLabel>
-                <h:selectOneMenu id="role" value="#{manageUserBean.role}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage=" ">
+                <h:selectOneMenu id="role" value="#{manageUser.role}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage=" ">
                     <f:selectItem id="estandar" itemLabel="Estandar" itemValue="Estandar" />
                     <f:selectItem id="vip" itemLabel="VIP" itemValue="VIP" />
                 </h:selectOneMenu>
                 <h:outputLabel value="Celular"></h:outputLabel>
-                <h:inputText value="#{manageUserBean.phone}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un celular"/>
+                <h:inputText value="#{manageUser.phone}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un celular"/>
                 <h:outputLabel value="Tipo documento"></h:outputLabel>
                 <h:outputText value="${documentType}" class="form-control" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" >
                 </h:outputText>  
                 <h:outputLabel value="Documento"></h:outputLabel>
                 <h:outputText value="${document}" class="form-control" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" /> 
                </h:panelGrid><br/>                    
-            <h:commandButton action="#{manageUserBean.updateUser()}" value="ACTUALIZAR &raquo;" style="margin-left: 40%;" class="btn btn-success btn-sm"/>
+            <h:commandButton action="#{manageUser.updateUser()}" value="ACTUALIZAR &raquo;" style="margin-left: 40%;" class="btn btn-success btn-sm"/>
             </div>
             </div>            
             </h:form>

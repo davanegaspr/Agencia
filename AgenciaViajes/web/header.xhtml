@@ -5,30 +5,33 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <link rel="stylesheet" href="css/styleLogin.css"/>
-        <link rel="stylesheet" href="css/bootstrap.min2.css"/>
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min2.css"/>
+        <script type="text/javascript" src="js/datatables.min.js"></script>
     </h:head>
     <h:body>
         <h:form>
             <div class="container">
-            <nav class="navbar navbar-default">
+            <nav class="navbar navbar-default" style="background: #BDBDBD;">
             <div class="container-fluid">
-              <div class="navbar-header">
+                <div class="navbar-header">
                   <h3><h:commandLink action="index" style="text-decoration:none"> Viajes </h:commandLink></h3>                  
               </div>                
                <ul class="nav navbar-nav navbar-right">
                    <c:if test="${email == null}">
                        <h3><h:commandButton action="login" style="text-decoration:none" class="btn btn-primary" value="iniciar Sesión" ></h:commandButton><h:commandButton action="signup" style="text-decoration:none" class="btn btn-success" value="Registrarse"></h:commandButton></h3>
                    </c:if>
-                   <c:if test="${role = 'VIP' or role == 'Estandar'}" >                       
+                   <c:if test="${role == 'VIP' or role == 'Estandar'}" >                       
                        <h4>Bienvenido <button type="button" style="background-color: #BDBDBD; border: none;" class="btn btn-default btn-xs" data-toggle="modal" data-target="#profileModal"><h4 style=" color: #5cb85c;"><strong>${username}</strong></h4></button></h4>                     
                    </c:if>
-                   <c:if test="${role = 'Admin'}" >                       
+                   <c:if test="${role == 'Admin'}" >                       
                        <h4>Bienvenido <button type="button" style="background-color: #BDBDBD; border: none;" class="btn btn-default btn-xs" data-toggle="modal" data-target="#adminModal"><h4 style=" color: #5cb85c;"><strong>${username}</strong></h4></button></h4>                     
                    </c:if>
-               </ul>  
-                <!-- Modal -->
+               </ul>    
+                
+                <!-- Modal Admin-->
                 <div class="modal fade modal-white" id="profileModal" role="dialog">
                     <div class="modal-dialog modal-sm" style="margin-right: 110px; margin-top: 60px; width: 15%;">
                     <div class="modal-content">
@@ -39,7 +42,7 @@
                       <div class="modal-body">
                           <h:commandLink action="viewProfile" value="Ver mi perfil" style="text-decoration:none"></h:commandLink><br/>
                           <h:commandLink action="updateProfile" value="Actualizar mi información" style="text-decoration:none"></h:commandLink><br/>
-                          <h:commandLink action="#{manageUserBean.seeTrips()}" value="Ver mis planes" style="text-decoration:none"></h:commandLink><br/>
+                          <h:commandLink action="#" value="Ver mis planes" style="text-decoration:none"></h:commandLink><br/>
                           <h:commandLink action="setBalance" value="Agregar saldo" style="text-decoration:none"></h:commandLink><br/>
                           <h:commandLink action="updatePassword" value="Cambiar contraseña" style="text-decoration:none"></h:commandLink><br/>
                           <h:commandLink action="#{loginUserBean.logoutUser()}" value="Cerrar sesión" style="text-decoration:none"></h:commandLink>                        
@@ -48,19 +51,19 @@
                   </div>
                 </div>
                 
-                <!-- Modal Admin-->
+                <!-- Modal -->
                 <div class="modal fade modal-white" id="adminModal" role="dialog">
-                    <div class="modal-dialog modal-sm" style="margin-right: 110px; margin-top: 60px; width: 15%;">
+                    <div class="modal-dialog modal-sm" style="margin-right: 110px; margin-top: 60px; width: 16%;">
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" style="text-align: center;">Control</h4>
+                        <h4 class="modal-title" style="text-align: center;">Control sistema</h4>
                       </div>
                       <div class="modal-body">
-                          <h:commandLink action="viewProfile" value="Ver mi perfil" style="text-decoration:none"></h:commandLink><br/>
-                          <h:commandLink action="updateProfile" value="Actualizar mi información" style="text-decoration:none"></h:commandLink><br/>
-                          <h:commandLink action="#{manageUserBean.seeTrips()}" value="Ver mis planes" style="text-decoration:none"></h:commandLink><br/>
-                          <h:commandLink action="setBalance" value="Agregar saldo" style="text-decoration:none"></h:commandLink><br/>
+                          <h:commandLink action="showUsers" value="Gestionar Usuarios" style="text-decoration:none"></h:commandLink><br/>
+                          <h:commandLink action="#" value="Gestionar Planes" style="text-decoration:none"></h:commandLink><br/>
+                          <h:commandLink action="#" value="Gestionar Hoteles" style="text-decoration:none"></h:commandLink><br/>
+                          <h:commandLink action="#" value="Gestionar planes adquiridos" style="text-decoration:none"></h:commandLink><br/>
                           <h:commandLink action="updatePassword" value="Cambiar contraseña" style="text-decoration:none"></h:commandLink><br/>
                           <h:commandLink action="#{loginUserBean.logoutUser()}" value="Cerrar sesión" style="text-decoration:none"></h:commandLink>                        
                       </div>

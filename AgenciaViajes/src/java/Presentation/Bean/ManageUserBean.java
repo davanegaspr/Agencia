@@ -7,9 +7,11 @@ package Presentation.Bean;
 
 import BusinessLogic.Controller.ManageUser;
 import BusinessLogic.Controller.Util;
+import DataAccess.Entity.User;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.servlet.http.HttpSession;
@@ -18,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Richar
  */
-@ManagedBean
+@ManagedBean(name="manageUser")
 @RequestScoped
 public class ManageUserBean {
     private String firstname;
@@ -29,7 +31,10 @@ public class ManageUserBean {
     private double balance;
     private String oldPassword;
     private String newPassword;
-    private String newPassword2;
+    private String newPassword2; 
+    ManageUser manageUser = new ManageUser();
+    private ArrayList<User> usersList = manageUser.getUsers();
+    
    /**
      * Creates a new instance of ManageUserBean
      */
@@ -37,15 +42,21 @@ public class ManageUserBean {
     }
     
     public void updateUser() throws  IOException, NoSuchAlgorithmException {
-        ManageUser manageUser = new ManageUser();         
-        if(getPhone().matches("[0-9]{10}")){            
-            manageUser.updateUser(getFirstname(), getLastname(),getRole(), getPhone());
-            manageUser.renderProfile();            
+        ManageUser manageUser = new ManageUser(); 
+        if(getFirstname() == null){
+            setMessage("Se requiere un Nombre");
+        }else if(getLastname() == null){
+            setMessage("Se requiere un Apellido");
         }else if(!getPhone().matches("[0-9]{10}")) {
             setMessage("El número de celular no es valido");            
+        }else if(getPhone().matches("[0-9]{10}") && !getFirstname().equals("null") && !getLastname().equals("null")){            
+            manageUser.updateUser(getFirstname(), getLastname(),getRole(), getPhone());
+            manageUser.renderProfile();            
         }  
-    }  
+    }
     
+    public void editUser(Long userId) throws  IOException, NoSuchAlgorithmException {  
+    }
     public void updateBalance() throws  IOException, NoSuchAlgorithmException {
         ManageUser manageUser = new ManageUser();         
         if(getBalance()>= 0){            
@@ -70,9 +81,6 @@ public class ManageUserBean {
             //manageUser.renderSignup();
         } 
     }
-    
-    public void seeTrips(){}
-
     /**
      * @return the firstname
      */
@@ -199,5 +207,18 @@ public class ManageUserBean {
         this.newPassword2 = newPassword2;
     }
 
-    
+    /**
+     * @return the usersList
+     */
+    public ArrayList<User> getUsersList() {
+        return usersList;
+    }
+
+    /**
+     * @param usersList the usersList to set
+     */
+    public void setUsersList(ArrayList<User> usersList) {
+        this.usersList = usersList;
+    }
+   
 }
