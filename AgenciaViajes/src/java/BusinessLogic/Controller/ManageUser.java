@@ -17,7 +17,6 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -68,6 +67,29 @@ public class ManageUser implements Serializable {
         }   
     }
     
+    public void createUser2(String username, String firstname, String lastname, String password, String email, String role, String phone, double balance, String documentType, String document) throws NoSuchAlgorithmException, IOException{
+        
+        User user = new User();
+        user.setUsername(username);
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setPhone(phone);
+        user.setRole(role);
+        user.setBalance(balance);
+        user.setDocumentType(documentType);
+        user.setDocument(document); 
+        UserDAO userDAO = new UserDAO();
+        User userE = userDAO.persist(user);
+        if(userE != null){
+                renderShowUsers(); 
+        }
+        else{
+            
+        }   
+    }
+    
     public void renderIndex(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest origRequest = (HttpServletRequest)context.getExternalContext().getRequest();
@@ -97,6 +119,16 @@ public class ManageUser implements Serializable {
         try {
             FacesContext.getCurrentInstance().getExternalContext()
             .redirect(contextPath  + "/faces/showUsers.xhtml");
+            } catch (IOException e) {
+            }  
+    }
+    public void renderUserEdit(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest origRequest = (HttpServletRequest)context.getExternalContext().getRequest();
+        String contextPath = origRequest.getContextPath();
+        try {
+            FacesContext.getCurrentInstance().getExternalContext()
+            .redirect(contextPath  + "/faces/editUser.xhtml");
             } catch (IOException e) {
             }  
     }
@@ -176,6 +208,17 @@ public class ManageUser implements Serializable {
     public ArrayList<User> getUsers() {        
         UserDAO userDAO = new UserDAO();
         return userDAO.getUsers();
+    }
+
+    public boolean eliminateUser(Long userId) {
+        UserDAO userDAO = new UserDAO();
+        return userDAO.eliminateUser(userId);
+    }
+
+    public boolean editUser(String username, String firstname, String lastname, String password, String email, String role, String phone, long l, String documentType, String document) {
+        UserDAO userDAO = new UserDAO();
+        HttpSession session = Util.getSession();  
+        return userDAO.editUser((long)session.getAttribute("userIdEdit"), username, firstname, lastname, password, email, role, phone, l, documentType, document);
     }
 
 }

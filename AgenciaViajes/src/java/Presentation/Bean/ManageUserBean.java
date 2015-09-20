@@ -32,6 +32,12 @@ public class ManageUserBean {
     private String oldPassword;
     private String newPassword;
     private String newPassword2; 
+    private String email;
+    private String password;
+    private String password2;
+    private String username;
+    private String documentType;
+    private String document;
     ManageUser manageUser = new ManageUser();
     private ArrayList<User> usersList = manageUser.getUsers();
     
@@ -55,10 +61,18 @@ public class ManageUserBean {
         }  
     }
     
-    public void editUser(Long userId) throws  IOException, NoSuchAlgorithmException {  
+    public void eliminateUser(Long userId) throws  IOException, NoSuchAlgorithmException {
+        manageUser = new ManageUser();
+        if(manageUser.eliminateUser(userId)){
+            setMessage("Usuario eliminado");
+            manageUser.renderShowUsers();
+            
+        }
+        else setMessage("No ha podido eliminarse el usuario");
+        
     }
     public void updateBalance() throws  IOException, NoSuchAlgorithmException {
-        ManageUser manageUser = new ManageUser();         
+        manageUser = new ManageUser();         
         if(getBalance()>= 0){            
             manageUser.updateBalance(getBalance());
             manageUser.renderIndex();            
@@ -81,6 +95,59 @@ public class ManageUserBean {
             //manageUser.renderSignup();
         } 
     }
+    
+    public void renderEdit(Long userId) throws  IOException, NoSuchAlgorithmException {
+        HttpSession session = Util.getSession(); 
+        manageUser = new ManageUser();
+        session.setAttribute("userIdEdit", userId);
+        manageUser.renderUserEdit();   
+    }
+    
+    public void editUser() throws  IOException, NoSuchAlgorithmException {
+        manageUser = new ManageUser();
+        String pattern = "[\\w\\.-]*[a-zA-Z0-9_]@[\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]";        
+        if(!manageUser.validateEmail(getEmail()) && !manageUser.validateUsername(getUsername()) && getEmail().matches(pattern) && getPhone().matches("[0-9]{10}")){            
+            manageUser.editUser(getUsername(), getFirstname(), getLastname(), manageUser.sha256(getPassword()), getEmail(),getRole(), getPhone(),(long)getBalance(), getDocumentType(), getDocument());
+            setMessage("Usuario editado");
+            manageUser.renderShowUsers();
+        }else if(manageUser.validateEmail(getEmail())){
+            setMessage("El correo " + getEmail() +" ya esta en uso");
+        }
+        else if(manageUser.validateUsername(getUsername())){
+            setMessage("El usuario " + getUsername() +" ya esta en uso");   
+        }
+        else if(!(getEmail().matches(pattern))) {
+            setMessage("El correo electronico no tiene un formato valido");            
+        }
+        
+        else if(!getPhone().matches("[0-9]{10}")) {
+            setMessage("El número de celular no es valido");            
+        }
+    
+    }
+    
+    public void createUser() throws  IOException, NoSuchAlgorithmException {
+        manageUser = new ManageUser();
+        String pattern = "[\\w\\.-]*[a-zA-Z0-9_]@[\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]";        
+        if(!manageUser.validateEmail(getEmail()) && !manageUser.validateUsername(getUsername()) && getEmail().matches(pattern) && getPhone().matches("[0-9]{10}")){            
+            manageUser.createUser2(getUsername(), getFirstname(), getLastname(), manageUser.sha256(getPassword()), getEmail(),getRole(), getPhone(),(long)0, getDocumentType(), getDocument());
+            manageUser.renderIndex();            
+        }else if(manageUser.validateEmail(getEmail())){
+            setMessage("El correo " + getEmail() +" ya esta en uso");
+        }
+        else if(manageUser.validateUsername(getUsername())){
+            setMessage("El usuario " + getUsername() +" ya esta en uso");   
+        }
+        else if(!(getEmail().matches(pattern))) {
+            setMessage("El correo electronico no tiene un formato valido");            
+        }
+        
+        else if(!getPhone().matches("[0-9]{10}")) {
+            setMessage("El número de celular no es valido");            
+        }
+    
+    }
+    
     /**
      * @return the firstname
      */
@@ -219,6 +286,90 @@ public class ManageUserBean {
      */
     public void setUsersList(ArrayList<User> usersList) {
         this.usersList = usersList;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * @return the password2
+     */
+    public String getPassword2() {
+        return password2;
+    }
+
+    /**
+     * @param password2 the password2 to set
+     */
+    public void setPassword2(String password2) {
+        this.password2 = password2;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * @return the documentType
+     */
+    public String getDocumentType() {
+        return documentType;
+    }
+
+    /**
+     * @param documentType the documentType to set
+     */
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
+
+    /**
+     * @return the document
+     */
+    public String getDocument() {
+        return document;
+    }
+
+    /**
+     * @param document the document to set
+     */
+    public void setDocument(String document) {
+        this.document = document;
     }
    
 }

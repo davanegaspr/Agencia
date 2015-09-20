@@ -31,8 +31,6 @@ public class CreateUserBean {
     private String documentType;
     private String document;
     private String message;
-    private byte[] image;
-    private Part file;
 
     /**
      * Creates a new instance of CreateUserBean
@@ -235,32 +233,5 @@ public class CreateUserBean {
     
     }
     
-    /**
-     * @return the image
-     */
-    public byte[] getImage() {
-        return image;
-    }
-
-    /**
-     * @param image the image to set
-     */
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    /**
-     * @return the file
-     */
-    public Part getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(Part file) {
-        this.file = file;
-    }
     
 }

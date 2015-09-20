@@ -9,7 +9,6 @@ import BusinessLogic.Controller.Util;
 import DataAccess.Entity.User;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.*;
 import javax.servlet.http.HttpSession;
 
@@ -213,6 +212,56 @@ public class UserDAO {
         return userList;
     
     } 
+
+    public boolean eliminateUser(Long userId) {
+        System.out.println("Usuario a borrar" + userId);
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "DELETE FROM user WHERE userId = ?");          
+            ps.setString(1, String.valueOf(userId));
+            int rs = ps.executeUpdate();
+                return rs==1;  
+                
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return false;
+        } finally {
+            Database.close(con);
+        } 
+    }
+
+    public boolean editUser(Long userId, String username, String firstname, String lastname, String password, String email, String role, String phone, long l, String documentType, String document) {
+    
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "UPDATE user SET firstname = ?, lastname =?, role = ?, phone =?, username =?, email =?, balance=?, documentType =?, document=?, password =? WHERE userId = ?");            
+            ps.setString(1,firstname);
+            ps.setString(2,lastname);
+            ps.setString(3,role);
+            ps.setString(4,phone);
+            ps.setString(5,username);
+            ps.setString(6,email);
+            ps.setLong(7, l);
+            ps.setString(8,documentType);
+            ps.setString(9, document);
+            ps.setString(10,password);
+            ps.setString(11, String.valueOf(userId));
+            int rs = ps.executeUpdate();
+                return rs==1;
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return false;
+        } finally {
+            Database.close(con);
+        } 
+        
+    }
     
     
 
