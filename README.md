@@ -1,5 +1,5 @@
 # Agencia De Viajes - Grupo 6
-  Grupo: 
+  Equipo de trabajo: 
   - Richar Contreras
   - Andres Diaz H. 
   - Santiago Hernandez
