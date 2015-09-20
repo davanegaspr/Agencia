@@ -55,9 +55,7 @@ public class UserDAO {
             return false;
         } finally {
             Database.close(con);
-        }
-    
-    
+        }   
     }
     
     public User persist(User user){
@@ -80,8 +78,6 @@ public class UserDAO {
     public static boolean login(String email, String password) {
         Connection con = null;
         PreparedStatement ps = null;
-        System.out.println("Resultado login" + email);
-        System.out.println("Resultado login" + password);
         try {
             con = Database.getConnection();
             ps = con.prepareStatement(

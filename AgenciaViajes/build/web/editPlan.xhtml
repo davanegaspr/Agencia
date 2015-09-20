@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link rel="stylesheet" href="css/bootstrap.css"/>
+        <link rel="stylesheet" href="css/styleLogin.css"/>
+        <title>Editar plan</title>
+    </h:head>
+    <h:body>
+        <ui:include src="/header.xhtml"></ui:include> 
+        <c:if test="${role == 'VIP' or role == 'Estandar' or email== null}">
+            <h:form>
+                <h1 style="text-align: center;"><h:outputText value="No tiene permisos, por favor inicie como adminisrador"/><h:commandLink action="login" value="Aquí"/></h1>
+            </h:form>
+        </c:if>
+        <c:if test="${role == 'Admin'}">         
+        <h4><strong><h:outputText value="#{managePlan.message}" style="margin-top: 30%; margin-left: 35%; color:#fa0000;" /></strong></h4>
+        <h:form id="FormAdd" style="margin-left: 35%;" enctype="multipart/form-data">                
+            <div class="panel panel-default" style="width: 50%; border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;border-top-left-radius: 2em; border-top-right-radius: 2em;">
+                <div class="panel-heading" style="border-top-left-radius: 2em; border-top-right-radius: 2em;"><strong>Editar plan</strong></div>
+                <div class="panel-body">
+                <h:panelGrid columns="2">
+                <h:outputLabel value="Nombre" />
+                <h:inputText value="#{managePlan.name}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px" requiredMessage="Se requiere un nombre"/>
+                <h:outputLabel value="Ciudad salida"></h:outputLabel>
+                <h:inputText value="#{managePlan.departureCity}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px"  requiredMessage="Se requiere un apellido"/>
+                <h:outputLabel value="Ciudad llegada" />                
+                <h:inputText value="#{managePlan.arrivalCity}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un correo" >
+                </h:inputText>  
+                <h:outputLabel value="Fecha salida" />                
+                <h:inputText value="#{managePlan.departureDate}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un correo" >
+                </h:inputText>  
+                <h:outputLabel value="Fecha regreso" />                
+                <h:inputText value="#{managePlan.returnDate}" required="true"  style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un correo" >
+                </h:inputText>
+                <h:outputLabel value="Transporte"></h:outputLabel>
+                <h:selectOneMenu id="modeTransport" value="#{managePlan.modeTransport}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage=" ">
+                    <f:selectItem id="Bus" itemLabel="Bus" itemValue="Bus" />
+                    <f:selectItem id="Avion" itemLabel="Avion" itemValue="Avion" />
+                    <f:selectItem id="Tren" itemLabel="Tren" itemValue="Tren" />
+                </h:selectOneMenu> 
+                <h:outputLabel value="Vlr adulto"></h:outputLabel>
+                <h:inputText value="#{managePlan.baseCostByAdult}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un nombre de usuario">                    
+                </h:inputText>
+                <h:outputLabel value="Vlr niño"></h:outputLabel>
+                <h:inputText value="#{managePlan.baseCostByChild}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un nombre de usuario">                    
+                </h:inputText>
+                <h:outputLabel value="Hotel"></h:outputLabel>
+                <h:selectOneMenu id="hotelId" value="#{managePlan.hotelId}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage=" ">                    
+                    <f:selectItems  value="#{managePlan.hotelsList}" var="hotel" itemValue="#{hotel.hotelId}" itemLabel="#{hotel.name}" />                   
+                </h:selectOneMenu>                
+            </h:panelGrid>                    
+            <h:commandButton action="#{managePlan.editPlan()}" value="ACEPTAR &raquo;" style="margin-left: 40%;" class="btn btn-success btn-sm"/>
+            <h:commandButton type="reset" class="btn btn-default btn-sm" value="LIMPIAR" ></h:commandButton>  
+            
+            </div>
+            </div>            
+            </h:form>
+        </c:if>
+    </h:body>
+  
+</html>

@@ -6,7 +6,6 @@
 package DataAccess.DAO;
 
 import DataAccess.Entity.Hotel;
-import DataAccess.Entity.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -82,7 +81,7 @@ public Hotel persist(Hotel hotel){
         } 
     }
 
-    public boolean eliminateHotel(Long hotelId) {
+    public boolean eliminateHotel(long hotelId) {
         Connection con = null;
         PreparedStatement ps = null;
         try {
@@ -99,6 +98,28 @@ public Hotel persist(Hotel hotel){
         } finally {
             Database.close(con);
         }
+    }
+    
+    public String getHotelName(long hotelId) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String name = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select name from hotel where hotelId= ?");
+            ps.setString(1,String.valueOf(hotelId));
+            ResultSet rs = ps.executeQuery();
+            
+             if (rs.next()) name = rs.getString("name"); // found
+            
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return null;
+        } finally {
+            Database.close(con);
+        }   
+    return name;
     }
     
 }

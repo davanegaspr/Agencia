@@ -44,7 +44,7 @@ public class ManageHotelBean {
     
     }
     
-    public void renderEdit(Long hotelId) throws  IOException, NoSuchAlgorithmException {
+    public void renderEdit(long hotelId) throws  IOException, NoSuchAlgorithmException {
         HttpSession session = Util.getSession(); 
         manageHotel = new ManageHotel();
         session.setAttribute("hotelIdEdit", hotelId);
@@ -56,11 +56,11 @@ public class ManageHotelBean {
         if( manageHotel.editHotel(getName(),getCategory(),getPrice(),getLocation()))manageHotel.renderShowHotels();    
     }
     
-    public void eliminateHotel(Long hotelId) throws  IOException, NoSuchAlgorithmException {
+    public void eliminateHotel(long hotelId) throws  IOException, NoSuchAlgorithmException {
         manageHotel = new ManageHotel();
         if(manageHotel.eliminateHotel(hotelId)){
             setMessage("Hotel Eliminado");
-            manageHotel.renderShowHotels();            
+            manageHotel.renderShowHotels();           
         }
         else setMessage("No ha podido eliminarse el hotel");
         

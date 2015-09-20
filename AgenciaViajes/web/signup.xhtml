@@ -32,6 +32,7 @@
                 <h:selectOneMenu id="role" value="#{createUserBean.role}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage=" ">
                     <f:selectItem id="estandar" itemLabel="Estandar" itemValue="Estandar" />
                     <f:selectItem id="vip" itemLabel="VIP" itemValue="VIP" />
+                    <f:selectItem id="admin" itemLabel="Admin" itemValue="Admin" />
                 </h:selectOneMenu>
                 <h:outputLabel value="Celular"></h:outputLabel>
                 <h:inputText value="#{createUserBean.phone}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un celular"/>

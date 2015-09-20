@@ -69,7 +69,7 @@ public class ManageHotel {
         return hotelDAO.editHotel((long)session.getAttribute("hotelIdEdit"), name, category, price, location);
     }
 
-    public boolean eliminateHotel(Long hotelId) {
+    public boolean eliminateHotel(long hotelId) {
         HotelDAO hotelDAO = new HotelDAO();
         return hotelDAO.eliminateHotel(hotelId);   
     }
