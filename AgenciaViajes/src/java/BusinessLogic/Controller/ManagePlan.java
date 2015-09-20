@@ -10,19 +10,12 @@ package BusinessLogic.Controller;
  * @author USER
  */
 import DataAccess.DAO.PlanDAO;
-import DataAccess.DAO.UserDAO;
 import DataAccess.Entity.Plan;
-import DataAccess.Entity.User;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.sql.SQLException;
 import java.util.Date;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;

@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -19,65 +21,67 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author USER
+ * @author Richar
  */
 @Entity
-@Table(name = "hotels", catalog = "agencia", schema = "")
+@Table(name = "hotel")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Hotels.findAll", query = "SELECT h FROM Hotels h"),
-    @NamedQuery(name = "Hotels.findByIdHotel", query = "SELECT h FROM Hotels h WHERE h.idHotel = :idHotel"),
-    @NamedQuery(name = "Hotels.findByName", query = "SELECT h FROM Hotels h WHERE h.name = :name"),
-    @NamedQuery(name = "Hotels.findByCategory", query = "SELECT h FROM Hotels h WHERE h.category = :category"),
-    @NamedQuery(name = "Hotels.findByPrice", query = "SELECT h FROM Hotels h WHERE h.price = :price"),
-    @NamedQuery(name = "Hotels.findByLocation", query = "SELECT h FROM Hotels h WHERE h.location = :location")})
-public class Hotels implements Serializable {
+    @NamedQuery(name = "Hotel.findAll", query = "SELECT h FROM Hotel h"),
+    @NamedQuery(name = "Hotel.findByHotelId", query = "SELECT h FROM Hotel h WHERE h.hotelId = :hotelId"),
+    @NamedQuery(name = "Hotel.findByName", query = "SELECT h FROM Hotel h WHERE h.name = :name"),
+    @NamedQuery(name = "Hotel.findByCategory", query = "SELECT h FROM Hotel h WHERE h.category = :category"),
+    @NamedQuery(name = "Hotel.findByPrice", query = "SELECT h FROM Hotel h WHERE h.price = :price"),
+    @NamedQuery(name = "Hotel.findByLocation", query = "SELECT h FROM Hotel h WHERE h.location = :location")})
+public class Hotel implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    //@NotNull
+    @Column(name = "hotelId")
+    private Long hotelId;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idHotel")
-    private Long idHotel;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 20)
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 15)
     @Column(name = "category")
-    private int category;
+    private String category;
     @Basic(optional = false)
     @NotNull
     @Column(name = "price")
     private float price;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 20)
     @Column(name = "location")
     private String location;
 
-    public Hotels() {
+    public Hotel() {
     }
 
-    public Hotels(Long idHotel) {
-        this.idHotel = idHotel;
+    public Hotel(Long hotelId) {
+        this.hotelId = hotelId;
     }
 
-    public Hotels(Long idHotel, String name, int category, float price, String location) {
-        this.idHotel = idHotel;
+    public Hotel(Long hotelId, String name, String category, float price, String location) {
+        this.hotelId = hotelId;
         this.name = name;
         this.category = category;
         this.price = price;
         this.location = location;
     }
 
-    public Long getIdHotel() {
-        return idHotel;
+    public Long getHotelId() {
+        return hotelId;
     }
 
-    public void setIdHotel(Long idHotel) {
-        this.idHotel = idHotel;
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
     }
 
     public String getName() {
@@ -88,11 +92,11 @@ public class Hotels implements Serializable {
         this.name = name;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -115,18 +119,18 @@ public class Hotels implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idHotel != null ? idHotel.hashCode() : 0);
+        hash += (hotelId != null ? hotelId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Hotels)) {
+        if (!(object instanceof Hotel)) {
             return false;
         }
-        Hotels other = (Hotels) object;
-        if ((this.idHotel == null && other.idHotel != null) || (this.idHotel != null && !this.idHotel.equals(other.idHotel))) {
+        Hotel other = (Hotel) object;
+        if ((this.hotelId == null && other.hotelId != null) || (this.hotelId != null && !this.hotelId.equals(other.hotelId))) {
             return false;
         }
         return true;
@@ -134,7 +138,7 @@ public class Hotels implements Serializable {
 
     @Override
     public String toString() {
-        return "DataAccess.Entity.Hotels[ idHotel=" + idHotel + " ]";
+        return "DataAccess.Entity.Hotel[ hotelId=" + hotelId + " ]";
     }
     
 }

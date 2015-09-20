@@ -80,6 +80,8 @@ public class UserDAO {
     public static boolean login(String email, String password) {
         Connection con = null;
         PreparedStatement ps = null;
+        System.out.println("Resultado login" + email);
+        System.out.println("Resultado login" + password);
         try {
             con = Database.getConnection();
             ps = con.prepareStatement(
@@ -214,7 +216,6 @@ public class UserDAO {
     } 
 
     public boolean eliminateUser(Long userId) {
-        System.out.println("Usuario a borrar" + userId);
         Connection con = null;
         PreparedStatement ps = null;
         try {

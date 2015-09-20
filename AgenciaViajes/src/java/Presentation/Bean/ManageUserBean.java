@@ -122,8 +122,7 @@ public class ManageUserBean {
         
         else if(!getPhone().matches("[0-9]{10}")) {
             setMessage("El número de celular no es valido");            
-        }
-    
+        }   
     }
     
     public void createUser() throws  IOException, NoSuchAlgorithmException {

@@ -9,7 +9,7 @@
         </description>
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <class>DataAccess.Entity.User</class>
-
+        <class>DataAccess.Entity.Hotel</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/agencia?zeroDateTimeBehavior=convertToNull" />
