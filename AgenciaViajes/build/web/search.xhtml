@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <link rel="stylesheet" href="css/bootstrap.css"/>
+        <link rel="stylesheet" href="css/styleLogin.css"/>
+        <title>Busca tus planes</title>
+    </h:head>
+    <h:body>
+        <ui:include src="/header.xhtml"></ui:include>  
+        <h:form id="searchform" style="margin-left: 35%;" enctype="multipart/form-data">                
+            <div class="panel panel-default" style="width: 50%; border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;border-top-left-radius: 2em; border-top-right-radius: 2em;">
+                <div class="panel-heading" style="border-top-left-radius: 2em; border-top-right-radius: 2em;"><strong>Formulario de búsqueda de planes</strong></div>
+                <div class="panel-body">
+                <h:panelGrid columns="2">
+                        <h:outputLabel value="Ciudad de Salida"></h:outputLabel>
+                        <h:selectOneMenu id="ciudad_salida" value="#{managePlan.arrivalCity}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px">
+                            <f:selectItem id="c1" itemLabel="Bogota" itemValue="Bogota" />
+                            <f:selectItem id="c2" itemLabel="Medellin" itemValue="Medellin" />
+                            <f:selectItem id="c3" itemLabel="Cali" itemValue="Cali" />
+                        </h:selectOneMenu>
+                        <h:outputLabel value="Ciudad de Llegada" />                
+                        <h:selectOneMenu id="ciudad_llegada" value="#{managePlan.arrivalCity}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px">
+                            <f:selectItem id="c01" itemLabel="Bogota" itemValue="Bogota" />
+                            <f:selectItem id="c02" itemLabel="Medellin" itemValue="Medellin" />
+                            <f:selectItem id="c03" itemLabel="Cali" itemValue="Cali" />
+                        </h:selectOneMenu>              
+                        <h:outputLabel value="Fecha de Salida (dd.mm.yy) "></h:outputLabel>
+                        <h:inputText value="#{managePlan.departureDate}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px"/>
+                        <h:outputLabel value="Fecha de Regreso (dd.mm.yy) "></h:outputLabel>
+                        <h:inputText value="#{managePlan.returnDate}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px"/>
+                        <h:outputLabel value="Modo de Transporte"></h:outputLabel>
+                        <h:selectOneMenu id="modo_transporte" value="#{managePlan.modeTransport}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px">
+                            <f:selectItem id="transporte_aereo" itemLabel="Avion" itemValue="Avion" />
+                            <f:selectItem id="transporte_terrestre" itemLabel="Bus" itemValue="Bus" />
+                        </h:selectOneMenu>
+                        <h:outputLabel value="Cantidad de Adultos"></h:outputLabel>
+                        <h:selectOneMenu id="cantidad_adultos" value="#{managePlan.arrivalCity}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px">
+                            <f:selectItem id="ca1" itemLabel="01" itemValue="01" />
+                            <f:selectItem id="ca2" itemLabel="02" itemValue="02" />
+                            <f:selectItem id="ca3" itemLabel="03" itemValue="03" />
+                            <f:selectItem id="ca4" itemLabel="04" itemValue="04" />
+                            <f:selectItem id="ca5" itemLabel="05" itemValue="05" />
+                            <f:selectItem id="ca6" itemLabel="06" itemValue="06" />
+                            <f:selectItem id="ca7" itemLabel="07" itemValue="07" />
+                            <f:selectItem id="ca8" itemLabel="08" itemValue="08" />
+                            <f:selectItem id="ca9" itemLabel="09" itemValue="09" />
+                        </h:selectOneMenu>  
+                        <h:outputLabel value="Cantidad de Niños"></h:outputLabel>
+                        <h:selectOneMenu id="cantidad_niños" value="#{managePlan.arrivalCity}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px">
+                            <f:selectItem id="cn1" itemLabel="01" itemValue="01" />
+                            <f:selectItem id="cn2" itemLabel="02" itemValue="02" />
+                            <f:selectItem id="cn3" itemLabel="03" itemValue="03" />
+                            <f:selectItem id="cn4" itemLabel="04" itemValue="04" />
+                            <f:selectItem id="cn5" itemLabel="05" itemValue="05" />
+                            <f:selectItem id="cn6" itemLabel="06" itemValue="06" />
+                            <f:selectItem id="cn7" itemLabel="07" itemValue="07" />
+                            <f:selectItem id="cn8" itemLabel="08" itemValue="08" />
+                            <f:selectItem id="cn9" itemLabel="09" itemValue="09" />
+                        </h:selectOneMenu>                          
+                        </h:panelGrid>
+                       
+            </div>
+                    <h:commandButton action="#{managePlan.createPlan()}" value="BUSCAR" style="margin-left: 40%;" class="btn btn-success btn-sm"/>
+                    <h:commandButton type="reset" class="btn btn-default btn-sm" value="LIMPIAR" ></h:commandButton>
+            </div>            
+            </h:form>
+    </h:body>
+</html>
+
