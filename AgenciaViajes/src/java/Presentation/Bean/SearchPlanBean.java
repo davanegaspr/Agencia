@@ -6,7 +6,9 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.ManagePlan;
+import DataAccess.Entity.Plan;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -26,8 +28,16 @@ public class SearchPlanBean {
     private int cantidad_adultos;
     private int cantidad_niños;
     private String message;
+    private ArrayList<Plan> planResults;
+
+    public ArrayList<Plan> getPlanResults() {
+        return planResults;
+    }
+
+    public void setPlanResults(ArrayList<Plan> planResults) {
+        this.planResults = planResults;
+    }
         
-    
     /**
      * Creates a new instance of SearchPlanBean
      */
@@ -105,9 +115,22 @@ public class SearchPlanBean {
     }
     
     public void searchPlan() throws SQLException {
-        ManagePlan managePlan = new ManagePlan(); 
-        if(managePlan.searchPlan(departureCity,arrivalCity,departureDate,arrivalDate,modeTransport)) managePlan.renderSearchPlans();
-        else setMessage("No se encontraron planes de viaje");
+        ManagePlan managePlan = new ManagePlan();
+        if(managePlan.departureDateValidator(departureDate) && managePlan.departureDateValidator(arrivalDate)){
+            
+            if(managePlan.searchPlan(departureCity,arrivalCity,departureDate,arrivalDate,modeTransport)){
+                managePlan.renderSearchPlans();
+            }
+            else setMessage("No se encontraron planes de viaje");
+        }
+        else{
+            setMessage("Formato de Fecha Incorrecto");
+        }
     }
     
+    
+    public void listPlans() throws SQLException{
+        ManagePlan managePlan = new ManagePlan();
+    
+    }
 }
