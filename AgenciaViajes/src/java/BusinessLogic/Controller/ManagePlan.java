@@ -57,12 +57,23 @@ public class ManagePlan {
             } catch (IOException e) {
             } 
     }
+    
+    public void renderSearchPlans() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest origRequest = (HttpServletRequest)context.getExternalContext().getRequest();
+        String contextPath = origRequest.getContextPath();
+        try {
+            FacesContext.getCurrentInstance().getExternalContext()
+            .redirect(contextPath  + "/faces/searchPlans.xhtml");
+            } catch (IOException e) {
+            } 
+    }
 
     public boolean eliminatePlan(long planId) {
         PlanDAO planDAO = new PlanDAO();
         return planDAO.eliminatePlan(planId);    
     }
-
+    
     public void renderPlanEdit() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest origRequest = (HttpServletRequest)context.getExternalContext().getRequest();
@@ -127,4 +138,9 @@ public class ManagePlan {
 	  }
 	
 }
+
+        public boolean searchPlan(String departureCity, String arrivalCity, String departureDate, String arrivalDate, String modeTransport) {
+            PlanDAO planDAO = new PlanDAO();
+            return planDAO.searchPlan(departureCity, arrivalCity, departureDate, arrivalDate, modeTransport); 
+        }
     }

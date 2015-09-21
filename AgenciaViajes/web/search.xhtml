@@ -17,28 +17,28 @@
                 <div class="panel-body">
                 <h:panelGrid columns="2">
                         <h:outputLabel value="Ciudad de Salida"></h:outputLabel>
-                        <h:selectOneMenu id="ciudad_salida" value="#{managePlan.arrivalCity}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px">
+                        <h:selectOneMenu id="ciudad_salida" value="#{searchPlanBean.departureCity}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px">
                             <f:selectItem id="c1" itemLabel="Bogota" itemValue="Bogota" />
                             <f:selectItem id="c2" itemLabel="Medellin" itemValue="Medellin" />
                             <f:selectItem id="c3" itemLabel="Cali" itemValue="Cali" />
                         </h:selectOneMenu>
                         <h:outputLabel value="Ciudad de Llegada" />                
-                        <h:selectOneMenu id="ciudad_llegada" value="#{managePlan.arrivalCity}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px">
+                        <h:selectOneMenu id="ciudad_llegada" value="#{searchPlanBean.arrivalCity}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px">
                             <f:selectItem id="c01" itemLabel="Bogota" itemValue="Bogota" />
                             <f:selectItem id="c02" itemLabel="Medellin" itemValue="Medellin" />
                             <f:selectItem id="c03" itemLabel="Cali" itemValue="Cali" />
                         </h:selectOneMenu>              
                         <h:outputLabel value="Fecha de Salida (dd.mm.yy) "></h:outputLabel>
-                        <h:inputText value="#{managePlan.departureDate}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px"/>
+                        <h:inputText value="#{searchPlanBean.departureDate}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px"/>
                         <h:outputLabel value="Fecha de Regreso (dd.mm.yy) "></h:outputLabel>
-                        <h:inputText value="#{managePlan.returnDate}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px"/>
+                        <h:inputText value="#{searchPlanBean.arrivalDate}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px"/>
                         <h:outputLabel value="Modo de Transporte"></h:outputLabel>
-                        <h:selectOneMenu id="modo_transporte" value="#{managePlan.modeTransport}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px">
+                        <h:selectOneMenu id="modo_transporte" value="#{searchPlanBean.modeTransport}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px">
                             <f:selectItem id="transporte_aereo" itemLabel="Avion" itemValue="Avion" />
                             <f:selectItem id="transporte_terrestre" itemLabel="Bus" itemValue="Bus" />
                         </h:selectOneMenu>
                         <h:outputLabel value="Cantidad de Adultos"></h:outputLabel>
-                        <h:selectOneMenu id="cantidad_adultos" value="#{managePlan.arrivalCity}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px">
+                        <h:selectOneMenu id="cantidad_adultos" value="#{searchPlanBean.cantidad_adultos}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px">
                             <f:selectItem id="ca1" itemLabel="01" itemValue="01" />
                             <f:selectItem id="ca2" itemLabel="02" itemValue="02" />
                             <f:selectItem id="ca3" itemLabel="03" itemValue="03" />
@@ -50,7 +50,7 @@
                             <f:selectItem id="ca9" itemLabel="09" itemValue="09" />
                         </h:selectOneMenu>  
                         <h:outputLabel value="Cantidad de Niños"></h:outputLabel>
-                        <h:selectOneMenu id="cantidad_niños" value="#{managePlan.arrivalCity}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px">
+                        <h:selectOneMenu id="cantidad_niños" value="#{searchPlanBean.cantidad_niños}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px">
                             <f:selectItem id="cn1" itemLabel="01" itemValue="01" />
                             <f:selectItem id="cn2" itemLabel="02" itemValue="02" />
                             <f:selectItem id="cn3" itemLabel="03" itemValue="03" />
@@ -64,7 +64,7 @@
                         </h:panelGrid>
                        
             </div>
-                    <h:commandButton action="#{managePlan.createPlan()}" value="BUSCAR" style="margin-left: 40%;" class="btn btn-success btn-sm"/>
+                    <h:commandButton action="#{searchPlanBean.searchPlan()}" value="BUSCAR" style="margin-left: 40%;" class="btn btn-success btn-sm"/>
                     <h:commandButton type="reset" class="btn btn-default btn-sm" value="LIMPIAR" ></h:commandButton>
             </div>            
             </h:form>

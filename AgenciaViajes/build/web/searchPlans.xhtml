@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+     <h:head>
+        <link rel="stylesheet" href="css/styleLogin.css"/>        
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min2.css"/>
+        <script type="text/javascript" src="js/datatables.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+                        $('#example').DataTable();
+            } );
+                        
+        </script>
+        <title>Lista planes</title>
+    </h:head>
+    <h:body>
+        <ui:include src="/header.xhtml"></ui:include> 
+        <c:if test="${role == 'VIP' or role == 'Estandar' or email== null}">
+            <h:form>
+                <h1 style="text-align: center;"><h:outputText value="No tiene permisos, por favor inicie como adminisrador"/><h:commandLink action="login" value="Aquí"/></h1>
+            </h:form>
+        </c:if>
+        <c:if test="${role == 'Admin'}">
+        <h4><strong><h:outputText value="#{managePlan.message}" style="margin-top: 0px; margin-left: 35%; color:#fa0000;" /></strong></h4>
+        <h1 style ="color:rgb(0,0,0); text-align: center;"><b>LISTA DE PLANES</b></h1>
+        <h:form><h:commandButton action="createPlan" value="Crear nuevo Plan &raquo;" style="margin-right: 15%;" class="btn btn-success btn-lg"/></h:form><br></br>
+        <table id="example" class="display table-striped" cellspacing="0" width="100%">
+     <thead>
+         <tr>
+             <th>Id</th>
+             <th>Nombre</th>
+             <th>Ciudad salida</th>
+             <th>Ciudad llegada</th>
+             <th>Dia salida</th>
+             <th>Dia llegada</th>
+             <th>Hotel</th>
+             <th>Transporte</th>
+             <th>Vlr Adulto</th>
+             <th>Vlr niño</th>
+             <th></th>
+             <th></th>
+         </tr>
+     </thead>
+        <tbody>
+            <ui:repeat var="plan" value="#{managePlan.plansList}">
+	<tr>
+            <td>#{plan.planId}</td>
+            <td>#{plan.name}</td>
+            <td>#{plan.departureCity}</td>
+            <td>#{plan.arrivalCity}</td>
+            <td>#{plan.departureDate}</td>
+            <td>#{plan.returnDate}</td>
+            <td>#{managePlan.getHotelName(plan.hotelId)}</td>
+            <td>#{plan.modeTransport}</td>
+            <td>#{plan.baseCostByAdult}</td>
+            <td>#{plan.baseCostByChild}</td>          
+	<td>
+            <h:form>
+                    <i class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#editModal"></i>     
+                    <div class="modal fade modal-white" id="editModal" role="dialog">
+                    <div class="modal-dialog modal-sm" style="margin-top: 40px;">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Editar Plan</h4>
+                      </div>
+                      <div class="modal-body">
+                          <h3>¿Esta seguro de que desea editar el plan #{plan.planId}?</h3>
+                      </div>
+                      <div class="modal-footer">
+                          <h:commandButton action="#{managePlan.renderEdit(plan.planId)}" value="ACEPTAR &raquo;" style="margin-right: 15%;" class="btn btn-success btn-sm"/><button type="button" style="margin-right: 15%;" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                    
+            </h:form>
+        </td>
+	<td>
+	<h:form>
+                     <i class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#eliminateModal"></i>                     
+                     <div class="modal fade modal-white" id="eliminateModal" role="dialog">
+                    <div class="modal-dialog modal-sm" style="margin-top: 40px;">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Eliminar plan</h4>
+                      </div>
+                      <div class="modal-body">
+                          <h3>¿Esta seguro de que desea eliminar el plan #{plan.planId}?</h3>
+                      </div>
+                      <div class="modal-footer">
+                          <h:commandButton action="#{managePlan.eliminatePlan(plan.planId)}" value="ACEPTAR &raquo;" style="margin-right: 15%;" class="btn btn-success btn-sm"/><button type="button" style="margin-right: 15%;" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                     
+        </h:form>
+	</td>
+	</tr>
+        </ui:repeat>  
+        </tbody> 
+        </table>
+         <script type="text/javascript">
+	// For demo to fit into DataTables site builder...
+	$('#example')
+		.removeClass( 'display' )
+		.addClass('table table-bordered');
+        
+        
+    
+        </script>
+        </c:if>
+    </h:body>
+</html>
+

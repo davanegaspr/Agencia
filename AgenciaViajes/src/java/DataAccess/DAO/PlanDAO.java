@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -99,6 +98,28 @@ public class PlanDAO {
                 return rs==1;
         } catch (Exception ex) {
             System.out.println("Error in login() -->" + ex.getMessage());
+            return false;
+        } finally {
+            Database.close(con);
+        }
+    }
+    
+    public boolean searchPlan(String departureCity, String arrivalCity, String departureDate, String returnDate, String modeTransport) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "SELECT * FROM plan WHERE plan.departureCity =?, plan.arrivalCity = ?, plan.departureDate =?, plan.returnDate =?, plan.modeTransport =?");            
+            ps.setString(1,departureCity);
+            ps.setString(2,arrivalCity);
+            ps.setString(3,departureDate);
+            ps.setString(4,returnDate);
+            ps.setString(5,modeTransport);
+            int rs = ps.executeUpdate();
+                return rs==1;
+        } catch (Exception ex) {
+            System.out.println("Error in search query() -->" + ex.getMessage());
             return false;
         } finally {
             Database.close(con);
