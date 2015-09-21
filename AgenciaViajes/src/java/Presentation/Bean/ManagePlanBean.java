@@ -41,6 +41,12 @@ public class ManagePlanBean {
     private ArrayList<Plan> plansList = managePlan.getPlans();
     private ArrayList<Hotel> hotelsList = manageHotel.getHotels();    
     
+    public void renderShowTicket(long planId) throws  IOException, NoSuchAlgorithmException {
+        HttpSession session = Util.getSession(); 
+        managePlan = new ManagePlan();
+        session.setAttribute("planIdBuy", planId);
+        managePlan.renderShowTicket();   
+    }
     public void createPlan() throws  IOException, NoSuchAlgorithmException {
         managePlan = new ManagePlan();
         if(!managePlan.isDate(getDepartureDate())){

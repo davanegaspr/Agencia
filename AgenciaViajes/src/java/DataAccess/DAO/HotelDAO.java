@@ -35,7 +35,7 @@ public Hotel persist(Hotel hotel){
             em.close();
             return hotel;
         }  
-    } 
+} 
 
     public ArrayList<Hotel> getHotels(){
         

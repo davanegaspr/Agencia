@@ -84,6 +84,17 @@ public class ManagePlan {
             } catch (IOException e) {
             }
     }
+    
+    public void renderShowTicket() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest origRequest = (HttpServletRequest)context.getExternalContext().getRequest();
+        String contextPath = origRequest.getContextPath();
+        try {
+            FacesContext.getCurrentInstance().getExternalContext()
+            .redirect(contextPath  + "/faces/ShowTicket.xhtml");
+            } catch (IOException e) {
+            }
+    }
 
     public boolean editPlan(String name, String departureCity, String arrivalCity, String date, String date0, String modeTransport, Double baseCostByAdult, Double baseCostByChild, long hotelId) {
         PlanDAO planDAO = new PlanDAO();
@@ -139,8 +150,4 @@ public class ManagePlan {
 	
 }
 
-        public boolean searchPlan(String departureCity, String arrivalCity, String departureDate, String arrivalDate, String modeTransport) {
-            PlanDAO planDAO = new PlanDAO();
-            return planDAO.searchPlan(departureCity, arrivalCity, departureDate, arrivalDate, modeTransport); 
-        }
-    }
+}

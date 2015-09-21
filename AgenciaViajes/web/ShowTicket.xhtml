@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link rel="stylesheet" href="css/bootstrap.css"/>
+        <link rel="stylesheet" href="css/styleLogin.css"/>
+        <title>Tiquete</title>
+    </h:head>
+    <h:body>
+        <ui:include src="/header.xhtml"></ui:include>         
+        <h:form id="FormAdd" style="margin-left: 35%;" enctype="multipart/form-data">                
+            <div class="panel panel-default" style="width: 50%; border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;border-top-left-radius: 2em; border-top-right-radius: 2em;">
+                <div class="panel-heading" style="border-top-left-radius: 2em; border-top-right-radius: 2em;"><strong>Tiquete</strong></div>
+                <div class="panel-body">
+             <h:panelGrid columns="1"> 
+                 <h4> <h:outputText value="Nombre #{manageTicket.plan.name}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 260px; margin-left: 80px;" />
+                     <h:outputText value="Ciudad salida #{manageTicket.plan.departureCity}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
+                     <h:outputText value="Ciudad llegada #{manageTicket.plan.arrivalCity}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
+                     <h:outputText value="Fecha salida #{manageTicket.plan.departureDate}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
+                     <h:outputText value="Fecha llegada #{manageTicket.plan.returnDate}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
+                     <h:outputText value="Hotel #{manageTicket.plan.hotelId}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
+                     <h:outputText value="$Vlr adulto #{manageTicket.plan.baseCostByAdult}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
+                     <h:outputText value="$Vlr niño #{manageTicket.plan.baseCostByChild}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
+                 </h4>
+             </h:panelGrid> 
+            
+            <h:panelGrid columns="2">                 
+                <h:outputLabel value="Adultos"></h:outputLabel>
+                <h:selectOneMenu id="QAdult" value="#{manageTicket.quantityAdult}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage=" ">
+                    <f:selectItem id="item1" itemLabel="1" itemValue="1" />
+                    <f:selectItem id="item12" itemLabel="2" itemValue="2" />
+                    <f:selectItem id="item13" itemLabel="3" itemValue="3" />
+                    <f:selectItem id="item14" itemLabel="4" itemValue="4" />
+                    <f:selectItem id="item15" itemLabel="5" itemValue="5" />
+                </h:selectOneMenu>                
+                <h:outputLabel value="Niños"></h:outputLabel>
+                <h:selectOneMenu id="QChild" value="#{manageTicket.quantityChild}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage=" ">
+                    <f:selectItem id="item0" itemLabel="0" itemValue="0" />
+                    <f:selectItem id="item10" itemLabel="1" itemValue="1" />
+                    <f:selectItem id="item2" itemLabel="2" itemValue="2" />
+                    <f:selectItem id="item3" itemLabel="3" itemValue="3" />
+                    <f:selectItem id="item4" itemLabel="4" itemValue="4" />
+                    <f:selectItem id="item5" itemLabel="5" itemValue="5" />
+                </h:selectOneMenu>
+            </h:panelGrid>                    
+            <button type="button" style="border: none;" class="btn btn-default btn-xs" data-toggle="modal" data-target="#buyModal"><h4 style=" color: #5cb85c;"><strong>Comprar</strong></h4></button>  
+            <button type="button" style="border: none;" class="btn btn-default btn-xs" data-toggle="modal" data-target="#resModal"><h4 style=" color: #5cb85c;"><strong>Reservar</strong></h4></button>
+            </div>
+            </div>  
+            
+            <!-- Modal -->
+            <div class="modal fade modal-white" id="buyModal" role="dialog">
+                    <div class="modal-dialog modal-sm" style="margin-top: 40px;">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Confirmar</h4>
+                      </div>
+                      <div class="modal-body">
+                          <h3>¿Esta seguro de que desea comprar el plan?</h3>
+                      </div>
+                      <div class="modal-footer">
+                          <h:commandButton action="#{manageTicket.createTicket()}" value="ACEPTAR &raquo;" style="margin-right: 15%;" class="btn btn-success btn-sm"/><button type="button" style="margin-right: 15%;" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            
+             <!-- Modal -->
+            <div class="modal fade modal-white" id="resModal" role="dialog">
+                    <div class="modal-dialog modal-sm" style="margin-top: 40px;">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Confirmar</h4>
+                      </div>
+                      <div class="modal-body">
+                          <h3>¿Esta seguro de que desea reservar el plan?</h3>
+                      </div>
+                      <div class="modal-footer">
+                          <h:commandButton action="#{manageTicket.createTicket()}" value="ACEPTAR &raquo;" style="margin-right: 15%;" class="btn btn-success btn-sm"/><button type="button" style="margin-right: 15%;" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            
+            </h:form>
+        
+    </h:body>
+  
+</html>

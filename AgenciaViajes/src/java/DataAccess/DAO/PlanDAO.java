@@ -5,6 +5,7 @@
  */
 package DataAccess.DAO;
 
+import BusinessLogic.Controller.Util;
 import DataAccess.Entity.Plan;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -103,71 +105,4 @@ public class PlanDAO {
             Database.close(con);
         }
     }
-    
-    public ArrayList<Plan> getUsers(){
-        
-        Connection con = null;
-        PreparedStatement ps = null;
-        ArrayList<Plan> planList = new ArrayList<>();
-        try {
-            con = Database.getConnection();
-            ps = con.prepareStatement(
-                    "select * from user");
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                planList.add(new plan(rs.getLong("userId"), rs.getDouble("balance"), rs.getString("document"), rs.getString("documentType"), rs.getString("email"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("password"), rs.getString("role"), rs.getString("username"), rs.getString("phone")));            
-                
-            }          
-        } catch (Exception ex) {
-            System.out.println("Error in login() -->" + ex.getMessage());
-        } finally {
-            Database.close(con);
-        } 
-        return planList;
-    
-    } 
-    
-    
-    
-    public boolean searchPlan(String departureCity, String arrivalCity, String departureDate, String returnDate, String modeTransport) {
-        System.out.println("Entramos a PlanDAo.searchPlan con "+departureCity +" "+arrivalCity+" "+departureDate+" "+returnDate+" "+modeTransport);
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = Database.getConnection();
-            ps = con.prepareStatement(
-                    "select * from plan where departureCity =? , arrivalCity =? , departureDate =? , returnDate =? , modeTransport =?");            
-            ps.setString(1,departureCity);
-            ps.setString(2,arrivalCity);
-            ps.setString(3,departureDate);
-            ps.setString(4,returnDate);
-            ps.setString(5,modeTransport);
-            ResultSet rs = ps.executeQuery();
-            System.out.println("Estado de la búsqueda" + rs);
-            if (rs.next()) // found
-            {
-                HttpSession session = Util.getSession();
-                session.setAttribute("userId", rs.getLong("userId"));  
-                session.setAttribute("username", rs.getString("username"));
-                session.setAttribute("firstname", rs.getString("firstname"));
-                session.setAttribute("lastname", rs.getString("lastname"));
-                session.setAttribute("email", rs.getString("email"));
-                session.setAttribute("phone", rs.getLong("phone"));
-                session.setAttribute("balance", rs.getDouble("balance"));
-                session.setAttribute("documentType", rs.getString("documentType"));
-                session.setAttribute("document", rs.getString("document"));
-                session.setAttribute("role", rs.getString("role"));
-                session.setAttribute("password", rs.getString("password"));
-                
-            }    
-            return true;      
-                
-        } catch (Exception ex) {
-            System.out.println("Error in search query() -->" + ex.getMessage());
-            return false;
-        } finally {
-            Database.close(con);
-        }
-    }
-    
 }

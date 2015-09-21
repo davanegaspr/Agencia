@@ -20,21 +20,21 @@
         </script>
         <title>Lista planes</title>
     </h:head>
-    <h:body>
+    <h:body>      
+        <c:if test="${role == 'Admin'}" >
         <ui:include src="/header.xhtml"></ui:include> 
-        <c:if test="${role == 'VIP' or role == 'Estandar' or email== null}">
-            <h:form>
-                <h1 style="text-align: center;"><h:outputText value="No tiene permisos, por favor inicie como adminisrador"/><h:commandLink action="login" value="Aquí"/></h1>
-            </h:form>
         </c:if>
-        <c:if test="${role == 'Admin'}">
         <h4><strong><h:outputText value="#{managePlan.message}" style="margin-top: 0px; margin-left: 35%; color:#fa0000;" /></strong></h4>
         <h1 style ="color:rgb(0,0,0); text-align: center;"><b>LISTA DE PLANES</b></h1>
+        <c:if test="${role == 'Admin'}" >
         <h:form><h:commandButton action="createPlan" value="Crear nuevo Plan &raquo;" style="margin-right: 15%;" class="btn btn-success btn-lg"/></h:form><br></br>
+        </c:if>
         <table id="example" class="display table-striped" cellspacing="0" width="100%">
      <thead>
          <tr>
+             <c:if test="${role == 'Admin'}" >
              <th>Id</th>
+             </c:if>
              <th>Nombre</th>
              <th>Ciudad salida</th>
              <th>Ciudad llegada</th>
@@ -44,23 +44,40 @@
              <th>Transporte</th>
              <th>Vlr Adulto</th>
              <th>Vlr niño</th>
+             <c:if test="${role == 'Admin'}" >
              <th></th>
              <th></th>
+             </c:if>
+             <c:if test="${role == 'Estandar' or role == 'VIP'}" >
+             <th></th>
+             </c:if>
+             
          </tr>
      </thead>
         <tbody>
             <ui:repeat var="plan" value="#{managePlan.plansList}">
 	<tr>
+            <c:if test="${role == 'Admin'}" >
             <td>#{plan.planId}</td>
+            </c:if>
             <td>#{plan.name}</td>
             <td>#{plan.departureCity}</td>
             <td>#{plan.arrivalCity}</td>
             <td>#{plan.departureDate}</td>
             <td>#{plan.returnDate}</td>
+            <c:if test="${role == 'Admin'}" >
             <td>#{managePlan.getHotelName(plan.hotelId)}</td>
+            </c:if>
+            <c:if test="${role == 'Estandar' or role == 'VIP'}">
+            <td>#{managePlan.getHotelName(plan.hotelId)}</td>
+            </c:if>
+            <c:if test="${email == null}">
+            <td>#{managePlan.getHotelName(plan.hotelId)}</td>
+            </c:if>
             <td>#{plan.modeTransport}</td>
             <td>#{plan.baseCostByAdult}</td>
-            <td>#{plan.baseCostByChild}</td>          
+            <td>#{plan.baseCostByChild}</td>      
+        <c:if test="${role == 'Admin'}" >
 	<td>
             <h:form>
                     <i class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#editModal"></i>     
@@ -105,6 +122,33 @@
                      
         </h:form>
 	</td>
+        </c:if>
+        
+        <c:if test="${role == 'Estandar' or role == 'VIP'}">
+	<td>
+            <h:form>
+                    <button type="button" style="border: none;" class="btn btn-default btn-xs" data-toggle="modal" data-target="#buyModal"><h4 style=" color: #5cb85c;"><strong>Comprar</strong></h4></button>   
+                    <div class="modal fade modal-white" id="buyModal" role="dialog">
+                    <div class="modal-dialog modal-sm" style="margin-top: 40px;">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Confirmar</h4>
+                      </div>
+                      <div class="modal-body">
+                          <h3>¿Esta seguro de que desea comprar el plan #{plan.name}?</h3>
+                      </div>
+                      <div class="modal-footer">
+                          <h:commandButton action="#{managePlan.renderShowTicket(plan.planId)}" value="ACEPTAR &raquo;" style="margin-right: 15%;" class="btn btn-success btn-sm"/><button type="button" style="margin-right: 15%;" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                    
+            </h:form>
+        </td>
+        </c:if>
+            
 	</tr>
         </ui:repeat>  
         </tbody> 
@@ -118,7 +162,6 @@
         
     
         </script>
-        </c:if>
     </h:body>
 </html>
 
