@@ -36,6 +36,10 @@
                     <f:selectItem id="item13" itemLabel="3" itemValue="3" />
                     <f:selectItem id="item14" itemLabel="4" itemValue="4" />
                     <f:selectItem id="item15" itemLabel="5" itemValue="5" />
+                    <f:selectItem id="item16" itemLabel="6" itemValue="6" />
+                    <f:selectItem id="item17" itemLabel="7" itemValue="7" />
+                    <f:selectItem id="item18" itemLabel="8" itemValue="8" />
+                    <f:selectItem id="item19" itemLabel="9" itemValue="9" />
                 </h:selectOneMenu>                
                 <h:outputLabel value="Niños"></h:outputLabel>
                 <h:selectOneMenu id="QChild" value="#{manageTicket.quantityChild}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage=" ">
@@ -45,11 +49,17 @@
                     <f:selectItem id="item3" itemLabel="3" itemValue="3" />
                     <f:selectItem id="item4" itemLabel="4" itemValue="4" />
                     <f:selectItem id="item5" itemLabel="5" itemValue="5" />
+                    <f:selectItem id="item6" itemLabel="6" itemValue="6" />
+                    <f:selectItem id="item7" itemLabel="7" itemValue="7" />
+                    <f:selectItem id="item8" itemLabel="8" itemValue="8" />
+                    <f:selectItem id="item9" itemLabel="9" itemValue="9" />
                 </h:selectOneMenu>
             </h:panelGrid>                    
-            <button type="button" style="border: none;" class="btn btn-default btn-xs" data-toggle="modal" data-target="#buyModal"><h4 style=" color: #5cb85c;"><strong>Comprar</strong></h4></button>  
-            <button type="button" style="border: none;" class="btn btn-default btn-xs" data-toggle="modal" data-target="#resModal"><h4 style=" color: #5cb85c;"><strong>Reservar</strong></h4></button>
-            </div>
+            <button type="button" style="border: none;" class="btn btn-default btn-xs" data-toggle="modal" data-target="#buyModal"><h4 style=" color: #5cb85c;"><strong>Comprar</strong></h4></button>
+            <c:if test="${role == 'VIP'}">
+                <button type="button" style="border: none;" class="btn btn-default btn-xs" data-toggle="modal" data-target="#resModal"><h4 style=" color: #5cb85c;"><strong>Reservar</strong></h4></button>
+            </c:if>
+                </div>
             </div>  
             
             <!-- Modal -->

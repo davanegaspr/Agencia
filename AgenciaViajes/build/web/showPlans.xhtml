@@ -127,7 +127,7 @@
         <c:if test="${role == 'Estandar' or role == 'VIP'}">
 	<td>
             <h:form>
-                    <button type="button" style="border: none;" class="btn btn-default btn-xs" data-toggle="modal" data-target="#buyModal"><h4 style=" color: #5cb85c;"><strong>Comprar</strong></h4></button>   
+                    <button type="button" style="border: none;" class="btn btn-default btn-xs" data-toggle="modal" data-target="#buyModal"><h4 style=" color: #5cb85c;"><strong>Consultar</strong></h4></button>   
                     <div class="modal fade modal-white" id="buyModal" role="dialog">
                     <div class="modal-dialog modal-sm" style="margin-top: 40px;">
                     <div class="modal-content">
@@ -136,7 +136,7 @@
                         <h4 class="modal-title">Confirmar</h4>
                       </div>
                       <div class="modal-body">
-                          <h3>¿Esta seguro de que desea comprar el plan #{plan.name}?</h3>
+                          <h3>¿Esta seguro de que desea consultar el plan #{plan.name}?</h3>
                       </div>
                       <div class="modal-footer">
                           <h:commandButton action="#{managePlan.renderShowTicket(plan.planId)}" value="ACEPTAR &raquo;" style="margin-right: 15%;" class="btn btn-success btn-sm"/><button type="button" style="margin-right: 15%;" class="btn btn-default" data-dismiss="modal">Cerrar</button>

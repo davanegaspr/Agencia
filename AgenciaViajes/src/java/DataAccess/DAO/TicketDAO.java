@@ -6,9 +6,13 @@
 package DataAccess.DAO;
 
 import DataAccess.Entity.Plan;
+import DataAccess.Entity.Tickets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -46,8 +50,40 @@ public class TicketDAO {
         return plan;
     }
 
-    public void createTicket(long userId, long planId, int quantityAdult, int quantityChild) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Tickets createTicket(long userId, long planId, int quantityAdult, int quantityChild) {
+        
+        Connection con = null;
+        PreparedStatement ps = null;
+        Tickets ticket = new Tickets();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
+	   //get current date time with Date()
+	   Date date = new Date();
+        float price;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "INSERT INTO tickets VALUES (null,?,?,?,?,?)");
+            ps.setString(1, String.valueOf(dateFormat.format(date)));
+            ps.setString(2, String.valueOf(dateFormat.format(date)));
+            ps.setString(3, String.valueOf(planId));
+            ps.setString(4, String.valueOf(userId));
+            price = (quantityAdult * 3) + (quantityChild * 1);
+            ps.setString(5, String.valueOf(price));
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                ticket.setIdPlan(rs.getLong("idPlan"));
+                ticket.setDateBuy(rs.getDate("Date_Buy"));
+                ticket.setDateStart(rs.getDate("Date_Start"));
+                ticket.setIdUser(rs.getLong("idUser"));
+                ticket.setPrice(rs.getFloat("price"));          
+            }          
+        } catch (Exception ex) {
+            System.out.println("Error in Ticket creation() -->" + ex.getMessage());
+        } finally {
+            Database.close(con);
+        }
+        
+        return ticket;
     }
     
 }
