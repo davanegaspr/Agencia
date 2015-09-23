@@ -46,9 +46,10 @@ public class ManageTicket {
         ticket.setPrice((float)price);
         ticket.setStatus(status);
         userDAO.updateBalance(userId,newBalance);
+        session.setAttribute("total", price);
         Tickets ticketE = ticketDAO.persist(ticket);
          if(ticketE != null){
-             renderIndex();
+             renderTicket();
         }
         else{
             
@@ -66,13 +67,13 @@ public class ManageTicket {
             }
     
     }
-    public void renderIndex(){
+    public void renderTicket(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest origRequest = (HttpServletRequest)context.getExternalContext().getRequest();
         String contextPath = origRequest.getContextPath();
         try {
             FacesContext.getCurrentInstance().getExternalContext()
-            .redirect(contextPath  + "/faces/index.xhtml");
+            .redirect(contextPath  + "/faces/viewTicket.xhtml");
             } catch (IOException e) {
             } 
     }
