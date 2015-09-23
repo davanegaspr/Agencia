@@ -9,6 +9,7 @@ import BusinessLogic.Controller.ManageTicket;
 import BusinessLogic.Controller.Util;
 import DataAccess.Entity.Plan;
 import java.io.IOException;
+import static java.lang.Boolean.TRUE;
 import java.security.NoSuchAlgorithmException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -25,19 +26,33 @@ public class ManageTicketBean {
     private int quantityChild;
     ManageTicket manageTicket = new ManageTicket();    
     HttpSession session = Util.getSession(); 
+    private String ticket;
     private Plan plan = manageTicket.getPlan((long)session.getAttribute("planIdBuy"));
 
     /**
      * Creates a new instance of ManageTicketBean
      */
     public ManageTicketBean() {
-    }
+    } 
     
     public void createTicket() throws  IOException, NoSuchAlgorithmException {
-        manageTicket.createTicket((long)session.getAttribute("userId"),(long)session.getAttribute("planIdBuy"), getQuantityAdult(), getQuantityChild());  
-        
+        manageTicket.createTicket((long)session.getAttribute("userId"),(long)session.getAttribute("planIdBuy"), getQuantityAdult(), getQuantityChild(), 1);  
+        setTicket(manageTicket.getPrice());
+    }
+    
+    public void createReservation() throws  IOException, NoSuchAlgorithmException {
+        manageTicket.createTicket((long)session.getAttribute("userId"),(long)session.getAttribute("planIdBuy"), getQuantityAdult(), getQuantityChild(), 0);    
+        setTicket(manageTicket.getPrice());
     }
 
+    public String getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(String ticket) {
+        this.ticket = ticket;
+    }
+    
     /**
      * @return the plan
      */
@@ -79,5 +94,5 @@ public class ManageTicketBean {
     public void setQuantityChild(int quantityChild) {
         this.quantityChild = quantityChild;
     }
-    
+   
 }

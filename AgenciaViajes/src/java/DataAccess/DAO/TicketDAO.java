@@ -13,6 +13,9 @@ import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -20,6 +23,23 @@ import java.util.Date;
  */
 public class TicketDAO {
 
+    public Tickets persist(Tickets ticket){
+        EntityManager em;        
+        EntityManagerFactory emf;
+        emf = Persistence.createEntityManagerFactory("agenciaPU");
+        em = emf.createEntityManager();
+        em.getTransaction().begin();
+        try{
+            em.persist(ticket);
+            em.getTransaction().commit();
+        }catch(Exception e){
+            em.getTransaction().rollback();            
+        }finally{
+            em.close();
+            return ticket;
+        }  
+    }
+    
     public Plan getPlan(long planId) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -50,11 +70,13 @@ public class TicketDAO {
         return plan;
     }
 
-    public Tickets createTicket(long userId, long planId, int quantityAdult, int quantityChild) {
+    /*public Tickets createTicket(long userId, long planId, int quantityAdult, int quantityChild, boolean status) {
         
         Connection con = null;
         PreparedStatement ps = null;
         Tickets ticket = new Tickets();
+        Plan plana = new Plan();
+        plana = getPlan(planId);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
 	   //get current date time with Date()
 	   Date date = new Date();
@@ -62,21 +84,17 @@ public class TicketDAO {
         try {
             con = Database.getConnection();
             ps = con.prepareStatement(
-                    "INSERT INTO tickets VALUES (null,?,?,?,?,?)");
+                    "INSERT INTO tickets (Date_Buy,Date_Start,idPlan,idUser,price,Status) VALUES (?,?,?,?,?,?)");
             ps.setString(1, String.valueOf(dateFormat.format(date)));
-            ps.setString(2, String.valueOf(dateFormat.format(date)));
+            ps.setString(2, String.valueOf(plana.getDepartureDate()));
             ps.setString(3, String.valueOf(planId));
             ps.setString(4, String.valueOf(userId));
             price = (quantityAdult * 3) + (quantityChild * 1);
             ps.setString(5, String.valueOf(price));
+            ps.setBoolean(6, status);
+            System.out.println("Query is "+ps);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                ticket.setIdPlan(rs.getLong("idPlan"));
-                ticket.setDateBuy(rs.getDate("Date_Buy"));
-                ticket.setDateStart(rs.getDate("Date_Start"));
-                ticket.setIdUser(rs.getLong("idUser"));
-                ticket.setPrice(rs.getFloat("price"));          
-            }          
+                     
         } catch (Exception ex) {
             System.out.println("Error in Ticket creation() -->" + ex.getMessage());
         } finally {
@@ -84,6 +102,6 @@ public class TicketDAO {
         }
         
         return ticket;
-    }
+    }*/
     
 }

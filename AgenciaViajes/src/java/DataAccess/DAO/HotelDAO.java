@@ -122,4 +122,26 @@ public Hotel persist(Hotel hotel){
     return name;
     }
     
+    public String getHotelCost(long hotelId) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String price = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select price from hotel where hotelId= ?");
+            ps.setString(1,String.valueOf(hotelId));
+            ResultSet rs = ps.executeQuery();
+            
+             if (rs.next()) price = rs.getString("price"); // found
+            
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return null;
+        } finally {
+            Database.close(con);
+        }   
+    return price;
+    }
+    
 }

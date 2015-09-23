@@ -6,17 +6,17 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Tickets.findAll", query = "SELECT t FROM Tickets t"),
     @NamedQuery(name = "Tickets.findByIdTicket", query = "SELECT t FROM Tickets t WHERE t.idTicket = :idTicket"),
+    @NamedQuery(name = "Tickets.findByStatus", query = "SELECT t FROM Tickets t WHERE t.status = :status"),
     @NamedQuery(name = "Tickets.findByDateBuy", query = "SELECT t FROM Tickets t WHERE t.dateBuy = :dateBuy"),
     @NamedQuery(name = "Tickets.findByDateStart", query = "SELECT t FROM Tickets t WHERE t.dateStart = :dateStart"),
     @NamedQuery(name = "Tickets.findByIdPlan", query = "SELECT t FROM Tickets t WHERE t.idPlan = :idPlan"),
@@ -37,20 +38,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Tickets implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idTicket")
     private Long idTicket;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "Date_Buy")
-    @Temporal(TemporalType.DATE)
-    private Date dateBuy;
+    @Column(name = "Status")
+    private int status;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "Date_Buy")
+    private String dateBuy;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "Date_Start")
-    @Temporal(TemporalType.DATE)
-    private Date dateStart;
+    private String dateStart;
     @Basic(optional = false)
     @NotNull
     @Column(name = "idPlan")
@@ -71,8 +76,9 @@ public class Tickets implements Serializable {
         this.idTicket = idTicket;
     }
 
-    public Tickets(Long idTicket, Date dateBuy, Date dateStart, long idPlan, long idUser, float price) {
+    public Tickets(Long idTicket, int status, String dateBuy, String dateStart, long idPlan, long idUser, float price) {
         this.idTicket = idTicket;
+        this.status = status;
         this.dateBuy = dateBuy;
         this.dateStart = dateStart;
         this.idPlan = idPlan;
@@ -88,19 +94,27 @@ public class Tickets implements Serializable {
         this.idTicket = idTicket;
     }
 
-    public Date getDateBuy() {
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getDateBuy() {
         return dateBuy;
     }
 
-    public void setDateBuy(Date dateBuy) {
+    public void setDateBuy(String dateBuy) {
         this.dateBuy = dateBuy;
     }
 
-    public Date getDateStart() {
+    public String getDateStart() {
         return dateStart;
     }
 
-    public void setDateStart(Date dateStart) {
+    public void setDateStart(String dateStart) {
         this.dateStart = dateStart;
     }
 

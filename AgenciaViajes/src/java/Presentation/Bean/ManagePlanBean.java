@@ -68,6 +68,10 @@ public class ManagePlanBean {
         HotelDAO hotelDAO = new HotelDAO();
         return hotelDAO.getHotelName(hotelId);
     }
+    public String getHotelCost(long hotelId){
+        HotelDAO hotelDAO = new HotelDAO();
+        return hotelDAO.getHotelCost(hotelId);
+    }
     
     public void eliminatePlan(long planId) throws  IOException, NoSuchAlgorithmException {
         managePlan = new ManagePlan();

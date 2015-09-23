@@ -21,7 +21,7 @@
                      <h:outputText value="Ciudad salida #{manageTicket.plan.departureCity}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
                      <h:outputText value="Ciudad llegada #{manageTicket.plan.arrivalCity}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
                      <h:outputText value="Fecha salida #{manageTicket.plan.departureDate}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
-                     <h:outputText value="Fecha llegada #{manageTicket.plan.returnDate}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
+                     <h:outputText value="Fecha de regreso #{manageTicket.plan.returnDate}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
                      <h:outputText value="Hotel #{manageTicket.plan.hotelId}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
                      <h:outputText value="$Vlr adulto #{manageTicket.plan.baseCostByAdult}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
                      <h:outputText value="$Vlr niño #{manageTicket.plan.baseCostByChild}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
@@ -92,7 +92,7 @@
                           <h3>¿Esta seguro de que desea reservar el plan?</h3>
                       </div>
                       <div class="modal-footer">
-                          <h:commandButton action="#{manageTicket.createTicket()}" value="ACEPTAR &raquo;" style="margin-right: 15%;" class="btn btn-success btn-sm"/><button type="button" style="margin-right: 15%;" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                          <h:commandButton action="#{manageTicket.createReservation()}" value="ACEPTAR &raquo;" style="margin-right: 15%;" class="btn btn-success btn-sm"/><button type="button" style="margin-right: 15%;" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                       </div>
                     </div>
                   </div>
