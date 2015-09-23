@@ -143,5 +143,34 @@ public Hotel persist(Hotel hotel){
         }   
     return price;
     }
+
+    public Hotel getHotel(long hotelId) {
+    Connection con = null;
+        PreparedStatement ps = null;
+        Hotel hotel = new Hotel();
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from hotel where hotelId= ?");
+            ps.setString(1,String.valueOf(hotelId));
+            ResultSet rs = ps.executeQuery();
+            
+             if (rs.next()){
+                 hotel.setName(rs.getString("name"));
+                 hotel.setHotelId(hotelId);
+                 hotel.setCategory(rs.getString("category"));
+                 hotel.setLocation(rs.getString("location"));
+                 hotel.setPrice(rs.getFloat("price"));            
+             } // found
+            
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return null;
+        } finally {
+            Database.close(con);
+        }   
+    return hotel;
+    
+    }
     
 }

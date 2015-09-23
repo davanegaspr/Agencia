@@ -19,6 +19,11 @@ import javax.servlet.http.HttpSession;
  */
 public class ManageHotel {
 
+    public static Hotel getHotel(long hotelId) {
+        HotelDAO hotelDAO = new HotelDAO();
+        return hotelDAO.getHotel(hotelId);
+    }
+
     public ArrayList<Hotel> getHotels() {        
         HotelDAO hotelDAO = new HotelDAO();
         return hotelDAO.getHotels();

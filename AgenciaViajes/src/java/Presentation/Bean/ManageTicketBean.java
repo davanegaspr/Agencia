@@ -6,7 +6,9 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.ManageTicket;
+import BusinessLogic.Controller.ManageHotel;
 import BusinessLogic.Controller.Util;
+import DataAccess.Entity.Hotel;
 import DataAccess.Entity.Plan;
 import java.io.IOException;
 import static java.lang.Boolean.TRUE;
@@ -21,13 +23,16 @@ import javax.servlet.http.HttpSession;
  */
 @ManagedBean(name="manageTicket")
 @ViewScoped
-public class ManageTicketBean {
+public class ManageTicketBean {    
     private int quantityAdult;
+    private String enoughBalance;
     private int quantityChild;
     ManageTicket manageTicket = new ManageTicket();    
     HttpSession session = Util.getSession(); 
-    private String ticket;
     private Plan plan = manageTicket.getPlan((long)session.getAttribute("planIdBuy"));
+    private Hotel hotel = ManageHotel.getHotel((long)plan.getHotelId());
+    
+            //(plan.getBaseCostByAdult() * (int)session.getAttribute("quantityAdult")) + (plan.getBaseCostByChild() * (int)session.getAttribute("quantityChild")) + (hotel.getPrice() * ((int)session.getAttribute("quantityChild") + (int)session.getAttribute("quantityAdult")));
 
     /**
      * Creates a new instance of ManageTicketBean
@@ -36,21 +41,26 @@ public class ManageTicketBean {
     } 
     
     public void createTicket() throws  IOException, NoSuchAlgorithmException {
-        manageTicket.createTicket((long)session.getAttribute("userId"),(long)session.getAttribute("planIdBuy"), getQuantityAdult(), getQuantityChild(), 1);  
-        setTicket(manageTicket.getPrice());
-    }
-    
+        if(manageTicket.balance(plan, hotel) == true) {
+            setEnoughBalance("true");
+            manageTicket.createTicket((long)session.getAttribute("userId"),plan, getHotel(), (int)session.getAttribute("quantityAdult"), (int)session.getAttribute("quantityChild"), 1);
+        }
+        else {
+            setEnoughBalance("false");
+        }
+    }    
     public void createReservation() throws  IOException, NoSuchAlgorithmException {
-        manageTicket.createTicket((long)session.getAttribute("userId"),(long)session.getAttribute("planIdBuy"), getQuantityAdult(), getQuantityChild(), 0);    
-        setTicket(manageTicket.getPrice());
+        manageTicket.createTicket((long)session.getAttribute("userId"),plan, getHotel(), (int)session.getAttribute("quantityAdult"), (int)session.getAttribute("quantityChild"), 0);
     }
-
-    public String getTicket() {
-        return ticket;
+    public void enoughBalance(){    
     }
-
-    public void setTicket(String ticket) {
-        this.ticket = ticket;
+    public void renderShowTicket(){
+        setQuantityChild(getQuantityChild());        
+        setQuantityAdult(getQuantityAdult());
+        session.setAttribute("quantityChild", getQuantityChild());
+        session.setAttribute("quantityAdult", getQuantityAdult());
+        ManageTicket mt = new ManageTicket();        
+        mt.renderShowTicket();
     }
     
     /**
@@ -93,6 +103,34 @@ public class ManageTicketBean {
      */
     public void setQuantityChild(int quantityChild) {
         this.quantityChild = quantityChild;
+    }
+
+    /**
+     * @return the hotel
+     */
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    /**
+     * @param hotel the hotel to set
+     */
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
+    /**
+     * @return the enoughBalance
+     */
+    public String getEnoughBalance() {
+        return enoughBalance;
+    }
+
+    /**
+     * @param enoughBalance the enoughBalance to set
+     */
+    public void setEnoughBalance(String enoughBalance) {
+        this.enoughBalance = enoughBalance;
     }
    
 }
