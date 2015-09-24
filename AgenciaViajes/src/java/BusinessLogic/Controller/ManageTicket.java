@@ -14,6 +14,7 @@ import DataAccess.Entity.Tickets;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpSession;
  * @author Richar
  */
 public class ManageTicket {
+    
     public Plan getPlan(long planId) {
         TicketDAO ticketDAO = new TicketDAO();
         return ticketDAO.getPlan(planId);  
@@ -55,7 +57,11 @@ public class ManageTicket {
             
         }
         }
-       
+    public boolean eliminateTicket(Long ticketId) {
+        TicketDAO ticketDAO = new TicketDAO();
+        return ticketDAO.eliminateTicket(ticketId);
+    }
+    
     public void renderShowTicket(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest origRequest = (HttpServletRequest)context.getExternalContext().getRequest();
@@ -77,6 +83,16 @@ public class ManageTicket {
             } catch (IOException e) {
             } 
     }
+    public void renderTicketsList(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest origRequest = (HttpServletRequest)context.getExternalContext().getRequest();
+        String contextPath = origRequest.getContextPath();
+        try {
+            FacesContext.getCurrentInstance().getExternalContext()
+            .redirect(contextPath  + "/faces/showTicketUser.xhtml");
+            } catch (IOException e) {
+            } 
+    }
 
     public boolean balance(Plan plan, Hotel hotel) {
         HttpSession session = Util.getSession(); 
@@ -87,6 +103,16 @@ public class ManageTicket {
          double balance = (double)session.getAttribute("balance");
          return balance >= price;
     }
+
+    public ArrayList<Tickets> getTickets(long userId, int status) {
+        TicketDAO ticketDAO = new TicketDAO();
+        return ticketDAO.getTicketsList(userId, status);
+    }
+
+    /**
+     * @return the ticketsListList
+     */
+
 
     
 

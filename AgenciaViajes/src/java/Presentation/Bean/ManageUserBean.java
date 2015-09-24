@@ -5,8 +5,10 @@
  */
 package Presentation.Bean;
 
+import BusinessLogic.Controller.ManageTicket;
 import BusinessLogic.Controller.ManageUser;
 import BusinessLogic.Controller.Util;
+import DataAccess.Entity.Tickets;
 import DataAccess.Entity.User;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -40,6 +42,9 @@ public class ManageUserBean {
     private String document;
     ManageUser manageUser = new ManageUser();
     private ArrayList<User> usersList = manageUser.getUsers();
+    ManageTicket mt = new ManageTicket();
+    HttpSession session = Util.getSession(); 
+    private ArrayList<Tickets> ticketsList = mt.getTickets((long)session.getAttribute("userId"), 1);
     
    /**
      * Creates a new instance of ManageUserBean
@@ -145,6 +150,11 @@ public class ManageUserBean {
             setMessage("El número de celular no es valido");            
         }
     
+    }
+    
+    public void eliminateTicket(Long ticketId) throws  IOException, NoSuchAlgorithmException {
+       mt.eliminateTicket(ticketId);
+       mt.renderTicketsList();
     }
     
     /**
@@ -369,6 +379,20 @@ public class ManageUserBean {
      */
     public void setDocument(String document) {
         this.document = document;
+    }
+
+    /**
+     * @return the ticketsList
+     */
+    public ArrayList<Tickets> getTicketsList() {
+        return ticketsList;
+    }
+
+    /**
+     * @param ticketsList the ticketsList to set
+     */
+    public void setTicketsList(ArrayList<Tickets> ticketsList) {
+        this.ticketsList = ticketsList;
     }
    
 }

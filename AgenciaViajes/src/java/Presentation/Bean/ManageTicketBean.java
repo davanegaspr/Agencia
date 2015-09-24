@@ -10,9 +10,11 @@ import BusinessLogic.Controller.ManageHotel;
 import BusinessLogic.Controller.Util;
 import DataAccess.Entity.Hotel;
 import DataAccess.Entity.Plan;
+import DataAccess.Entity.Tickets;
 import java.io.IOException;
 import static java.lang.Boolean.TRUE;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.HttpSession;
@@ -31,6 +33,8 @@ public class ManageTicketBean {
     HttpSession session = Util.getSession(); 
     private Plan plan = manageTicket.getPlan((long)session.getAttribute("planIdBuy"));
     private Hotel hotel = ManageHotel.getHotel((long)plan.getHotelId());
+    ManageTicket mt = new ManageTicket();
+    private ArrayList<Tickets> ticketsList = mt.getTickets((long)session.getAttribute("userId"), 1);
     
             //(plan.getBaseCostByAdult() * (int)session.getAttribute("quantityAdult")) + (plan.getBaseCostByChild() * (int)session.getAttribute("quantityChild")) + (hotel.getPrice() * ((int)session.getAttribute("quantityChild") + (int)session.getAttribute("quantityAdult")));
 
@@ -38,7 +42,7 @@ public class ManageTicketBean {
      * Creates a new instance of ManageTicketBean
      */
     public ManageTicketBean() {
-    } 
+    }    
     
     public void createTicket() throws  IOException, NoSuchAlgorithmException {
         if(manageTicket.balance(plan, hotel) == true) {
@@ -131,6 +135,20 @@ public class ManageTicketBean {
      */
     public void setEnoughBalance(String enoughBalance) {
         this.enoughBalance = enoughBalance;
+    }
+
+    /**
+     * @return the ticketsListList
+     */
+    public ArrayList<Tickets> getTicketsList() {
+        return ticketsList;
+    }
+
+    /**
+     * @param ticketsList the ticketsListList to set
+     */
+    public void setTicketsList(ArrayList<Tickets> ticketsList) {
+        this.ticketsList = ticketsList;
     }
    
 }

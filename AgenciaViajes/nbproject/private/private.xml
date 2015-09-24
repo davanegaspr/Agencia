@@ -3,18 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/USER/Documents/GitHub/AgenciaDeViajesGrupo6/AgenciaViajes/web/index.xhtml</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AgenciaDeViajesGrupo6/AgenciaViajes/web/showPlans.xhtml</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AgenciaDeViajesGrupo6/AgenciaViajes/web/signup.xhtml</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AgenciaDeViajesGrupo6/AgenciaViajes/src/java/BusinessLogic/Controller/ManageUser.java</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AgenciaDeViajesGrupo6/AgenciaViajes/web/viewTicket.xhtml</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AgenciaDeViajesGrupo6/AgenciaViajes/src/java/DataAccess/DAO/UserDAO.java</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AgenciaDeViajesGrupo6/AgenciaViajes/src/java/Presentation/Bean/ManageTicketBean.java</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AgenciaDeViajesGrupo6/AgenciaViajes/src/java/DataAccess/DAO/PlanDAO.java</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AgenciaDeViajesGrupo6/AgenciaViajes/web/ShowTicket.xhtml</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AgenciaDeViajesGrupo6/AgenciaViajes/src/java/BusinessLogic/Controller/ManageTicket.java</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AgenciaDeViajesGrupo6/AgenciaViajes/src/java/DataAccess/DAO/TicketDAO.java</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AgenciaDeViajesGrupo6/AgenciaViajes/src/java/DataAccess/Entity/Tickets.java</file>
+            <file>file:/C:/Users/Richar/Documents/NetBeansProjects/Agencia_viajes/AgenciaViajes/web/header.xhtml</file>
+            <file>file:/C:/Users/Richar/Documents/NetBeansProjects/Agencia_viajes/AgenciaViajes/src/java/Presentation/Bean/ManageUserBean.java</file>
+            <file>file:/C:/Users/Richar/Documents/NetBeansProjects/Agencia_viajes/AgenciaViajes/src/java/DataAccess/DAO/TicketDAO.java</file>
+            <file>file:/C:/Users/Richar/Documents/NetBeansProjects/Agencia_viajes/AgenciaViajes/src/java/Presentation/Bean/ManageTicketBean.java</file>
+            <file>file:/C:/Users/Richar/Documents/NetBeansProjects/Agencia_viajes/AgenciaViajes/src/java/BusinessLogic/Controller/ManageTicket.java</file>
         </group>
     </open-files>
 </project-private>

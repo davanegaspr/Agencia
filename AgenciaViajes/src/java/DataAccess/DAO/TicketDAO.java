@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -68,6 +69,49 @@ public class TicketDAO {
             Database.close(con);
         } 
         return plan;
+    }
+
+    public ArrayList<Tickets> getTicketsList(long userId, int status) {
+        
+        Connection con = null;
+        PreparedStatement ps = null;
+        ArrayList<Tickets> ticketsList = new ArrayList<>();
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from tickets WHERE idUser = ? and Status= ?");
+            ps.setString(1, String.valueOf(userId));
+            ps.setInt(2,status);            
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                ticketsList.add(new Tickets(rs.getLong("idTicket"),status, rs.getString("Date_Buy"), rs.getString("Date_Start"), rs.getLong("idPlan"),userId, rs.getFloat("price")));              
+            }          
+        } catch (Exception ex) {
+            System.out.println("Error in login22222() -->" + ex.getMessage());
+        } finally {
+            Database.close(con);
+        } 
+        return ticketsList;
+   
+    }
+    
+    public boolean eliminateTicket(Long ticketId) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "DELETE FROM tickets WHERE idTicket = ?");          
+            ps.setString(1, String.valueOf(ticketId));
+            int rs = ps.executeUpdate();
+                return rs==1;  
+                
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return false;
+        } finally {
+            Database.close(con);
+        } 
     }
 
     

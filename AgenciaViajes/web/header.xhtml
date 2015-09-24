@@ -42,7 +42,10 @@
                       <div class="modal-body">
                           <h:commandLink action="viewProfile" value="Ver mi perfil" style="text-decoration:none"></h:commandLink><br/>
                           <h:commandLink action="updateProfile" value="Actualizar mi información" style="text-decoration:none"></h:commandLink><br/>
-                          <h:commandLink action="#" value="Ver mis planes" style="text-decoration:none"></h:commandLink><br/>
+                          <h:commandLink action="showTicketUser" value="Ver mis planes" style="text-decoration:none"></h:commandLink><br/>
+                          <c:if test="${role == 'VIP'}" >
+                          <h:commandLink action="showReservations" value="Ver mis Reservas" style="text-decoration:none"></h:commandLink><br/>                          
+                          </c:if>
                           <h:commandLink action="setBalance" value="Agregar saldo" style="text-decoration:none"></h:commandLink><br/>
                           <h:commandLink action="updatePassword" value="Cambiar contraseña" style="text-decoration:none"></h:commandLink><br/>
                           <h:commandLink action="#{loginUserBean.logoutUser()}" value="Cerrar sesión" style="text-decoration:none"></h:commandLink>                        
