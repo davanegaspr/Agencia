@@ -12,44 +12,44 @@
     </h:head>
     <h:body>
         <ui:include src="/header.xhtml"></ui:include>  
-        <h4><strong><h:outputText value="#{createUserBean.message}" style="margin-top: 30%; margin-left: 35%; color:#fa0000;" /></strong></h4>
+        <h4><strong><h:outputText value="#{createUser.message}" style="margin-top: 30%; margin-left: 35%; color:#fa0000;" /></strong></h4>
         <h:form id="FormAdd" style="margin-left: 35%;" enctype="multipart/form-data">                
             <div class="panel panel-default" style="width: 50%; border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;border-top-left-radius: 2em; border-top-right-radius: 2em;">
                 <div class="panel-heading" style="border-top-left-radius: 2em; border-top-right-radius: 2em;"><strong>Formulario de registro</strong></div>
                 <div class="panel-body">
                 <h:panelGrid columns="2">
                 <h:outputLabel value="Nombre" />
-                <h:inputText value="#{createUserBean.firstname}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px" requiredMessage="Se requiere un nombre"/>
+                <h:inputText value="#{createUser.firstname}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px" requiredMessage="Se requiere un nombre"/>
                 <h:outputLabel value="Apellido"></h:outputLabel>
-                <h:inputText value="#{createUserBean.lastname}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px"  requiredMessage="Se requiere un apellido"/>
+                <h:inputText value="#{createUser.lastname}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px"  requiredMessage="Se requiere un apellido"/>
                 <h:outputLabel value="Correo" />                
-                <h:inputText value="#{createUserBean.email}" required="true" id="email" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un correo" >
+                <h:inputText value="#{createUser.email}" required="true" id="email" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un correo" >
                 </h:inputText>                
                 <h:outputLabel value="Nombre Usuario"></h:outputLabel>
-                <h:inputText value="#{createUserBean.username}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un nombre de usuario">                    
+                <h:inputText value="#{createUser.username}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un nombre de usuario">                    
                 </h:inputText>
                 <h:outputLabel value="Tipo usuario"></h:outputLabel>
-                <h:selectOneMenu id="role" value="#{createUserBean.role}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage=" ">
+                <h:selectOneMenu id="role" value="#{createUser.role}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage=" ">
                     <f:selectItem id="estandar" itemLabel="Estandar" itemValue="Estandar" />
                     <f:selectItem id="vip" itemLabel="VIP" itemValue="VIP" />
                     <f:selectItem id="admin" itemLabel="Admin" itemValue="Admin" />
                 </h:selectOneMenu>
                 <h:outputLabel value="Celular"></h:outputLabel>
-                <h:inputText value="#{createUserBean.phone}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un celular"/>
+                <h:inputText value="#{createUser.phone}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere un celular"/>
                 <h:outputLabel value="Tipo documento"></h:outputLabel>
-                <h:selectOneMenu id="documentType" value="#{createUserBean.documentType}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage=" ">
+                <h:selectOneMenu id="documentType" value="#{createUser.documentType}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage=" ">
                     <f:selectItem id="cc" itemLabel="CC" itemValue="CC" />
                     <f:selectItem id="ce" itemLabel="Cedula extranjeria" itemValue="Cedula extranjeria" />
                 </h:selectOneMenu>
                 <h:outputLabel value="Documento"></h:outputLabel>
-                <h:inputText value="#{createUserBean.document}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere numero de documento"/> 
+                <h:inputText value="#{createUser.document}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere numero de documento"/> 
                 <h:outputLabel value="Contraseña"></h:outputLabel>
-                <h:inputSecret value="#{createUserBean.password}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere una contraseña"/>
+                <h:inputSecret value="#{createUser.password}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere una contraseña"/>
                 <h:outputLabel value="Confirmar contraseña"></h:outputLabel>
-                <h:inputSecret value="#{createUserBean.password2}" required="true" style="border-radius: 0; border-bottom-left-radius: 2em; height: 50px; width: 240px;" requiredMessage="Se requiere confirmar constraseña"/>                
+                <h:inputSecret value="#{createUser.password2}" required="true" style="border-radius: 0; border-bottom-left-radius: 2em; height: 50px; width: 240px;" requiredMessage="Se requiere confirmar constraseña"/>                
                    
             </h:panelGrid>                    
-            <h:commandButton action="#{createUserBean.createUser()}" value="ACEPTAR &raquo;" style="margin-left: 40%;" class="btn btn-success btn-sm"/>
+            <h:commandButton action="#{createUser.createUser()}" value="ACEPTAR &raquo;" style="margin-left: 40%;" class="btn btn-success btn-sm"/>
             <h:commandButton type="reset" class="btn btn-default btn-sm" value="LIMPIAR" ></h:commandButton>  
             
             </div>

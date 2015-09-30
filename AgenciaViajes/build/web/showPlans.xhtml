@@ -66,13 +66,13 @@
             <td>#{plan.departureDate}</td>
             <td>#{plan.returnDate}</td>
             <c:if test="${role == 'Admin'}" >
-            <td>#{managePlan.getHotelName(plan.hotelId)}</td>
+                <td>#{managePlan.getHotelName(plan.planId)}</td>
             </c:if>
             <c:if test="${role == 'Estandar' or role == 'VIP'}">
-            <td>#{managePlan.getHotelName(plan.hotelId)}</td>
+                <td>#{managePlan.getHotelName(plan.planId)}</td>
             </c:if>
             <c:if test="${email == null}">
-            <td>#{managePlan.getHotelName(plan.hotelId)}</td>
+                <td>#{managePlan.getHotelName(plan.planId)}</td>
             </c:if>
             <td>#{plan.modeTransport}</td>
             <td>#{plan.baseCostByAdult}</td>

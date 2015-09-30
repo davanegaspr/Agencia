@@ -8,6 +8,8 @@ package Presentation.Bean;
 import BusinessLogic.Controller.ManageTicket;
 import BusinessLogic.Controller.ManageHotel;
 import BusinessLogic.Controller.Util;
+import DataAccess.DAO.HotelDAO;
+import DataAccess.DAO.UserDAO;
 import DataAccess.Entity.Hotel;
 import DataAccess.Entity.Plan;
 import DataAccess.Entity.Tickets;
@@ -31,10 +33,10 @@ public class ManageTicketBean {
     private int quantityChild;
     ManageTicket manageTicket = new ManageTicket();    
     HttpSession session = Util.getSession(); 
+    HotelDAO hotelDAO = new HotelDAO();
     private Plan plan = manageTicket.getPlan((long)session.getAttribute("planIdBuy"));
-    private Hotel hotel = ManageHotel.getHotel((long)plan.getHotelId());
+    private Hotel hotel = hotelDAO.getHotel2(plan.getPlanId());
     ManageTicket mt = new ManageTicket();
-    private ArrayList<Tickets> ticketsList = mt.getTickets((long)session.getAttribute("userId"), 1);
     
             //(plan.getBaseCostByAdult() * (int)session.getAttribute("quantityAdult")) + (plan.getBaseCostByChild() * (int)session.getAttribute("quantityChild")) + (hotel.getPrice() * ((int)session.getAttribute("quantityChild") + (int)session.getAttribute("quantityAdult")));
 
@@ -137,18 +139,5 @@ public class ManageTicketBean {
         this.enoughBalance = enoughBalance;
     }
 
-    /**
-     * @return the ticketsListList
-     */
-    public ArrayList<Tickets> getTicketsList() {
-        return ticketsList;
-    }
-
-    /**
-     * @param ticketsList the ticketsListList to set
-     */
-    public void setTicketsList(ArrayList<Tickets> ticketsList) {
-        this.ticketsList = ticketsList;
-    }
    
 }

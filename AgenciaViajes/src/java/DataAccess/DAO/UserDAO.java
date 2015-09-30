@@ -120,6 +120,7 @@ public class UserDAO {
                 
             }
             else {
+                System.out.println("No se pudo hacer la asignacion");
             }
         } catch (Exception ex) {
             System.out.println("Error in login() -->" + ex.getMessage());
@@ -259,6 +260,69 @@ public class UserDAO {
         } 
         
     }
+
+    public User getUser(long userId) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        User user = new User();
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from user where userId = ?");  
+            ps.setString(1, String.valueOf(userId));
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) // found
+            {
+                user.setUserId(userId);
+                user.setFirstname(rs.getString("firstname"));
+                user.setLastname(rs.getString("lastname"));
+                user.setEmail(rs.getString("email"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setDocumentType(rs.getString("documentType"));
+                user.setDocument(rs.getString("document"));
+                user.setPhone(rs.getString("phone"));
+                user.setRole(rs.getString("role"));
+                user.setBalance(rs.getDouble("balance"));      
+            }
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return null;
+        } finally {
+            Database.close(con);
+        }   
+        return user;    
+    }
+
+    public void insertUser(User user) {       
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "INSERT INTO agencia.`user` (balance, document, `documentType`, email, firstname, lastname, password, phone, `role`, username)"
+                    + "VALUES (0.0, '1234567890', 'CC', 'u@mail.com', 'user', 'user', '9b8769a4a742959a2d0298c36fb70623f2dfacda8436237df08d8dfd5b37374c', '0123456789', 'Estandar', 'user')");              
+          /*  ps.setString(5,user.getFirstname());
+            ps.setString(6,user.getLastname());
+            ps.setString(9,user.getRole());
+            ps.setString(8,user.getPhone());
+            ps.setString(10,user.getUsername());
+            ps.setString(4,user.getEmail());
+            ps.setLong(1, (long)0.0);
+            ps.setString(3,user.getDocumentType());
+            ps.setString(2, user.getDocument());
+            ps.setString(7,user.getPassword());*/
+            int i = ps.executeUpdate();
+            if(i==1) System.out.println("Agregadooooo");
+            else System.out.println("No agregadooooooo");
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+        } finally {
+            Database.close(con);
+        }
+        
+    }
+    
     
     
 

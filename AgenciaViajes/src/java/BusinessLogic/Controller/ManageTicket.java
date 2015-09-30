@@ -35,18 +35,18 @@ public class ManageTicket {
         
         HttpSession session = Util.getSession(); 
         TicketDAO ticketDAO = new TicketDAO();
-        Tickets ticket = new Tickets();
-        UserDAO userDAO = new UserDAO();        
+        UserDAO userDAO = new UserDAO();
+        Tickets ticket = new Tickets();      
         double price = (plan.getBaseCostByAdult() * quantityAdult) + (plan.getBaseCostByChild() * quantityChild) + hotel.getPrice()*(quantityAdult + quantityChild);
         double newBalance = (double)session.getAttribute("balance") - price;
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
         Date date = new Date();                
-        ticket.setIdPlan(plan.getPlanId());
-        ticket.setIdUser(userId);
+        ticket.setPlanplanId(plan);
+        ticket.setUseruserId(userDAO.getUser(userId));
         ticket.setDateStart(plan.getDepartureDate());
         ticket.setDateBuy(dateFormat.format(date));
         ticket.setPrice((float)price);
-        ticket.setStatus(status);
+        ticket.setStatus((short)status);
         userDAO.updateBalance(userId,newBalance);
         session.setAttribute("total", price);
         Tickets ticketE = ticketDAO.persist(ticket);

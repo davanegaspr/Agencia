@@ -6,7 +6,9 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,10 +16,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -36,9 +40,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Hotel implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     //@NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hotelId")
     private Long hotelId;
     @Basic(optional = false)
@@ -60,6 +64,8 @@ public class Hotel implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "location")
     private String location;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "hotelhotelId")
+    private Collection<Plan> planCollection;
 
     public Hotel() {
     }
@@ -114,6 +120,15 @@ public class Hotel implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    @XmlTransient
+    public Collection<Plan> getPlanCollection() {
+        return planCollection;
+    }
+
+    public void setPlanCollection(Collection<Plan> planCollection) {
+        this.planCollection = planCollection;
     }
 
     @Override

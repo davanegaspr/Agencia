@@ -100,18 +100,26 @@ public Hotel persist(Hotel hotel){
         }
     }
     
-    public String getHotelName(long hotelId) {
+    public String getHotelName(long planId) {
         Connection con = null;
         PreparedStatement ps = null;
         String name = null;
         try {
             con = Database.getConnection();
             ps = con.prepareStatement(
-                    "select name from hotel where hotelId= ?");
-            ps.setString(1,String.valueOf(hotelId));
+                    "select * from plan where planId= ?");
+            ps.setString(1,String.valueOf(planId));
             ResultSet rs = ps.executeQuery();
             
-             if (rs.next()) name = rs.getString("name"); // found
+             if (rs.next()){ 
+                 
+                 ps = con.prepareStatement(
+                    "select * from hotel where hotelId= ?");
+                ps.setString(1,String.valueOf(rs.getString("hotel_hotelId")));
+                ResultSet rs2 = ps.executeQuery();       
+                if (rs2.next()) name = rs2.getString("name");      
+             
+             } // found
             
         } catch (Exception ex) {
             System.out.println("Error in login() -->" + ex.getMessage());
@@ -122,18 +130,30 @@ public Hotel persist(Hotel hotel){
     return name;
     }
     
-    public String getHotelCost(long hotelId) {
+    public String getHotelCost(long planId) {
+        
         Connection con = null;
         PreparedStatement ps = null;
         String price = null;
         try {
             con = Database.getConnection();
             ps = con.prepareStatement(
-                    "select price from hotel where hotelId= ?");
-            ps.setString(1,String.valueOf(hotelId));
+                    "select * from plan where planId= ?");
+            ps.setString(1,String.valueOf(planId));
             ResultSet rs = ps.executeQuery();
             
-             if (rs.next()) price = rs.getString("price"); // found
+             if (rs.next()){ 
+                 
+                 ps = con.prepareStatement(
+                    "select * from hotel where hotelId= ?");
+                ps.setString(1,String.valueOf(rs.getString("hotel_hotelId")));
+                ResultSet rs2 = ps.executeQuery();      
+                
+                if (rs2.next()){ 
+                    System.out.println("preciooo" + rs2.getString("price"));
+                    price = rs2.getString("price");    }  
+             
+             } // found
             
         } catch (Exception ex) {
             System.out.println("Error in login() -->" + ex.getMessage());
@@ -165,6 +185,41 @@ public Hotel persist(Hotel hotel){
             
         } catch (Exception ex) {
             System.out.println("Error in login() -->" + ex.getMessage());
+            return null;
+        } finally {
+            Database.close(con);
+        }   
+    return hotel;
+    
+    }
+    
+    public Hotel getHotel2(long planId) {
+    Connection con = null;
+        PreparedStatement ps = null;
+        Hotel hotel = new Hotel();
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from plan where planId= ?");
+            ps.setString(1,String.valueOf(planId));
+            ResultSet rs = ps.executeQuery();
+            
+             if (rs.next()){
+                 ps = con.prepareStatement(
+                    "select * from hotel where hotelId= ?");
+                 ps.setString(1,String.valueOf(rs.getString("hotel_hotelId")));
+                 ResultSet rs2 = ps.executeQuery();
+                 if(rs2.next()){
+                 hotel.setName(rs2.getString("name"));
+                 hotel.setHotelId(rs2.getLong("hotelId"));
+                 hotel.setCategory(rs2.getString("category"));
+                 hotel.setLocation(rs2.getString("location"));
+                 hotel.setPrice(rs2.getFloat("price"));            
+             }
+             }// found
+            
+        } catch (Exception ex) {
+            System.out.println("Error in hotel() -->" + ex.getMessage());
             return null;
         } finally {
             Database.close(con);

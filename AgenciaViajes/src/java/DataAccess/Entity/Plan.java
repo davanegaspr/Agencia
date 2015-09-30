@@ -6,21 +6,24 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,13 +42,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Plan.findByReturnDate", query = "SELECT p FROM Plan p WHERE p.returnDate = :returnDate"),
     @NamedQuery(name = "Plan.findByModeTransport", query = "SELECT p FROM Plan p WHERE p.modeTransport = :modeTransport"),
     @NamedQuery(name = "Plan.findByBaseCostByAdult", query = "SELECT p FROM Plan p WHERE p.baseCostByAdult = :baseCostByAdult"),
-    @NamedQuery(name = "Plan.findByBaseCostByChild", query = "SELECT p FROM Plan p WHERE p.baseCostByChild = :baseCostByChild"),
-    @NamedQuery(name = "Plan.findByHotelId", query = "SELECT p FROM Plan p WHERE p.hotelId = :hotelId")})
+    @NamedQuery(name = "Plan.findByBaseCostByChild", query = "SELECT p FROM Plan p WHERE p.baseCostByChild = :baseCostByChild")})
 public class Plan implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    //@NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "planId")
     private Long planId;
     @Basic(optional = false)
@@ -65,10 +68,12 @@ public class Plan implements Serializable {
     private String arrivalCity;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "departureDate")
     private String departureDate;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "returnDate")
     private String returnDate;
     @Basic(optional = false)
@@ -84,10 +89,11 @@ public class Plan implements Serializable {
     @NotNull
     @Column(name = "baseCostByChild")
     private double baseCostByChild;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "hotelId")
-    private long hotelId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "planplanId")
+    private Collection<Tickets> ticketsCollection;
+    @JoinColumn(name = "hotel_hotelId", referencedColumnName = "hotelId")
+    @ManyToOne(optional = false)
+    private Hotel hotelhotelId;
 
     public Plan() {
     }
@@ -96,7 +102,7 @@ public class Plan implements Serializable {
         this.planId = planId;
     }
 
-    public Plan(Long planId, String name, String departureCity, String arrivalCity, String departureDate, String returnDate, String modeTransport, double baseCostByAdult, double baseCostByChild, long hotelId) {
+    public Plan(Long planId, String name, String departureCity, String arrivalCity, String departureDate, String returnDate, String modeTransport, double baseCostByAdult, double baseCostByChild) {
         this.planId = planId;
         this.name = name;
         this.departureCity = departureCity;
@@ -106,7 +112,6 @@ public class Plan implements Serializable {
         this.modeTransport = modeTransport;
         this.baseCostByAdult = baseCostByAdult;
         this.baseCostByChild = baseCostByChild;
-        this.hotelId = hotelId;
     }
 
     public Long getPlanId() {
@@ -181,12 +186,21 @@ public class Plan implements Serializable {
         this.baseCostByChild = baseCostByChild;
     }
 
-    public long getHotelId() {
-        return hotelId;
+    @XmlTransient
+    public Collection<Tickets> getTicketsCollection() {
+        return ticketsCollection;
     }
 
-    public void setHotelId(long hotelId) {
-        this.hotelId = hotelId;
+    public void setTicketsCollection(Collection<Tickets> ticketsCollection) {
+        this.ticketsCollection = ticketsCollection;
+    }
+
+    public Hotel getHotelhotelId() {
+        return hotelhotelId;
+    }
+
+    public void setHotelhotelId(Hotel hotelhotelId) {
+        this.hotelhotelId = hotelhotelId;
     }
 
     @Override

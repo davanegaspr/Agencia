@@ -145,9 +145,14 @@ public class ManageUser implements Serializable {
     }
     public boolean login(String email, String password) throws SQLException {
         String passwordHash = sha256(password);
-        boolean result = UserDAO.login(email, passwordHash);        
-        UserDAO.query(email);       
-        return result;      
+        boolean result = UserDAO.login(email, passwordHash);  
+        if(result){
+            UserDAO.query(email);       
+            return result;  
+        }
+        else{
+        return result;
+        }
     } 
     public void logout() {
         HttpSession session = Util.getSession();

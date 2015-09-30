@@ -7,6 +7,7 @@ package DataAccess.DAO;
 
 import DataAccess.Entity.Plan;
 import DataAccess.Entity.Tickets;
+import DataAccess.Entity.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -61,7 +62,6 @@ public class TicketDAO {
                 plan.setModeTransport(rs.getString("modeTransport"));
                 plan.setBaseCostByAdult(rs.getDouble("baseCostByAdult"));
                 plan.setBaseCostByChild(rs.getDouble("baseCostByChild"));
-                plan.setHotelId(rs.getLong("hotelId"));           
             }          
         } catch (Exception ex) {
             System.out.println("Error in login() -->" + ex.getMessage());
@@ -72,19 +72,23 @@ public class TicketDAO {
     }
 
     public ArrayList<Tickets> getTicketsList(long userId, int status) {
-        
+        PlanDAO p = new PlanDAO();
+        UserDAO u = new UserDAO();
         Connection con = null;
         PreparedStatement ps = null;
         ArrayList<Tickets> ticketsList = new ArrayList<>();
         try {
             con = Database.getConnection();
             ps = con.prepareStatement(
-                    "select * from tickets WHERE idUser = ? and Status= ?");
+                    "select * from tickets WHERE user_userId = ? and Status= ?");
             ps.setString(1, String.valueOf(userId));
             ps.setInt(2,status);            
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                ticketsList.add(new Tickets(rs.getLong("idTicket"),status, rs.getString("Date_Buy"), rs.getString("Date_Start"), rs.getLong("idPlan"),userId, rs.getFloat("price")));              
+                Tickets t = new Tickets(rs.getLong("idTicket"),(short)status, rs.getString("Date_Buy"), rs.getString("Date_Start"), rs.getFloat("price"));              
+                t.setPlanplanId(p.getPlan(rs.getLong("plan_planId")));
+                t.setUseruserId(u.getUser(userId));
+                ticketsList.add(t);
             }          
         } catch (Exception ex) {
             System.out.println("Error in login22222() -->" + ex.getMessage());

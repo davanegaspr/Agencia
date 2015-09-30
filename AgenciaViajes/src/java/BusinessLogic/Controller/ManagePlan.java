@@ -5,6 +5,7 @@
  */
 package BusinessLogic.Controller;
 
+import DataAccess.DAO.HotelDAO;
 import DataAccess.DAO.PlanDAO;
 import DataAccess.Entity.Plan;
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class ManagePlan {
 
     public void createPlan(String name, String departureCity, String arrivalCity, String departureDate, String returnDate, String modeTransport, double baseCostByAdult, double baseCostByChild, long hotelId) {
         Plan plan = new Plan();
+        HotelDAO hotelDAO = new HotelDAO();
         plan.setName(name);
         plan.setArrivalCity(arrivalCity);
         plan.setBaseCostByAdult(baseCostByAdult);
@@ -35,7 +37,7 @@ public class ManagePlan {
         plan.setDepartureCity(departureCity);
         plan.setDepartureDate(departureDate);
         plan.setModeTransport(modeTransport);
-        plan.setHotelId(hotelId);
+        plan.setHotelhotelId(hotelDAO.getHotel(hotelId));
         plan.setReturnDate(returnDate);
         PlanDAO planDAO = new PlanDAO();
         Plan planE = planDAO.persist(plan);

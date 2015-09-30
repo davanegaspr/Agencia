@@ -64,9 +64,9 @@ public class ManagePlanBean {
         
     }
     
-    public String getHotelName(long hotelId){    
+    public String getHotelName(long planId){ 
         HotelDAO hotelDAO = new HotelDAO();
-        return hotelDAO.getHotelName(hotelId);
+        return hotelDAO.getHotelName(planId);
     }
     public String getHotelCost(long hotelId){
         HotelDAO hotelDAO = new HotelDAO();

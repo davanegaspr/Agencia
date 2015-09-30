@@ -6,17 +6,17 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.ManageUser;
+import DataAccess.DAO.UserDAO;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.servlet.http.Part;
 
 /**
  *
  * @author Richar
  */
-@ManagedBean
+@ManagedBean(name="createUser")
 @ViewScoped
 public class CreateUserBean {
     private String firstname;
@@ -213,7 +213,7 @@ public class CreateUserBean {
         String pattern = "[\\w\\.-]*[a-zA-Z0-9_]@[\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]";        
         if(manageUser.passwordCheck(getPassword(),getPassword2()) && !manageUser.validateEmail(getEmail()) && !manageUser.validateUsername(getUsername()) && getEmail().matches(pattern) && getPhone().matches("[0-9]{10}")){            
             manageUser.createUser(getUsername(), getFirstname(), getLastname(), manageUser.sha256(getPassword()), getEmail(),getRole(), getPhone(),(long)0, getDocumentType(), getDocument());
-            manageUser.renderIndex();            
+           // manageUser.renderIndex();            
         }else if(manageUser.passwordCheck(getPassword(),getPassword2()) == false){
             setMessage("Las contraseñas no coinciden");
             //manageUser.renderSignup();

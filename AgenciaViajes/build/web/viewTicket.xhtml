@@ -24,7 +24,7 @@
                     <table id="example" class="display table-striped" cellspacing="0" width="100%">
                     
                            <tbody>
-                               <ui:repeat var="plan" value="#{managePlan.plansList}">
+                               <ui:repeat var="plan" value="#{manageTicket.plan}">
                            <tr>
                                <td>Nombre del Plan:</td> 
                                <td>#{plan.name}</td>
@@ -57,9 +57,9 @@
                            </tr>   
                            <tr>
                                <td>Nombre del Hotel:</td> 
-                               <td>#{managePlan.getHotelName(plan.hotelId)}</td>
+                               <td>#{managePlan.getHotelName(plan.planId)}</td>
                                <td>Costo del Hotel</td> 
-                               <td>#{managePlan.getHotelCost(plan.hotelId)}</td>
+                               <td>#{managePlan.getHotelCost(plan.planId)}</td>
                            </tr>                           
                            <tr>
                                <td>Costo por Adulto:</td> 

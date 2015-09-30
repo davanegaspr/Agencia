@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -21,31 +23,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author USER
+ * @author Richar
  */
 @Entity
 @Table(name = "tickets")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tickets.findAll", query = "SELECT t FROM Tickets t"),
-    @NamedQuery(name = "Tickets.findByIdTicket", query = "SELECT t FROM Tickets t WHERE t.idTicket = :idTicket"),
+    @NamedQuery(name = "Tickets.findByIdticket", query = "SELECT t FROM Tickets t WHERE t.idticket = :idticket"),
     @NamedQuery(name = "Tickets.findByStatus", query = "SELECT t FROM Tickets t WHERE t.status = :status"),
     @NamedQuery(name = "Tickets.findByDateBuy", query = "SELECT t FROM Tickets t WHERE t.dateBuy = :dateBuy"),
     @NamedQuery(name = "Tickets.findByDateStart", query = "SELECT t FROM Tickets t WHERE t.dateStart = :dateStart"),
-    @NamedQuery(name = "Tickets.findByIdPlan", query = "SELECT t FROM Tickets t WHERE t.idPlan = :idPlan"),
-    @NamedQuery(name = "Tickets.findByIdUser", query = "SELECT t FROM Tickets t WHERE t.idUser = :idUser"),
     @NamedQuery(name = "Tickets.findByPrice", query = "SELECT t FROM Tickets t WHERE t.price = :price")})
 public class Tickets implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idTicket")
-    private Long idTicket;
+    //@NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idticket")
+    private Long idticket;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Status")
-    private int status;
+    private short status;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -58,47 +59,43 @@ public class Tickets implements Serializable {
     private String dateStart;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idPlan")
-    private long idPlan;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "idUser")
-    private long idUser;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "price")
-    private float price;
+    private double price;
+    @JoinColumn(name = "plan_planId", referencedColumnName = "planId")
+    @ManyToOne(optional = false)
+    private Plan planplanId;
+    @JoinColumn(name = "user_userId", referencedColumnName = "userId")
+    @ManyToOne(optional = false)
+    private User useruserId;
 
     public Tickets() {
     }
 
-    public Tickets(Long idTicket) {
-        this.idTicket = idTicket;
+    public Tickets(Long idticket) {
+        this.idticket = idticket;
     }
 
-    public Tickets(Long idTicket, int status, String dateBuy, String dateStart, long idPlan, long idUser, float price) {
-        this.idTicket = idTicket;
+    public Tickets(Long idticket, short status, String dateBuy, String dateStart, double price) {
+        this.idticket = idticket;
         this.status = status;
         this.dateBuy = dateBuy;
         this.dateStart = dateStart;
-        this.idPlan = idPlan;
-        this.idUser = idUser;
         this.price = price;
     }
 
-    public Long getIdTicket() {
-        return idTicket;
+    public Long getIdticket() {
+        return idticket;
     }
 
-    public void setIdTicket(Long idTicket) {
-        this.idTicket = idTicket;
+    public void setIdticket(Long idticket) {
+        this.idticket = idticket;
     }
 
-    public int getStatus() {
+    public short getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(short status) {
         this.status = status;
     }
 
@@ -118,34 +115,34 @@ public class Tickets implements Serializable {
         this.dateStart = dateStart;
     }
 
-    public long getIdPlan() {
-        return idPlan;
-    }
-
-    public void setIdPlan(long idPlan) {
-        this.idPlan = idPlan;
-    }
-
-    public long getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(long idUser) {
-        this.idUser = idUser;
-    }
-
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Plan getPlanplanId() {
+        return planplanId;
+    }
+
+    public void setPlanplanId(Plan planplanId) {
+        this.planplanId = planplanId;
+    }
+
+    public User getUseruserId() {
+        return useruserId;
+    }
+
+    public void setUseruserId(User useruserId) {
+        this.useruserId = useruserId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idTicket != null ? idTicket.hashCode() : 0);
+        hash += (idticket != null ? idticket.hashCode() : 0);
         return hash;
     }
 
@@ -156,7 +153,7 @@ public class Tickets implements Serializable {
             return false;
         }
         Tickets other = (Tickets) object;
-        if ((this.idTicket == null && other.idTicket != null) || (this.idTicket != null && !this.idTicket.equals(other.idTicket))) {
+        if ((this.idticket == null && other.idticket != null) || (this.idticket != null && !this.idticket.equals(other.idticket))) {
             return false;
         }
         return true;
@@ -164,7 +161,7 @@ public class Tickets implements Serializable {
 
     @Override
     public String toString() {
-        return "DataAccess.Entity.Tickets[ idTicket=" + idTicket + " ]";
+        return "DataAccess.Entity.Tickets[ idticket=" + idticket + " ]";
     }
     
 }

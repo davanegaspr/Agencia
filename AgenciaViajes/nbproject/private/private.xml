@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Richar/Documents/NetBeansProjects/Agencia_viajes/AgenciaViajes/web/header.xhtml</file>
-            <file>file:/C:/Users/Richar/Documents/NetBeansProjects/Agencia_viajes/AgenciaViajes/src/java/Presentation/Bean/ManageUserBean.java</file>
-            <file>file:/C:/Users/Richar/Documents/NetBeansProjects/Agencia_viajes/AgenciaViajes/src/java/DataAccess/DAO/TicketDAO.java</file>
-            <file>file:/C:/Users/Richar/Documents/NetBeansProjects/Agencia_viajes/AgenciaViajes/src/java/Presentation/Bean/ManageTicketBean.java</file>
-            <file>file:/C:/Users/Richar/Documents/NetBeansProjects/Agencia_viajes/AgenciaViajes/src/java/BusinessLogic/Controller/ManageTicket.java</file>
+            <file>file:/C:/Users/Richar/Documents/NetBeansProjects/Agencia_viajes/AgenciaViajes/web/createUser.xhtml</file>
+            <file>file:/C:/Users/Richar/Documents/NetBeansProjects/Agencia_viajes/AgenciaViajes/src/java/BusinessLogic/Controller/ManageUser.java</file>
+            <file>file:/C:/Users/Richar/Documents/NetBeansProjects/Agencia_viajes/AgenciaViajes/src/java/DataAccess/Entity/User.java</file>
+            <file>file:/C:/Users/Richar/Documents/NetBeansProjects/Agencia_viajes/AgenciaViajes/src/conf/persistence.xml</file>
+            <file>file:/C:/Users/Richar/Documents/NetBeansProjects/Agencia_viajes/AgenciaViajes/src/java/DataAccess/DAO/UserDAO.java</file>
         </group>
     </open-files>
 </project-private>

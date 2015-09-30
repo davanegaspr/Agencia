@@ -43,8 +43,8 @@
         <tbody>
             <ui:repeat var="ticket" value="#{manageUser.ticketsList}">
 	<tr>
-            <td>#{ticket.idTicket}</td>
-            <td>#{ticket.idPlan}</td>
+            <td>#{ticket.idticket}</td>
+            <td>${ticket.planplanId.name}</td>
             <td>#{ticket.price}</td>
             <td>#{ticket.dateBuy}</td>  
             <td>
@@ -58,10 +58,10 @@
                         <h4 class="modal-title">Eliminar Usuario</h4>
                       </div>
                       <div class="modal-body">
-                          <h3>¿Esta seguro de que desea eliminar el ticket #{ticket.idTicket}? Recuerde que no hay reembolso de saldo</h3>
+                          <h3>¿Esta seguro de que desea eliminar el ticket #{ticket.idticket}? Recuerde que no hay reembolso de saldo</h3>
                       </div>
                       <div class="modal-footer">
-                          <h:commandButton action="#{manageUser.eliminateTicket(ticket.idTicket)}" value="ACEPTAR &raquo;" style="margin-right: 15%;" class="btn btn-success btn-sm"/><button type="button" style="margin-right: 15%;" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                          <h:commandButton action="#{manageUser.eliminateTicket(ticket.idticket)}" value="ACEPTAR &raquo;" style="margin-right: 15%;" class="btn btn-success btn-sm"/><button type="button" style="margin-right: 15%;" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                       </div>
                     </div>
                   </div>
