@@ -6,6 +6,8 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.ManageUser;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -20,7 +22,8 @@ public class loginUserBean {
     private String email;
     private String password;
     private String message;
-    
+    private String hostName = getHost();
+            
     
 
     /**
@@ -79,5 +82,29 @@ public class loginUserBean {
      */
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    /**
+     * @return the hostName
+     */
+    public String getHostName() {
+            return hostName;
+    }
+
+    /**
+     * @param hostName the hostName to set
+     */
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
+    }
+
+    private String getHost() {
+        String h = null;
+    try {
+        h = InetAddress.getLocalHost().getHostName();        
+        } catch (UnknownHostException e) {
+        // failed;  try alternate means.
+        }
+        return h;
     }
 }
