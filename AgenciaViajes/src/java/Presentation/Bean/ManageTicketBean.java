@@ -6,17 +6,12 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.ManageTicket;
-import BusinessLogic.Controller.ManageHotel;
 import BusinessLogic.Controller.Util;
 import DataAccess.DAO.HotelDAO;
-import DataAccess.DAO.UserDAO;
 import DataAccess.Entity.Hotel;
 import DataAccess.Entity.Plan;
-import DataAccess.Entity.Tickets;
 import java.io.IOException;
-import static java.lang.Boolean.TRUE;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.HttpSession;
