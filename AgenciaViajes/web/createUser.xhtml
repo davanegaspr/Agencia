@@ -19,11 +19,11 @@
         </c:if>
         <c:if test="${role == 'Admin'}">         
         <h4><strong><h:outputText value="#{manageUser.message}" style="margin-top: 30%; margin-left: 35%; color:#fa0000;" /></strong></h4>
-        <h:form id="FormAdd" style="margin-left: 35%;" enctype="multipart/form-data">                
-            <div class="panel panel-default" style="width: 50%; border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;border-top-left-radius: 2em; border-top-right-radius: 2em;">
-                <div class="panel-heading" style="border-top-left-radius: 2em; border-top-right-radius: 2em;"><strong>Formulario de edición de usuario</strong></div>
+       <h:form id="createUserForm" style="margin-left: 35%; margin-top: 0px;">    
+                <div class="panel panel-default" style="width: 50%; border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;border-top-left-radius: 2em; border-top-right-radius: 2em;">
+                <div class="panel-heading" style="border-top-left-radius: 2em; border-top-right-radius: 2em;"><strong>Crear usuario</strong></div>
                 <div class="panel-body">
-                <h:panelGrid columns="2">
+                <h:panelGrid id="createUserPanel" columns="2"> 
                 <h:outputLabel value="Nombre" />
                 <h:inputText value="#{manageUser.firstname}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px" requiredMessage="Se requiere un nombre"/>
                 <h:outputLabel value="Apellido"></h:outputLabel>
@@ -52,12 +52,12 @@
                 <h:outputLabel value="Contraseña"></h:outputLabel>
                 <h:inputSecret value="#{manageUser.password}" required="true" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage="Se requiere una contraseña"/>
                 
-            </h:panelGrid>                    
-            <h:commandButton action="#{manageUser.createUser()}" value="ACEPTAR &raquo;" style="margin-left: 40%;" class="btn btn-success btn-sm"/>
+            </h:panelGrid>   
+            </div>
+            <h:commandButton action="#{manageUser.createUser()}" value="ACEPTAR &raquo;" style="margin-left: 30%;" class="btn btn-success btn-sm"/>
             <h:commandButton type="reset" class="btn btn-default btn-sm" value="LIMPIAR" ></h:commandButton>  
             
-            </div>
-            </div>            
+            </div>           
             </h:form>
         </c:if>
     </h:body>

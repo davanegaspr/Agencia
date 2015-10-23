@@ -40,8 +40,16 @@ public class ManageTicket {
     }
     
     public void createTicket(long userId, Plan plan, Hotel hotel, int quantityAdult, int quantityChild, int status) throws NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
-        
         HttpSession session = Util.getSession(); 
+        long ticketId;
+        
+        if(session.getAttribute("ticketId")==null){
+            ticketId=1;
+        }
+        else{
+            ticketId=(long)session.getAttribute("ticketId") +1;
+        }
+        session.setAttribute("ticketId", ticketId);         
         TicketDAO ticketDAO = new TicketDAO();
         UserDAO userDAO = new UserDAO();
         double price = (plan.getBaseCostByAdult() * quantityAdult) + (plan.getBaseCostByChild() * quantityChild) + hotel.getPrice()*(quantityAdult + quantityChild);
@@ -52,7 +60,7 @@ public class ManageTicket {
         session.setAttribute("total", price);
         UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
         transaction.begin();
-        boolean ticketE = ticketDAO.persist(userId,plan.getPlanId(),plan.getDepartureDate(),(short)status,dateFormat.format(date),(float)price);
+        boolean ticketE = ticketDAO.persist(userId,plan.getPlanId(),plan.getDepartureDate(),(short)status,dateFormat.format(date),(float)price, ticketId);
         transaction.commit(); 
          if(ticketE){
              renderTicket();

@@ -22,11 +22,11 @@
     </h:head>
     <h:body>
         <ui:include src="/header.xhtml"></ui:include>         
-        <h:form id="FormAdd" style="margin-left: 35%;" enctype="multipart/form-data">                
-            <div class="panel panel-default" style="width: 50%; border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;border-top-left-radius: 2em; border-top-right-radius: 2em;">
-                <div class="panel-heading" style="border-top-left-radius: 2em; border-top-right-radius: 2em;"><strong>Tiquete</strong></div>
+        <h:form id="showTicketForm" style="margin-left: 35%; margin-top: 0px;">    
+                <div class="panel panel-default" style="width: 50%; border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;border-top-left-radius: 2em; border-top-right-radius: 2em;">
+                <div class="panel-heading" style="border-top-left-radius: 2em; border-top-right-radius: 2em;"><strong>Mi tiquete</strong></div>
                 <div class="panel-body">
-             <h:panelGrid columns="1"> 
+                <h:panelGrid id="showTicketPanel" columns="1"> 
                  <h4> <h:outputText value="Nombre #{manageTicket.plan.name}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 260px; margin-left: 80px;" />
                      <h:outputText value="Ciudad salida #{manageTicket.plan.departureCity}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
                      <h:outputText value="Ciudad llegada #{manageTicket.plan.arrivalCity}" class="form-control"  style=" text-align: justify; border-radius: 0; border-top-right-radius: 0; height: 50px; width: 260px; margin-left: 80px;" />
@@ -63,9 +63,10 @@
                     <f:selectItem id="item8" itemLabel="8" itemValue="8" />
                     <f:selectItem id="item9" itemLabel="9" itemValue="9" />
                 </h:selectOneMenu>
-            </h:panelGrid>                    
-                    <h:commandButton action="#{manageTicket.renderShowTicket()}" value="Continuar &raquo;" style="margin-left: 35%;" class="btn btn-success btn-lg"/>
+            </h:panelGrid> 
             </div>
+                <h:commandButton action="#{manageTicket.renderShowTicket()}" value="Continuar &raquo;" style="margin-left: 35%;" class="btn btn-success btn-lg"/>
+            
             </div>       
             
             </h:form>

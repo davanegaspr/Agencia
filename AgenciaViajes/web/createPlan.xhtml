@@ -19,11 +19,11 @@
         </c:if>
         <c:if test="${role == 'Admin'}">         
         <h4><strong><h:outputText value="#{managePlan.message}" style="margin-top: 30%; margin-left: 35%; color:#fa0000;" /></strong></h4>
-        <h:form id="FormAdd" style="margin-left: 35%;" enctype="multipart/form-data">                
-            <div class="panel panel-default" style="width: 50%; border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;border-top-left-radius: 2em; border-top-right-radius: 2em;">
-                <div class="panel-heading" style="border-top-left-radius: 2em; border-top-right-radius: 2em;"><strong>Formulario de creación de plan</strong></div>
+        <h:form id="createPlanForm" style="margin-left: 35%; margin-top: 0px;">    
+                <div class="panel panel-default" style="width: 50%; border-bottom-left-radius: 2em; border-bottom-right-radius: 2em;border-top-left-radius: 2em; border-top-right-radius: 2em;">
+                <div class="panel-heading" style="border-top-left-radius: 2em; border-top-right-radius: 2em;"><strong>Crear Plan</strong></div>
                 <div class="panel-body">
-                <h:panelGrid columns="2">
+                <h:panelGrid id="createPLanPanel" columns="2"> 
                 <h:outputLabel value="Nombre" />
                 <h:inputText value="#{managePlan.name}" required="true" class="form-control"  style="border-radius: 0; border-top-right-radius: 2em; height: 50px; width: 240px" requiredMessage="Se requiere un nombre"/>
                 <h:outputLabel value="Ciudad salida"></h:outputLabel>
@@ -53,11 +53,10 @@
                 <h:selectOneMenu id="hotelId" value="#{managePlan.hotelId}" style="border-radius: 0; border-top-right-radius: 0; height: 50px; width: 240px" requiredMessage=" ">                    
                     <f:selectItems  value="#{managePlan.hotelsList}" var="hotel" itemValue="#{hotel.hotelId}" itemLabel="#{hotel.name}" />                   
                 </h:selectOneMenu>                
-            </h:panelGrid>                    
-            <h:commandButton action="#{managePlan.createPlan()}" value="ACEPTAR &raquo;" style="margin-left: 40%;" class="btn btn-success btn-sm"/>
-            <h:commandButton type="reset" class="btn btn-default btn-sm" value="LIMPIAR" ></h:commandButton>  
-            
+            </h:panelGrid>     
             </div>
+            <h:commandButton action="#{managePlan.createPlan()}" value="ACEPTAR &raquo;" style="margin-left: 30%;" class="btn btn-success btn-sm"/>
+            <h:commandButton type="reset" class="btn btn-default btn-sm" value="LIMPIAR" ></h:commandButton>             
             </div>            
             </h:form>
         </c:if>

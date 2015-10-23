@@ -54,8 +54,16 @@ public class ManageUser implements Serializable {
     public void createUser(String username, String firstname, String lastname, String password, String email, String role, String phone, double balance, String documentType, String document) throws NoSuchAlgorithmException, IOException, NamingException, SystemException, NotSupportedException, RollbackException, HeuristicMixedException, HeuristicRollbackException{
         UserDAO userDAO = new UserDAO();
         UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+        HttpSession session = Util.getSession();         
+        long userId;        
+        if(session.getAttribute("userId")==null){
+            userId=1;
+        }
+        else{
+            userId=(long)session.getAttribute("userId") +1;
+        }
         transaction.begin();
-        boolean save = userDAO.persist(username, firstname, lastname, password, email,role, phone,  balance, documentType, document);
+        boolean save = userDAO.persist(username, firstname, lastname, password, email,role, phone,  balance, documentType, document, userId);
         transaction.commit();        
         if(save){
                 UserDAO.query(email);
@@ -69,8 +77,16 @@ public class ManageUser implements Serializable {
     public void createUser2(String username, String firstname, String lastname, String password, String email, String role, String phone, double balance, String documentType, String document) throws NoSuchAlgorithmException, IOException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException{
         UserDAO userDAO = new UserDAO();
         UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+        HttpSession session = Util.getSession();         
+        long userId;        
+        if(session.getAttribute("userId")==null){
+            userId=1;
+        }
+        else{
+            userId=(long)session.getAttribute("userId") +1;
+        }
         transaction.begin();
-        boolean save = userDAO.persist(username, firstname, lastname, password, email,role, phone,  balance, documentType, document);
+        boolean save = userDAO.persist(username, firstname, lastname, password, email,role, phone,  balance, documentType, document,userId);
         transaction.commit();        
         if(save){
                 renderShowUsers();

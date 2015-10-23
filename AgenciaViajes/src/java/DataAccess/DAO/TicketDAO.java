@@ -25,21 +25,22 @@ import javax.persistence.Persistence;
  */
 public class TicketDAO {
 
-    public boolean persist(long userId, long planId, String departureDate, short status, String dateBuy, float price){
+    public boolean persist(long userId, long planId, String departureDate, short status, String dateBuy, float price, long ticketId){
         
         Connection con = null;
         PreparedStatement ps = null;
         try {
             con = Database.getConnection();
             ps = con.prepareStatement(
-                    "INSERT INTO agencia.tickets (`Date_Buy`, `Date_Start`, price, `Status`, `plan_planId`, `user_userId`) \n" +
-"	VALUES (?,?,?,?,?,?)");       
-            ps.setString(1, dateBuy);
-            ps.setString(2, departureDate);
-            ps.setFloat(3, price);
-            ps.setShort(4, status);
-            ps.setLong(5, planId);   
-            ps.setLong(6, userId);            
+                    "INSERT INTO agencia.tickets (idticket,`Date_Buy`, `Date_Start`, price, `Status`, `plan_planId`, `user_userId`) \n" +
+"	VALUES (?,?,?,?,?,?,?)");     
+            ps.setLong(1, ticketId);   
+            ps.setString(2, dateBuy);
+            ps.setString(3, departureDate);
+            ps.setFloat(4, price);
+            ps.setShort(5, status);
+            ps.setLong(6, planId);   
+            ps.setLong(7, userId);            
             int rs = ps.executeUpdate();
                 return rs==1;  
                 

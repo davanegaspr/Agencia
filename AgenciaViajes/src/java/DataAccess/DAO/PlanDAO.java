@@ -44,7 +44,7 @@ public class PlanDAO {
     
     }
 
-    public boolean persist(String name, String departureCity, String arrivalCity, String departureDate, String returnDate, String modeTransport, double baseCostByAdult, double baseCostByChild, long hotelId) {
+    public boolean persist(String name, String departureCity, String arrivalCity, String departureDate, String returnDate, String modeTransport, double baseCostByAdult, double baseCostByChild, long hotelId, long planId) {
            
         Connection con = null;
         PreparedStatement ps = null;
@@ -52,17 +52,18 @@ public class PlanDAO {
         try {
             con = Database.getConnection();
             ps = con.prepareStatement(
-                    "INSERT INTO agencia.plan (`arrivalCity`, `baseCostByAdult`, `baseCostByChild`, `departureCity`, `departureDate`, `ModeTransport`, `name`, `returnDate`, `hotel_hotelId`) \n" +
-"	VALUES (?,?,?,?,?,?,?,?,?)"); 
-            ps.setString(1,arrivalCity);
-            ps.setDouble(2, baseCostByAdult);
-            ps.setDouble(3, baseCostByChild);
-            ps.setString(4,departureCity);
-            ps.setString(5, departureDate);
-            ps.setString(6, modeTransport);
-            ps.setString(7,name);
-            ps.setString(8, returnDate);           
-            ps.setString(9, String.valueOf(hotelId));
+                    "INSERT INTO agencia.plan (planId,`arrivalCity`, `baseCostByAdult`, `baseCostByChild`, `departureCity`, `departureDate`, `ModeTransport`, `name`, `returnDate`, `hotel_hotelId`) \n" +
+"	VALUES (?,?,?,?,?,?,?,?,?,?)"); 
+            ps.setLong(1, planId);
+            ps.setString(2,arrivalCity);
+            ps.setDouble(3, baseCostByAdult);
+            ps.setDouble(4, baseCostByChild);
+            ps.setString(5,departureCity);
+            ps.setString(6, departureDate);
+            ps.setString(7, modeTransport);
+            ps.setString(8,name);
+            ps.setString(9, returnDate);           
+            ps.setString(10, String.valueOf(hotelId));
             int rs = ps.executeUpdate();
                 return rs==1;
         } catch (Exception ex) {

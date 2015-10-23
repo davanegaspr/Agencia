@@ -40,7 +40,7 @@ public class ManageHotel {
     public void createHotel(String name, String category, double price, String location) throws NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
         HttpSession session = Util.getSession(); 
         long hotelId;
-        HotelDAO hotelDAO = new HotelDAO();
+        
         if(session.getAttribute("hotelId")==null){
             hotelId=1;
         }
@@ -48,6 +48,7 @@ public class ManageHotel {
             hotelId=(long)session.getAttribute("hotelId") +1;
         }
         session.setAttribute("hotelId", hotelId);
+        HotelDAO hotelDAO = new HotelDAO();
         UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
         transaction.begin();
         boolean hotelE = hotelDAO.persist(name, category, price, location, hotelId);

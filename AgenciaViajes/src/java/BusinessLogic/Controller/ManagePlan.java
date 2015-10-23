@@ -36,11 +36,20 @@ public class ManagePlan {
     }
 
     public void createPlan(String name, String departureCity, String arrivalCity, String departureDate, String returnDate, String modeTransport, double baseCostByAdult, double baseCostByChild, long hotelId) throws NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
-             
+        HttpSession session = Util.getSession(); 
+        long planId;
+        
+        if(session.getAttribute("planId")==null){
+            planId=1;
+        }
+        else{
+            planId=(long)session.getAttribute("planId") +1;
+        }
+        session.setAttribute("planId", planId);    
         PlanDAO planDAO = new PlanDAO();
         UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
         transaction.begin();
-        boolean planE = planDAO.persist(name,departureCity, arrivalCity, departureDate, returnDate,modeTransport, baseCostByAdult, baseCostByChild, hotelId);
+        boolean planE = planDAO.persist(name,departureCity, arrivalCity, departureDate, returnDate,modeTransport, baseCostByAdult, baseCostByChild, hotelId, planId);
         transaction.commit();
         if(planE){
                 renderShowPlans(); 

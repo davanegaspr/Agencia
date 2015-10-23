@@ -63,25 +63,26 @@ public class UserDAO {
         }   
     }
     
-    public boolean persist(String username, String firstname, String lastname, String password, String email, String role, String phone, double balance, String documentType, String document){
+    public boolean persist(String username, String firstname, String lastname, String password, String email, String role, String phone, double balance, String documentType, String document, long userId){
          
     Connection con = null;
         PreparedStatement ps = null;
         try {
             con = Database.getConnection();
             ps = con.prepareStatement(
-                    "INSERT INTO user (balance, document, `documentType`, email, firstname, lastname, password, phone, `role`, username) \n" +
-                    "	VALUES (?, ?, ?, ?, ?, ?,? ,?, ?, ?)");        
-            ps.setDouble(1, balance);
-            ps.setString(2, document);
-            ps.setString(3,documentType);
-            ps.setString(4,email);
-            ps.setString(5,firstname);
-            ps.setString(6,lastname);
-            ps.setString(7,password);
-            ps.setString(8,phone);
-            ps.setString(9,role);            
-            ps.setString(10,username);           
+                    "INSERT INTO user (userId,balance, document, `documentType`, email, firstname, lastname, password, phone, `role`, username) \n" +
+                    "	VALUES (?,?, ?, ?, ?, ?, ?,? ,?, ?, ?)");        
+            ps.setLong(1, userId);
+            ps.setDouble(2, balance);
+            ps.setString(3, document);
+            ps.setString(4,documentType);
+            ps.setString(5,email);
+            ps.setString(6,firstname);
+            ps.setString(7,lastname);
+            ps.setString(8,password);
+            ps.setString(9,phone);
+            ps.setString(10,role);            
+            ps.setString(11,username);           
             int rs = ps.executeUpdate();
                 return rs==1;
                 
