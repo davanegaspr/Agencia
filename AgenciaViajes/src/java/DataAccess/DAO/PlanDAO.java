@@ -44,21 +44,33 @@ public class PlanDAO {
     
     }
 
-    public Plan persist(Plan plan) {
-        EntityManager em;        
-        EntityManagerFactory emf;
-        emf = Persistence.createEntityManagerFactory("agenciaPU");
-        em = emf.createEntityManager();
-        em.getTransaction().begin();
-        try{
-            em.persist(plan);
-            em.getTransaction().commit();
-        }catch(Exception e){
-            em.getTransaction().rollback();            
-        }finally{
-            em.close();
-            return plan;
-        }   
+    public boolean persist(String name, String departureCity, String arrivalCity, String departureDate, String returnDate, String modeTransport, double baseCostByAdult, double baseCostByChild, long hotelId) {
+           
+        Connection con = null;
+        PreparedStatement ps = null;
+        
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "INSERT INTO agencia.plan (`arrivalCity`, `baseCostByAdult`, `baseCostByChild`, `departureCity`, `departureDate`, `ModeTransport`, `name`, `returnDate`, `hotel_hotelId`) \n" +
+"	VALUES (?,?,?,?,?,?,?,?,?)"); 
+            ps.setString(1,arrivalCity);
+            ps.setDouble(2, baseCostByAdult);
+            ps.setDouble(3, baseCostByChild);
+            ps.setString(4,departureCity);
+            ps.setString(5, departureDate);
+            ps.setString(6, modeTransport);
+            ps.setString(7,name);
+            ps.setString(8, returnDate);           
+            ps.setString(9, String.valueOf(hotelId));
+            int rs = ps.executeUpdate();
+                return rs==1;
+        } catch (Exception ex) {
+            System.out.println("Error in edit plan() -->" + ex.getMessage());
+            return false;
+        } finally {
+            Database.close(con);
+        }
     }
 
     public boolean eliminatePlan(long planId) {

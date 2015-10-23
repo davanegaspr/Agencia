@@ -13,7 +13,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 
 /**
  *
@@ -38,7 +44,7 @@ public class ManageHotelBean {
     public ManageHotelBean() {
     }
     
-    public void createHotel() throws  IOException, NoSuchAlgorithmException {
+    public void createHotel() throws  IOException, NoSuchAlgorithmException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
         manageHotel = new ManageHotel();        
         manageHotel.createHotel(getName(),getCategory(),getPrice(),getLocation());
     

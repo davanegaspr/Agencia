@@ -18,7 +18,15 @@ import java.security.MessageDigest;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 
 
 /**
@@ -43,22 +51,13 @@ public class ManageUser implements Serializable {
      */
     
     private static final long serialVersionUID = 1L;
-    public void createUser(String username, String firstname, String lastname, String password, String email, String role, String phone, double balance, String documentType, String document) throws NoSuchAlgorithmException, IOException{
-        
-        User user = new User();
-        user.setUsername(username);
-        user.setFirstname(firstname);
-        user.setLastname(lastname);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setPhone(phone);
-        user.setRole(role);
-        user.setBalance(balance);
-        user.setDocumentType(documentType);
-        user.setDocument(document); 
+    public void createUser(String username, String firstname, String lastname, String password, String email, String role, String phone, double balance, String documentType, String document) throws NoSuchAlgorithmException, IOException, NamingException, SystemException, NotSupportedException, RollbackException, HeuristicMixedException, HeuristicRollbackException{
         UserDAO userDAO = new UserDAO();
-        User userE = userDAO.persist(user);
-        if(userE != null){
+        UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+        transaction.begin();
+        boolean save = userDAO.persist(username, firstname, lastname, password, email,role, phone,  balance, documentType, document);
+        transaction.commit();        
+        if(save){
                 UserDAO.query(email);
                 renderIndex(); 
         }
@@ -67,27 +66,18 @@ public class ManageUser implements Serializable {
         }   
     }
     
-    public void createUser2(String username, String firstname, String lastname, String password, String email, String role, String phone, double balance, String documentType, String document) throws NoSuchAlgorithmException, IOException{
-        
-        User user = new User();
-        user.setUsername(username);
-        user.setFirstname(firstname);
-        user.setLastname(lastname);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setPhone(phone);
-        user.setRole(role);
-        user.setBalance(balance);
-        user.setDocumentType(documentType);
-        user.setDocument(document); 
+    public void createUser2(String username, String firstname, String lastname, String password, String email, String role, String phone, double balance, String documentType, String document) throws NoSuchAlgorithmException, IOException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException{
         UserDAO userDAO = new UserDAO();
-        User userE = userDAO.persist(user);
-        if(userE != null){
-                renderShowUsers(); 
+        UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+        transaction.begin();
+        boolean save = userDAO.persist(username, firstname, lastname, password, email,role, phone,  balance, documentType, document);
+        transaction.commit();        
+        if(save){
+                renderShowUsers();
         }
         else{
             
-        }   
+        } 
     }
     
     public void renderIndex(){

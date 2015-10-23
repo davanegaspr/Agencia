@@ -13,8 +13,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -27,21 +35,14 @@ public class ManagePlan {
         return planDAO.getPlans();
     }
 
-    public void createPlan(String name, String departureCity, String arrivalCity, String departureDate, String returnDate, String modeTransport, double baseCostByAdult, double baseCostByChild, long hotelId) {
-        Plan plan = new Plan();
-        HotelDAO hotelDAO = new HotelDAO();
-        plan.setName(name);
-        plan.setArrivalCity(arrivalCity);
-        plan.setBaseCostByAdult(baseCostByAdult);
-        plan.setBaseCostByChild(baseCostByChild);
-        plan.setDepartureCity(departureCity);
-        plan.setDepartureDate(departureDate);
-        plan.setModeTransport(modeTransport);
-        plan.setHotelhotelId(hotelDAO.getHotel(hotelId));
-        plan.setReturnDate(returnDate);
+    public void createPlan(String name, String departureCity, String arrivalCity, String departureDate, String returnDate, String modeTransport, double baseCostByAdult, double baseCostByChild, long hotelId) throws NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+             
         PlanDAO planDAO = new PlanDAO();
-        Plan planE = planDAO.persist(plan);
-        if(planE != null){
+        UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+        transaction.begin();
+        boolean planE = planDAO.persist(name,departureCity, arrivalCity, departureDate, returnDate,modeTransport, baseCostByAdult, baseCostByChild, hotelId);
+        transaction.commit();
+        if(planE){
                 renderShowPlans(); 
         }
         else{

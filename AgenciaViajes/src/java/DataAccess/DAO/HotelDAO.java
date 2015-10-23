@@ -20,21 +20,28 @@ import javax.persistence.Persistence;
  */
 public class HotelDAO {
 
-public Hotel persist(Hotel hotel){
-        EntityManager em;        
-        EntityManagerFactory emf;
-        emf = Persistence.createEntityManagerFactory("agenciaPU");
-        em = emf.createEntityManager();
-        em.getTransaction().begin();
-        try{
-            em.persist(hotel);
-            em.getTransaction().commit();
-        }catch(Exception e){
-            em.getTransaction().rollback();            
-        }finally{
-            em.close();
-            return hotel;
-        }  
+public boolean persist(String name, String category, double price, String location, long hotelId){
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "INSERT INTO hotel (`hotelId`,`name`, category, price, location) \n" +
+                    "	VALUES (?,?, ?, ?, ?)");        
+            ps.setLong(1, hotelId);
+            ps.setString(2, name);
+            ps.setString(3, category);
+            ps.setDouble(4,price);
+            ps.setString(5,location);          
+            int rs = ps.executeUpdate();
+                return rs==1;
+                
+        } catch (Exception ex) {
+            System.out.println("Error agregar usuario -->" + ex.getMessage());
+            return false;
+        } finally {
+            Database.close(con);
+        }   
 } 
 
     public ArrayList<Hotel> getHotels(){

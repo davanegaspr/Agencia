@@ -16,7 +16,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 
 /**
  *
@@ -47,7 +53,7 @@ public class ManagePlanBean {
         session.setAttribute("planIdBuy", planId);
         managePlan.renderShowTicket();   
     }
-    public void createPlan() throws  IOException, NoSuchAlgorithmException {
+    public void createPlan() throws  IOException, NoSuchAlgorithmException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException  {
         managePlan = new ManagePlan();
         if(!managePlan.isDate(getDepartureDate())){
             setMessage("El formato de la fecha de salida no es valido, ingrese en formato 24H dd/mm/aaaa hh:mm");

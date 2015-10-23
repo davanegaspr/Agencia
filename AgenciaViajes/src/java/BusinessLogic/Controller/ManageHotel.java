@@ -10,8 +10,16 @@ import DataAccess.Entity.Hotel;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -29,16 +37,22 @@ public class ManageHotel {
         return hotelDAO.getHotels();
     }
 
-    public void createHotel(String name, String category, double price, String location) {
-        
-        Hotel hotel = new Hotel();
-        hotel.setName(name);
-        hotel.setCategory(category);
-        hotel.setPrice((long)price);
-        hotel.setLocation(location); 
+    public void createHotel(String name, String category, double price, String location) throws NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+        HttpSession session = Util.getSession(); 
+        long hotelId;
         HotelDAO hotelDAO = new HotelDAO();
-        Hotel hotelE = hotelDAO.persist(hotel);
-        if(hotelE != null){
+        if(session.getAttribute("hotelId")==null){
+            hotelId=1;
+        }
+        else{
+            hotelId=(long)session.getAttribute("hotelId") +1;
+        }
+        session.setAttribute("hotelId", hotelId);
+        UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+        transaction.begin();
+        boolean hotelE = hotelDAO.persist(name, category, price, location, hotelId);
+        transaction.commit(); 
+        if(hotelE){
                 renderShowHotels(); 
         }
         else{

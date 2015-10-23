@@ -11,6 +11,9 @@ package DataAccess.DAO;
  */
 import java.sql.Connection;
 import java.sql.DriverManager;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
  
 public class Database {
  
@@ -25,6 +28,20 @@ public class Database {
             return null;
         }
     }
+    
+    /*
+    public static Connection getConnection() {
+        try {
+            Context ctx = new InitialContext();
+            DataSource ds = (DataSource) ctx.lookup("jboss/datasources/agencia");
+            Connection con = ds.getConnection();
+            return con;
+        } catch (Exception ex) {
+            System.out.println("Database.getConnection() Error -->" + ex.getMessage());
+            return null;
+        }
+    }
+    */
  
     public static void close(Connection con) {
         try {

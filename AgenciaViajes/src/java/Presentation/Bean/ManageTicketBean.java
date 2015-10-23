@@ -14,7 +14,13 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 
 /**
  *
@@ -41,7 +47,7 @@ public class ManageTicketBean {
     public ManageTicketBean() {
     }    
     
-    public void createTicket() throws  IOException, NoSuchAlgorithmException {
+    public void createTicket() throws  IOException, NoSuchAlgorithmException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
         if(manageTicket.balance(plan, hotel) == true) {
             setEnoughBalance("true");
             manageTicket.createTicket((long)session.getAttribute("userId"),plan, getHotel(), (int)session.getAttribute("quantityAdult"), (int)session.getAttribute("quantityChild"), 1);
@@ -50,7 +56,7 @@ public class ManageTicketBean {
             setEnoughBalance("false");
         }
     }    
-    public void createReservation() throws  IOException, NoSuchAlgorithmException {
+    public void createReservation() throws  IOException, NoSuchAlgorithmException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException  {
         manageTicket.createTicket((long)session.getAttribute("userId"),plan, getHotel(), (int)session.getAttribute("quantityAdult"), (int)session.getAttribute("quantityChild"), 0);
     }
     public void enoughBalance(){    

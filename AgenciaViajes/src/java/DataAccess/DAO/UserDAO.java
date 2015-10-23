@@ -9,8 +9,13 @@ import BusinessLogic.Controller.Util;
 import DataAccess.Entity.User;
 import java.sql.*;
 import java.util.ArrayList;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.*;
 import javax.servlet.http.HttpSession;
+import javax.transaction.NotSupportedException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -58,20 +63,33 @@ public class UserDAO {
         }   
     }
     
-    public User persist(User user){
-        EntityManager em;        
-        EntityManagerFactory emf;
-        emf = Persistence.createEntityManagerFactory("agenciaPU");
-        em = emf.createEntityManager();
-        em.getTransaction().begin();
-        try{
-            em.persist(user);
-            em.getTransaction().commit();
-        }catch(Exception e){
-            em.getTransaction().rollback();            
-        }finally{
-            em.close();
-            return user;
+    public boolean persist(String username, String firstname, String lastname, String password, String email, String role, String phone, double balance, String documentType, String document){
+         
+    Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "INSERT INTO user (balance, document, `documentType`, email, firstname, lastname, password, phone, `role`, username) \n" +
+                    "	VALUES (?, ?, ?, ?, ?, ?,? ,?, ?, ?)");        
+            ps.setDouble(1, balance);
+            ps.setString(2, document);
+            ps.setString(3,documentType);
+            ps.setString(4,email);
+            ps.setString(5,firstname);
+            ps.setString(6,lastname);
+            ps.setString(7,password);
+            ps.setString(8,phone);
+            ps.setString(9,role);            
+            ps.setString(10,username);           
+            int rs = ps.executeUpdate();
+                return rs==1;
+                
+        } catch (Exception ex) {
+            System.out.println("Error agregar usuario -->" + ex.getMessage());
+            return false;
+        } finally {
+            Database.close(con);
         }  
     }  
     

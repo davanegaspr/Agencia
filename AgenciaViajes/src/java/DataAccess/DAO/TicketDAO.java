@@ -25,21 +25,30 @@ import javax.persistence.Persistence;
  */
 public class TicketDAO {
 
-    public Tickets persist(Tickets ticket){
-        EntityManager em;        
-        EntityManagerFactory emf;
-        emf = Persistence.createEntityManagerFactory("agenciaPU");
-        em = emf.createEntityManager();
-        em.getTransaction().begin();
-        try{
-            em.persist(ticket);
-            em.getTransaction().commit();
-        }catch(Exception e){
-            em.getTransaction().rollback();            
-        }finally{
-            em.close();
-            return ticket;
-        }  
+    public boolean persist(long userId, long planId, String departureDate, short status, String dateBuy, float price){
+        
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "INSERT INTO agencia.tickets (`Date_Buy`, `Date_Start`, price, `Status`, `plan_planId`, `user_userId`) \n" +
+"	VALUES (?,?,?,?,?,?)");       
+            ps.setString(1, dateBuy);
+            ps.setString(2, departureDate);
+            ps.setFloat(3, price);
+            ps.setShort(4, status);
+            ps.setLong(5, planId);   
+            ps.setLong(6, userId);            
+            int rs = ps.executeUpdate();
+                return rs==1;  
+                
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return false;
+        } finally {
+            Database.close(con);
+        } 
     }
     
     public Plan getPlan(long planId) {
@@ -117,6 +126,7 @@ public class TicketDAO {
             Database.close(con);
         } 
     }
+
 
     
 }

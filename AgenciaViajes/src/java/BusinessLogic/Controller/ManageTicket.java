@@ -17,8 +17,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -31,26 +39,22 @@ public class ManageTicket {
         return ticketDAO.getPlan(planId);  
     }
     
-    public void createTicket(long userId, Plan plan, Hotel hotel, int quantityAdult, int quantityChild, int status) {
+    public void createTicket(long userId, Plan plan, Hotel hotel, int quantityAdult, int quantityChild, int status) throws NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
         
         HttpSession session = Util.getSession(); 
         TicketDAO ticketDAO = new TicketDAO();
         UserDAO userDAO = new UserDAO();
-        Tickets ticket = new Tickets();      
         double price = (plan.getBaseCostByAdult() * quantityAdult) + (plan.getBaseCostByChild() * quantityChild) + hotel.getPrice()*(quantityAdult + quantityChild);
         double newBalance = (double)session.getAttribute("balance") - price;
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
-        Date date = new Date();                
-        ticket.setPlanplanId(plan);
-        ticket.setUseruserId(userDAO.getUser(userId));
-        ticket.setDateStart(plan.getDepartureDate());
-        ticket.setDateBuy(dateFormat.format(date));
-        ticket.setPrice((float)price);
-        ticket.setStatus((short)status);
+        Date date = new Date();      
         userDAO.updateBalance(userId,newBalance);
         session.setAttribute("total", price);
-        Tickets ticketE = ticketDAO.persist(ticket);
-         if(ticketE != null){
+        UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+        transaction.begin();
+        boolean ticketE = ticketDAO.persist(userId,plan.getPlanId(),plan.getDepartureDate(),(short)status,dateFormat.format(date),(float)price);
+        transaction.commit(); 
+         if(ticketE){
              renderTicket();
         }
         else{
