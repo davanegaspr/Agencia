@@ -151,6 +151,40 @@ public class TicketDAO implements Serializable{
         
     }
 
+    public Long persist2(long userId, long planId, String departureDate, short status, String dateBuy, float price, long ticketId){
+        while(exist(ticketId)){
+            ticketId++;
+        }
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "INSERT INTO agencia.tickets (idticket,`Date_Buy`, `Date_Start`, price, `Status`, `plan_planId`, `user_userId`) \n" +
+"	VALUES (?,?,?,?,?,?,?)");     
+            ps.setLong(1, ticketId);   
+            ps.setString(2, dateBuy);
+            ps.setString(3, departureDate);
+            ps.setFloat(4, price);
+            ps.setShort(5, status);
+            ps.setLong(6, planId);   
+            ps.setLong(7, userId);            
+            int rs = ps.executeUpdate();
+            if(rs==1){
+                return ticketId;
+            }  
+            else{
+                return null;
+            }
+                
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return null;
+        } finally {
+            Database.close(con);
+        } 
+    }
+
 
     
 }

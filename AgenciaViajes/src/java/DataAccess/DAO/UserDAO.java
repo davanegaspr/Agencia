@@ -8,6 +8,10 @@ package DataAccess.DAO;
 import BusinessLogic.Controller.Util;
 import DataAccess.Entity.User;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.naming.InitialContext;
@@ -42,6 +46,19 @@ public class UserDAO implements Serializable{
         } finally {
             Database.close(con);
         }
+    }
+    public String sha256(String base) {
+         try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            String text = base;
+            md.update(text.getBytes("UTF-8")); // Change this to "UTF-16" if needed
+            byte[] digest = md.digest();
+            BigInteger bigInt = new BigInteger(1, digest);
+            String output = bigInt.toString(16);           
+            return output;
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+        }
+        return null;
     }
 
     public static boolean validateUsername(String username) {
@@ -316,6 +333,39 @@ public class UserDAO implements Serializable{
         }   
         return user;    
     }
+    
+    public User getUser2(String username) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        User user = new User();
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from user where username = ?");  
+            ps.setString(1,username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) // found
+            {
+                user.setUserId(rs.getLong("userId"));
+                user.setFirstname(rs.getString("firstname"));
+                user.setLastname(rs.getString("lastname"));
+                user.setEmail(rs.getString("email"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setDocumentType(rs.getString("documentType"));
+                user.setDocument(rs.getString("document"));
+                user.setPhone(rs.getString("phone"));
+                user.setRole(rs.getString("role"));
+                user.setBalance(rs.getDouble("balance"));      
+            }
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return null;
+        } finally {
+            Database.close(con);
+        }   
+        return user;    
+    }
 
     public void insertUser(User user) {       
         Connection con = null;
@@ -366,7 +416,22 @@ public class UserDAO implements Serializable{
         
     }
     
-    
-    
-
+    public static boolean validatePassword(String username, String password) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select username, password from user where username= ? and password= ? ");
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            return rs.next(); // found
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return false;
+        } finally {
+            Database.close(con);
+        }
+    }
 }
