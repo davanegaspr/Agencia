@@ -6,6 +6,9 @@
 package BusinessLogic.Controller;
 //import BusinessLogic.Service.Rob;
 
+import BusinessLogic.Service2.Rob;
+
+
 /**
  *
  * @author Richar
@@ -13,7 +16,7 @@ package BusinessLogic.Controller;
 public class GetResource {
     
   public String getResource(String username, String password, Long planId) {
-      /*  
+       
        Rob objectReceived = makeTransaction(username, password, planId);
 
        if (objectReceived.isSuccess()) {
@@ -23,8 +26,15 @@ public class GetResource {
 
             return objectReceived.getErrMessage();
             
-        }*/
-        return null;
+        }
+        //return null;
     }
-    
+
+    private static Rob makeTransaction(java.lang.String arg0, java.lang.String arg1, java.lang.Long arg2) {
+        BusinessLogic.Service2.MakeTransactionWS_Service service = new BusinessLogic.Service2.MakeTransactionWS_Service();
+        BusinessLogic.Service2.MakeTransactionWS port = service.getMakeTransactionWSPort();
+        return port.makeTransaction(arg0, arg1, arg2);
+    }
+  
+  
 }

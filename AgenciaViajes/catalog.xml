@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://deshibasara:8080/Runt/MakeTransactionWS2?wsdl" uri="src/conf/xml-resources/web-service-references/MakeTransactionWS2/wsdl/deshibasara_8080/Runt/MakeTransactionWS2.wsdl"/>
+    <system systemId="http://deshibasara:8080/Runt/MakeTransactionWS2?xsd=1" uri="src/conf/xml-resources/web-service-references/MakeTransactionWS2/wsdl/deshibasara_8080/Runt/MakeTransactionWS2.xsd_1.xsd"/>
+    <system systemId="http://DeshiBasara:8080/Banco/MakeTransactionWS" uri="src/conf/xml-resources/web-service-references/MakeTransactionWS/wsdl/DeshiBasara_8080/Banco/MakeTransactionWS"/>
+    <system systemId="http://deshibasara:8080/Banco/MakeTransactionWS?wsdl" uri="src/conf/xml-resources/web-service-references/MakeTransactionWS/wsdl/DeshiBasara_8080/Banco/MakeTransactionWS.wsdl"/>
+    <system systemId="http://deshibasara:8080/Banco/MakeTransactionWS?xsd=1" uri="src/conf/xml-resources/web-service-references/MakeTransactionWS/wsdl/DeshiBasara_8080/Banco/MakeTransactionWS.xsd_1.xsd"/>
+    <system systemId="http://deshibasara:8080/Runt/MakeTransactionWS?wsdl" uri="src/conf/xml-resources/web-service-references/MakeTransactionWS/wsdl/deshibasara_8080/Runt/MakeTransactionWS.wsdl"/>
+    <system systemId="http://deshibasara:8080/Runt/MakeTransactionWS?xsd=1" uri="src/conf/xml-resources/web-service-references/MakeTransactionWS/wsdl/deshibasara_8080/Runt/MakeTransactionWS.xsd_1.xsd"/>
+</catalog>

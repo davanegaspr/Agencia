@@ -9,12 +9,6 @@ import BusinessLogic.Controller.MakeTransaction;
 import BusinessLogic.Controller.ROB;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
-import javax.naming.NamingException;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
 
 /**
  *
