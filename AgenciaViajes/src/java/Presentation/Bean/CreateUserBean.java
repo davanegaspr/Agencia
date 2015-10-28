@@ -8,6 +8,7 @@ package Presentation.Bean;
 import BusinessLogic.Controller.ManageUser;
 import DataAccess.DAO.UserDAO;
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -24,7 +25,7 @@ import javax.transaction.SystemException;
  */
 @ManagedBean(name="createUser")
 @ViewScoped
-public class CreateUserBean {
+public class CreateUserBean implements Serializable{
     private String firstname;
     private String lastname;
     private String email;

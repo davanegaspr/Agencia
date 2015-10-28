@@ -9,19 +9,20 @@ package DataAccess.DAO;
  *
  * @author Richar
  */
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
  
-public class Database {
+public class Database implements Serializable{
  
     public static Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/agencia",
-                    "root", "root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/agencia","root", "root");
+            //Connection con = DriverManager.getConnection("jdbc:mysql://192.168.43.68:3306/agencia","root", "root");
             return con;
         } catch (Exception ex) {
             System.out.println("Database.getConnection() Error -->" + ex.getMessage());

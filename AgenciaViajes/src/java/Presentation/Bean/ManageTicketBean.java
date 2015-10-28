@@ -11,6 +11,7 @@ import DataAccess.DAO.HotelDAO;
 import DataAccess.Entity.Hotel;
 import DataAccess.Entity.Plan;
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -28,7 +29,7 @@ import javax.transaction.SystemException;
  */
 @ManagedBean(name="manageTicket")
 @ViewScoped
-public class ManageTicketBean {    
+public class ManageTicketBean implements Serializable{    
     private int quantityAdult;
     private String enoughBalance;
     private int quantityChild;

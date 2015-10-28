@@ -2,6 +2,7 @@ package Presentation.Bean;
 
 import BusinessLogic.Controller.ManageUser;
 import BusinessLogic.Controller.Util;
+import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
@@ -11,7 +12,7 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean(name="loginUserBean")
 @ViewScoped
-public class loginUserBean
+public class loginUserBean implements Serializable
 {
     private String email;
     private String password;

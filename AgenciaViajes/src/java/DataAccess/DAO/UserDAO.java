@@ -7,6 +7,7 @@ package DataAccess.DAO;
 
 import BusinessLogic.Controller.Util;
 import DataAccess.Entity.User;
+import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.naming.InitialContext;
@@ -21,7 +22,7 @@ import javax.transaction.UserTransaction;
  *
  * @author Richar
  */
-public class UserDAO {
+public class UserDAO implements Serializable{
 
     public static boolean validateEmail(String email) {
         Connection con = null;
@@ -64,8 +65,11 @@ public class UserDAO {
     }
     
     public boolean persist(String username, String firstname, String lastname, String password, String email, String role, String phone, double balance, String documentType, String document, long userId){
-         
-    Connection con = null;
+        
+        while(exist(userId)){
+            userId++;
+        }
+        Connection con = null;
         PreparedStatement ps = null;
         try {
             con = Database.getConnection();
@@ -339,6 +343,26 @@ public class UserDAO {
         } finally {
             Database.close(con);
         }
+        
+    }
+
+    private boolean exist(long userId) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from user where userId = ?");  
+            ps.setString(1, String.valueOf(userId));
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+            
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return true;
+        } finally {
+            Database.close(con);
+        }   
         
     }
     

@@ -8,6 +8,7 @@ package BusinessLogic.Controller;
 import DataAccess.DAO.HotelDAO;
 import DataAccess.Entity.Hotel;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
@@ -25,7 +26,7 @@ import javax.transaction.UserTransaction;
  *
  * @author Richar
  */
-public class ManageHotel {
+public class ManageHotel implements Serializable{
 
     public static Hotel getHotel(long hotelId) {
         HotelDAO hotelDAO = new HotelDAO();

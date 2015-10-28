@@ -12,6 +12,7 @@ import DataAccess.DAO.HotelDAO;
 import DataAccess.Entity.Hotel;
 import DataAccess.Entity.Plan;
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
@@ -30,7 +31,7 @@ import javax.transaction.SystemException;
  */
 @ManagedBean(name="managePlan")
 @ViewScoped
-public class ManagePlanBean {
+public class ManagePlanBean implements Serializable{
     
     private String name;
     private String departureCity;

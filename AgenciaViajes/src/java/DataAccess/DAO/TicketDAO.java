@@ -8,6 +8,7 @@ package DataAccess.DAO;
 import DataAccess.Entity.Plan;
 import DataAccess.Entity.Tickets;
 import DataAccess.Entity.User;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,10 +24,12 @@ import javax.persistence.Persistence;
  *
  * @author Richar
  */
-public class TicketDAO {
+public class TicketDAO implements Serializable{
 
     public boolean persist(long userId, long planId, String departureDate, short status, String dateBuy, float price, long ticketId){
-        
+        while(exist(ticketId)){
+            ticketId++;
+        }
         Connection con = null;
         PreparedStatement ps = null;
         try {
@@ -126,6 +129,26 @@ public class TicketDAO {
         } finally {
             Database.close(con);
         } 
+    }
+    
+    private boolean exist(long ticketId) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from tickets where idTicket= ?");  
+            ps.setString(1, String.valueOf(ticketId));
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+            
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return true;
+        } finally {
+            Database.close(con);
+        }   
+        
     }
 
 

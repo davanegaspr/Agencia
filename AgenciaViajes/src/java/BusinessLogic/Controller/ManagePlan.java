@@ -9,6 +9,7 @@ import DataAccess.DAO.HotelDAO;
 import DataAccess.DAO.PlanDAO;
 import DataAccess.Entity.Plan;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +29,7 @@ import javax.transaction.UserTransaction;
  *
  * @author Richar
  */
-public class ManagePlan {
+public class ManagePlan implements Serializable{
 
     public ArrayList<Plan> getPlans() {
         PlanDAO planDAO = new PlanDAO();

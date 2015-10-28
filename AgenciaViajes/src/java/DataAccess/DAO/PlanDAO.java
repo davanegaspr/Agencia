@@ -8,6 +8,7 @@ package DataAccess.DAO;
 import BusinessLogic.Controller.Util;
 import DataAccess.Entity.Hotel;
 import DataAccess.Entity.Plan;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Richar
  */
-public class PlanDAO {
+public class PlanDAO implements Serializable{
 
     public ArrayList<Plan> getPlans() {
         Connection con = null;
@@ -45,7 +46,9 @@ public class PlanDAO {
     }
 
     public boolean persist(String name, String departureCity, String arrivalCity, String departureDate, String returnDate, String modeTransport, double baseCostByAdult, double baseCostByChild, long hotelId, long planId) {
-           
+        while(exist(planId)){
+            planId++;
+        } 
         Connection con = null;
         PreparedStatement ps = null;
         
@@ -155,5 +158,25 @@ public class PlanDAO {
         }   
     return plan;
     
+    }
+    
+    private boolean exist(long planId) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from plan where planId = ?");  
+            ps.setString(1, String.valueOf(planId));
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+            
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return true;
+        } finally {
+            Database.close(con);
+        }   
+        
     }
 }

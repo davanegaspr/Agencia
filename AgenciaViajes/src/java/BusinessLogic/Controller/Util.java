@@ -9,12 +9,13 @@ package BusinessLogic.Controller;
  *
  * @author Richar
  */
+import java.io.Serializable;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
  
  
-public class Util {
+public class Util implements Serializable{
  
       public static HttpSession getSession() {
         return (HttpSession)

@@ -9,6 +9,7 @@ import BusinessLogic.Controller.ManageHotel;
 import BusinessLogic.Controller.Util;
 import DataAccess.Entity.Hotel;
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
@@ -27,7 +28,7 @@ import javax.transaction.SystemException;
  */
 @ManagedBean(name="manageHotel")
 @ViewScoped
-public class ManageHotelBean {
+public class ManageHotelBean implements Serializable{
 
     /**
      * Creates a new instance of ManageHotelBean

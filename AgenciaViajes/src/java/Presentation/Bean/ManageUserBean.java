@@ -11,11 +11,13 @@ import BusinessLogic.Controller.Util;
 import DataAccess.Entity.Tickets;
 import DataAccess.Entity.User;
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
 import javax.transaction.HeuristicMixedException;
@@ -29,8 +31,10 @@ import javax.transaction.SystemException;
  * @author Richar
  */
 @ManagedBean(name="manageUser")
-@RequestScoped
-public class ManageUserBean {
+
+@ViewScoped
+//@RequestScoped
+public class ManageUserBean implements Serializable{
     private String firstname;
     private String lastname;
     private String role;

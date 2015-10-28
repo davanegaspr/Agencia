@@ -12,6 +12,7 @@ import DataAccess.Entity.Hotel;
 import DataAccess.Entity.Plan;
 import DataAccess.Entity.Tickets;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import javax.transaction.UserTransaction;
  *
  * @author Richar
  */
-public class ManageTicket {
+public class ManageTicket implements Serializable{
     
     public Plan getPlan(long planId) {
         TicketDAO ticketDAO = new TicketDAO();

@@ -6,6 +6,7 @@
 package DataAccess.DAO;
 
 import DataAccess.Entity.Hotel;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,9 +19,12 @@ import javax.persistence.Persistence;
  *
  * @author Richar
  */
-public class HotelDAO {
+public class HotelDAO implements Serializable{
 
 public boolean persist(String name, String category, double price, String location, long hotelId){
+        while(exist(hotelId)){
+            hotelId++;
+        }
         Connection con = null;
         PreparedStatement ps = null;
         try {
@@ -233,6 +237,26 @@ public boolean persist(String name, String category, double price, String locati
         }   
     return hotel;
     
+    }
+    
+    private boolean exist(long hotelId) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from hotel where hotelId = ?");  
+            ps.setString(1, String.valueOf(hotelId));
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+            
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return true;
+        } finally {
+            Database.close(con);
+        }   
+        
     }
     
 }
