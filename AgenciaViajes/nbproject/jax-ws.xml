@@ -8,7 +8,7 @@
   <clients>
     <client name="MakeTransactionWS">
       <wsdl-url>http://deshibasara:8080/Runt/MakeTransactionWS?wsdl</wsdl-url>
-      <local-wsdl-file>DeshiBasara_8080/Runt/MakeTransactionWS.wsdl</local-wsdl-file>
+      <local-wsdl-file>deshibasara_8080/Runt/MakeTransactionWS.wsdl</local-wsdl-file>
       <package-name forceReplace="true">BusinessLogic.Service2</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>

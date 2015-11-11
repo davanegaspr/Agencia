@@ -6,9 +6,11 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.GetResource;
+import BusinessLogic.Controller.Util;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,9 +31,9 @@ public class GetResourceBean implements Serializable{
     }
 
     public void getResource() {
-
+        HttpSession session = Util.getSession();         
         GetResource getResource = new GetResource();
-        setMessage(getResource.getResource(username,password,planId));        
+        setMessage(getResource.getResource((String) session.getAttribute("email")));        
     }
 
     /**

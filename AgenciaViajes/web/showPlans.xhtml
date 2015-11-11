@@ -31,10 +31,8 @@
         </c:if>
         <table id="example" class="display table-striped" cellspacing="0" width="100%">
      <thead>
-         <tr>
-             <c:if test="${role == 'Admin'}" >
+         <tr>             
              <th>Id</th>
-             </c:if>
              <th>Nombre</th>
              <th>Ciudad salida</th>
              <th>Ciudad llegada</th>
@@ -57,9 +55,8 @@
         <tbody>
             <ui:repeat var="plan" value="#{managePlan.plansList}">
 	<tr>
-            <c:if test="${role == 'Admin'}" >
+            
             <td>#{plan.planId}</td>
-            </c:if>
             <td>#{plan.name}</td>
             <td>#{plan.departureCity}</td>
             <td>#{plan.arrivalCity}</td>

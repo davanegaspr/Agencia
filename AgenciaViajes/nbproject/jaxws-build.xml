@@ -45,8 +45,8 @@
     </target>
     <target name="wsimport-client-MakeTransactionWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/MakeTransactionWS"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/MakeTransactionWS" destdir="${build.generated.dir}/jax-wsCache/MakeTransactionWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/MakeTransactionWS/wsdl/DeshiBasara_8080/Runt/MakeTransactionWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://deshibasara:8080/Runt/MakeTransactionWS?wsdl" xnocompile="true" xendorsed="true" package="BusinessLogic.Service2">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/MakeTransactionWS/wsdl/DeshiBasara_8080/Runt/MakeTransactionWS.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/MakeTransactionWS" destdir="${build.generated.dir}/jax-wsCache/MakeTransactionWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/MakeTransactionWS/wsdl/deshibasara_8080/Runt/MakeTransactionWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://deshibasara:8080/Runt/MakeTransactionWS?wsdl" xnocompile="true" xendorsed="true" package="BusinessLogic.Service2">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/MakeTransactionWS/wsdl/deshibasara_8080/Runt/MakeTransactionWS.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/MakeTransactionWS"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">

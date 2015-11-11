@@ -42,6 +42,7 @@ public class ManageTicket implements Serializable{
     
     public void createTicket(long userId, Plan plan, Hotel hotel, int quantityAdult, int quantityChild, int status) throws NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
         HttpSession session = Util.getSession(); 
+        double price=0;
         long ticketId;
         
         if(session.getAttribute("ticketId")==null){
@@ -53,11 +54,17 @@ public class ManageTicket implements Serializable{
         session.setAttribute("ticketId", ticketId);         
         TicketDAO ticketDAO = new TicketDAO();
         UserDAO userDAO = new UserDAO();
-        double price = (plan.getBaseCostByAdult() * quantityAdult) + (plan.getBaseCostByChild() * quantityChild) + hotel.getPrice()*(quantityAdult + quantityChild);
+        if(session.getAttribute("planId_discount") != null && session.getAttribute("planId_discount")== plan.getPlanId()){
+            price = (plan.getBaseCostByAdult() * quantityAdult) + (plan.getBaseCostByChild() * quantityChild) + hotel.getPrice()*(quantityAdult + quantityChild) - (double)session.getAttribute("discount");
+        }
+        else{
+            price = (plan.getBaseCostByAdult() * quantityAdult) + (plan.getBaseCostByChild() * quantityChild) + hotel.getPrice()*(quantityAdult + quantityChild);
+        }
         double newBalance = (double)session.getAttribute("balance") - price;
+        session.setAttribute("balance", newBalance);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
         Date date = new Date();      
-        userDAO.updateBalance(userId,newBalance);
+        System.out.println("UPDATE PASSWORD " + userDAO.updateBalance(userId,newBalance));
         session.setAttribute("total", price);
         UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
         transaction.begin();

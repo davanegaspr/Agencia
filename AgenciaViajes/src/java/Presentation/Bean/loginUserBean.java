@@ -15,6 +15,7 @@ import javax.faces.bean.ViewScoped;
 public class loginUserBean implements Serializable
 {
     private String email;
+    private boolean emailU = verifiedEmail();
     private String password;
     private String message;
     private String hostName=getHost();
@@ -133,6 +134,27 @@ public class loginUserBean implements Serializable
         HttpSession session = Util.getSession();
         sessionId = session.getId();
         return sessionId;
+    }
+
+    /**
+     * @return the emailU
+     */
+    public boolean getEmailU() {
+        return emailU;
+    }
+
+    /**
+     * @param emailU the emailU to set
+     */
+    public void setEmailU(boolean emailU) {
+        this.emailU = emailU;
+    }
+
+    private boolean verifiedEmail() {
+        HttpSession session = Util.getSession();
+        String em = (String) session.getAttribute("email");
+        if(em == null)  return false;        
+        else    return em.contains("@unal.edu.co");
     }
 
     

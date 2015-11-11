@@ -26,8 +26,6 @@ public interface MakeTransactionWS {
 
     /**
      * 
-     * @param arg2
-     * @param arg1
      * @param arg0
      * @return
      *     returns BusinessLogic.Service2.Rob
@@ -39,10 +37,6 @@ public interface MakeTransactionWS {
     @Action(input = "http://Service2.BusinessLogic/MakeTransactionWS/makeTransactionRequest", output = "http://Service2.BusinessLogic/MakeTransactionWS/makeTransactionResponse")
     public Rob makeTransaction(
         @WebParam(name = "arg0", targetNamespace = "")
-        String arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        Long arg2);
+        String arg0);
 
 }
