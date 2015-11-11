@@ -27,7 +27,7 @@ import javax.transaction.UserTransaction;
  */
 public class MakeTransaction {
     
-    public ROB make(String username, String password, Long planId){        
+    public ROB make(String email, String password, Long planId){        
         UserDAO userDAO= new UserDAO();
         TicketDAO ticketDAO = new TicketDAO();
         PlanDAO planDAO = new PlanDAO();
@@ -38,7 +38,8 @@ public class MakeTransaction {
         ROB rob = new ROB();
         //Verifica si la cuenta existe
         
-        if(UserDAO.validateUsername(username)){            
+        if(UserDAO.validateEmail(email)){    
+            String username = userDAO.getUsername(email);
             if(UserDAO.validatePassword(username,userDAO.sha256(password))){
                 User user = userDAO.getUser2(username);                
                 //int quantityAdult=2;

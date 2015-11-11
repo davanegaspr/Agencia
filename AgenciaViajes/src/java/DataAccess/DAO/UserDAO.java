@@ -366,7 +366,31 @@ public class UserDAO implements Serializable{
         }   
         return user;    
     }
-
+    
+    public String getUsername(String email) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String username = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from user where email = ?");  
+            ps.setString(1,email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) // found
+            {
+                username = (rs.getString("username"));     
+            }
+        } catch (Exception ex) {
+            System.out.println("Error in login() -->" + ex.getMessage());
+            return null;
+        } finally {
+            Database.close(con);
+        }   
+        return username;    
+    }
+    
+    
     public void insertUser(User user) {       
         Connection con = null;
         PreparedStatement ps = null;
