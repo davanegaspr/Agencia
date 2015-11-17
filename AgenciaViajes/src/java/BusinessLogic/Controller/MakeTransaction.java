@@ -72,7 +72,8 @@ public class MakeTransaction {
                     }
                     if(ticketE!=null){
                         rob.setSuccess(true);
-                        rob.setErr_message("Transacción Satisfactoria, su numero de tiquete es: " + ticketE);                    
+                        rob.setErr_message("Transacción Satisfactoria, su numero de tiquete es: " + ticketE);  
+                        rob.setData(ticketE.toString());
                     }
                 }            
                 else{

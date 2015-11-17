@@ -19,9 +19,7 @@
 <xs:complexType name="rob">
 <xs:sequence>
 <xs:element name="data" type="xs:string" minOccurs="0"/>
-<xs:element name="discount" type="xs:double"/>
 <xs:element name="err_message" type="xs:string" minOccurs="0"/>
-<xs:element name="idPlan" type="xs:long"/>
 <xs:element name="success" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>

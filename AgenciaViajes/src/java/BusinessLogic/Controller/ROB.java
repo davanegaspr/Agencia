@@ -13,7 +13,7 @@ public class ROB {
     
     private boolean success;
     private String err_message;
-    private Long data;
+    private String data;
 
     public boolean isSuccess() {
         return success;
@@ -31,11 +31,11 @@ public class ROB {
         this.err_message = err_message;
     }
 
-    public Long getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Long data) {
+    public void setData(String data) {
         this.data = data;
     }
     

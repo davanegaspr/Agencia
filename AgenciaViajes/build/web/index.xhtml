@@ -61,21 +61,6 @@
     </div>
         </c:if>
             </c:if>
-            <c:if test="${(discount == null or planId_discount == null) or(discount == 0 and planId_discount==0)}">
-    <div id="myModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title" style="text-align: center">Información</h2>
-            </div>
-            <div class="modal-body">
-                <p class="text-warning"><h2>Usted no cuenta con ningun apoyo de bienestar</h2></p>
-            </div>
-        </div>      
-    </div>
-    </div>
-        </c:if>
     </c:if>
         <c:if test="${role != 'Admin'}" >
         <ui:include src="/header.xhtml"></ui:include>    
