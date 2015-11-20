@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="RuntESB" targetNamespace="http://j2ee.netbeans.org/wsdl/BpelOrquestation/src/RuntESB" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://j2ee.netbeans.org/wsdl/BpelOrquestation/src/RuntESB" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns0="http://Service.BusinessLogic/" xmlns:ns1="http://Service2.BusinessLogic/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/BpelOrquestation/src/RuntESB">
+            <xsd:import namespace="http://Service.BusinessLogic/" schemaLocation="http://deshibasara:8080/AgenciaViajes/MakeTransactionWS?xsd=1"/>
+            <xsd:import namespace="http://Service2.BusinessLogic/" schemaLocation="http://deshibasara:8080/Runt/MakeTransactionWS?xsd=1"/>
+        </xsd:schema>
+  </types>
+  <message name="RuntESBOperationResponse">
+    <part name="rob" type="ns0:rob">
+    </part>
+    <part name="rob2" type="ns1:rob">
+    </part>
+  </message>
+  <message name="RuntESBOperationRequest">
+    <part name="username" type="xsd:string">
+    </part>
+    <part name="password" type="xsd:string">
+    </part>
+    <part name="planId" type="xsd:long">
+    </part>
+    <part name="s" type="xsd:int">
+    </part>
+    <part name="email" type="xsd:string">
+    </part>
+  </message>
+  <portType name="RuntESBPortType">
+    <operation name="RuntESBOperation">
+      <input name="input1" message="tns:RuntESBOperationRequest">
+    </input>
+      <output name="output1" message="tns:RuntESBOperationResponse">
+    </output>
+    </operation>
+  </portType>
+  <binding name="RuntESBBinding" type="tns:RuntESBPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="RuntESBOperation">
+      <soap:operation/>
+      <input name="input1">
+        <soap:body use="literal" namespace="http://j2ee.netbeans.org/wsdl/BpelOrquestation/src/RuntESB"/>
+      </input>
+      <output name="output1">
+        <soap:body use="literal" namespace="http://j2ee.netbeans.org/wsdl/BpelOrquestation/src/RuntESB"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="RuntESBService">
+    <port name="RuntESBPort" binding="tns:RuntESBBinding">
+      <soap:address location="http://DeshiBasara:9088/RuntESBService/RuntESBPort"/>
+    </port>
+  </service>
+    <plnk:partnerLinkType name="RuntESB">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="RuntESBPortTypeRole" portType="tns:RuntESBPortType"/>
+    </plnk:partnerLinkType>
+</definitions>

@@ -7,4 +7,11 @@
     <system systemId="http://deshibasara:8080/Banco/MakeTransactionWS?xsd=1" uri="wsdl/DeshiBasara_8080/Banco/MakeTransactionWS.xsd_1.xsd"/>
     <system systemId="http://deshibasara:8080/Runt/MakeTransactionWS?wsdl" uri="wsdl/deshibasara_8080/Runt/MakeTransactionWS.wsdl"/>
     <system systemId="http://deshibasara:8080/Runt/MakeTransactionWS?xsd=1" uri="wsdl/deshibasara_8080/Runt/MakeTransactionWS.xsd_1.xsd"/>
+    <system systemId="http://deshibasara:9088/ViajesESBService/ViajesESBPort?wsdl" uri="wsdl/deshibasara_9088/ViajesESBService/ViajesESBPort.wsdl"/>
+    <system systemId="http://localhost:9088/RuntESBService/RuntESBPort?wsdl" uri="wsdl/localhost_9088/RuntESBService/RuntESBPort.wsdl"/>
+    <system systemId="http://localhost:9088/ViajesESBService/ViajesESBPort?wsdl" uri="wsdl/localhost_9088/ViajesESBService/ViajesESBPort.wsdl"/>
+    <system systemId="http://deshibasara:8080/AgenciaViajes/MakeTransactionWS?xsd=1" uri="wsdl/deshibasara_8080/AgenciaViajes/MakeTransactionWS.xsd_1.xsd"/>
+    <system systemId="http://deshibasara:9088/RuntESBService/RuntESBPort?wsdl" uri="wsdl/deshibasara_9088/RuntESBService/RuntESBPort.wsdl"/>
+    <system systemId="http://localhost:9088/BusESBService/BusESBPort?wsdl" uri="wsdl/localhost_9088/BusESBService/BusESBPort.wsdl"/>
+    <system systemId="http://localhost:8080/Runt/MakeTransactionWS?xsd=1" uri="wsdl/localhost_8080/Runt/MakeTransactionWS.xsd_1.xsd"/>
 </catalog>

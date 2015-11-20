@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package BusinessLogic.Controller;
-//import BusinessLogic.Service.Rob;
-//import BusinessLogic.Service2.Rob;
+
 import javax.servlet.http.HttpSession;
 
 
@@ -17,7 +16,7 @@ public class GetResource {
     
   public String getResource(String email) {
       /*
-       Rob objectReceived = makeTransaction(email);
+       Rob objectReceived = viajesESBOperation(email);
 
        if (objectReceived.isSuccess()) {
            HttpSession session = Util.getSession(); 
@@ -32,13 +31,5 @@ public class GetResource {
         }*/
         return null;
     }
-/*
-    private static Rob makeTransaction(java.lang.String arg0) {
-        BusinessLogic.Service2.MakeTransactionWS_Service service = new BusinessLogic.Service2.MakeTransactionWS_Service();
-        BusinessLogic.Service2.MakeTransactionWS port = service.getMakeTransactionWSPort();
-        return port.makeTransaction(arg0);
-    }*/
 
-  
-  
 }

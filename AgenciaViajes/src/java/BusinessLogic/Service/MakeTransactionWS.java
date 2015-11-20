@@ -19,7 +19,7 @@ public class MakeTransactionWS {
 
     /**
      * This is a sample web service operation
-     * @param username    
+     * @param email   
      * @param password    
      * @param planId    
      * @return       
@@ -29,11 +29,11 @@ public class MakeTransactionWS {
     }
     * */
     @WebMethod(operationName = "makeTransaction")
-    public ROB makeTransaction(String username, String password, Long planId){
+    public ROB makeTransaction(String email, String password, Long planId){
         //Instancia un objeto de la clase encargada de realizar las transacciones 
         MakeTransaction makeTransaction = new MakeTransaction();
     	//Se llama a la función que realiza la transacción y se le enían los parámetros que necesita 
         //para realizarla, los cuales vienen de la aplicacion que consume el servicio 
-        return makeTransaction.make(username, password, planId);
+        return makeTransaction.make(email, password, planId);
     }
 }
