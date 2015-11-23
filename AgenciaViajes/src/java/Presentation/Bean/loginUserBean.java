@@ -1,7 +1,9 @@
 package Presentation.Bean;
 
+import BusinessLogic.Controller.LoginLDAP;
 import BusinessLogic.Controller.ManageUser;
 import BusinessLogic.Controller.Util;
+import DataAccess.DAO.UserDAO;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -46,14 +48,25 @@ public class loginUserBean implements Serializable
         this.password = password;
     }
 
-    public void loginUser()
+    public void loginUser()        
         throws SQLException
-    {
-        ManageUser manageUser = new ManageUser();
-        if(manageUser.login(getEmail(), getPassword()))
-            manageUser.renderIndex();
+    {   
+        UserDAO userDAO = new UserDAO();
+        LoginLDAP l = new LoginLDAP();
+        //String name = userDAO.getName(getEmail());
+        String validation = l.login(getEmail(), getPassword());
+        //String validation = "Login exitoso";
+        if(validation.equals("Login exitoso")){
+            
+            ManageUser manageUser = new ManageUser();
+            if(manageUser.login(getEmail(), getPassword()))
+                manageUser.renderIndex();
+            else
+                setMessage("Correo y/o contrase\361a incorrectos, intente nuevamente");
+        }
         else
             setMessage("Correo y/o contrase\361a incorrectos, intente nuevamente");
+        
     }
 
     public void logoutUser()

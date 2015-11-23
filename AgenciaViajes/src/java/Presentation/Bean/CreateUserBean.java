@@ -7,6 +7,7 @@ package Presentation.Bean;
 
 import BusinessLogic.Controller.ManageUser;
 import DataAccess.DAO.UserDAO;
+import com.novell.ldap.LDAPException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
@@ -215,12 +216,12 @@ public class CreateUserBean implements Serializable{
     }
     
     
-    public void createUser() throws  IOException, NoSuchAlgorithmException, NamingException, SystemException, NotSupportedException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+    public void createUser() throws  IOException, NoSuchAlgorithmException, NamingException, SystemException, NotSupportedException, RollbackException, HeuristicMixedException, HeuristicRollbackException, LDAPException {
         ManageUser manageUser = new ManageUser();
         System.out.println("COntraseñas: "+ getPassword()+ getPassword2());
         String pattern = "[\\w\\.-]*[a-zA-Z0-9_]@[\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]";        
         if(manageUser.passwordCheck(getPassword(),getPassword2()) && !manageUser.validateEmail(getEmail()) && !manageUser.validateUsername(getUsername()) && getEmail().matches(pattern) && getPhone().matches("[0-9]{10}")){            
-            manageUser.createUser(getUsername(), getFirstname(), getLastname(), manageUser.sha256(getPassword()), getEmail(),getRole(), getPhone(),(long)0, getDocumentType(), getDocument());
+            manageUser.createUser(getUsername(), getFirstname(), getLastname(), manageUser.sha256(getPassword()), getEmail(),getRole(), getPhone(),(long)0, getDocumentType(), getDocument(), getPassword());
            // manageUser.renderIndex();            
         }else if(manageUser.passwordCheck(getPassword(),getPassword2()) == false){
             setMessage("Las contraseñas no coinciden");

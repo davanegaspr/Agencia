@@ -55,7 +55,8 @@ public class ManageTicket implements Serializable{
         TicketDAO ticketDAO = new TicketDAO();
         UserDAO userDAO = new UserDAO();
         if(session.getAttribute("planId_discount") != null && session.getAttribute("planId_discount")== plan.getPlanId()){
-            price = (plan.getBaseCostByAdult() * quantityAdult) + (plan.getBaseCostByChild() * quantityChild) + hotel.getPrice()*(quantityAdult + quantityChild) - (double)session.getAttribute("discount");
+            //price = (plan.getBaseCostByAdult() * quantityAdult) + (plan.getBaseCostByChild() * quantityChild) + hotel.getPrice()*(quantityAdult + quantityChild);
+            price = 0;
         }
         else{
             price = (plan.getBaseCostByAdult() * quantityAdult) + (plan.getBaseCostByChild() * quantityChild) + hotel.getPrice()*(quantityAdult + quantityChild);
@@ -121,7 +122,13 @@ public class ManageTicket implements Serializable{
          double price = (plan.getBaseCostByAdult() * quantityAdult) + (plan.getBaseCostByChild() * quantityChild) + hotel.getPrice()*(quantityAdult + quantityChild);
          
          double balance = (double)session.getAttribute("balance");
-         return balance >= price;
+         if(session.getAttribute("planId_discount") != null && (long)session.getAttribute("planId_discount")!= 0){
+             return true;
+         }
+         else {
+             return balance >= price;
+         }
+         
     }
 
     public ArrayList<Tickets> getTickets(long userId, int status) {

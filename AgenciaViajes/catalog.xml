@@ -13,5 +13,10 @@
     <system systemId="http://deshibasara:8080/AgenciaViajes/MakeTransactionWS?xsd=1" uri="src/conf/xml-resources/web-service-references/BusESBPort/wsdl/deshibasara_8080/AgenciaViajes/MakeTransactionWS.xsd_1.xsd"/>
     <system systemId="http://deshibasara:8080/Runt/MakeTransactionWS?xsd=1" uri="src/conf/xml-resources/web-service-references/BusESBPort/wsdl/deshibasara_8080/Runt/MakeTransactionWS.xsd_1.xsd"/>
     <system systemId="http://localhost:9088/ViajesESBService/ViajesESBPort?wsdl" uri="src/conf/xml-resources/web-service-references/ViajesESBPort/wsdl/localhost_9088/ViajesESBService/ViajesESBPort.wsdl"/>
-    <system systemId="http://localhost:8080/Runt/MakeTransactionWS?xsd=1" uri="src/conf/xml-resources/web-service-references/ViajesESBPort/wsdl/localhost_8080/Runt/MakeTransactionWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/Runt/MakeTransactionWS?wsdl" uri="src/conf/xml-resources/web-service-references/MakeTransactionWS/wsdl/localhost_8080/Runt/MakeTransactionWS.wsdl"/>
+    <system systemId="http://localhost:8080/Runt/MakeTransactionWS?xsd=1" uri="src/conf/xml-resources/web-service-references/MakeTransactionWS/wsdl/localhost_8080/Runt/MakeTransactionWS.xsd_1.xsd"/>
+    <system systemId="http://192.168.43.143:8080/bienestar/OfrecerApoyoWS?wsdl" uri="src/conf/xml-resources/web-service-references/OfrecerApoyoWS/wsdl/192.168.43.143_8080/bienestar/OfrecerApoyoWS.wsdl"/>
+    <system systemId="http://192.168.43.176:9100/AgenciaESBService/AgenciaESBPort?wsdl" uri="src/conf/xml-resources/web-service-references/AgenciaESBPort/wsdl/192.168.43.176_9100/AgenciaESBService/AgenciaESBPort.wsdl"/>
+    <system systemId="http://192.168.43.143:8080/bienestar/OfrecerApoyoWS?xsd=1" uri="src/conf/xml-resources/web-service-references/AgenciaESBPort/wsdl/192.168.43.143_8080/bienestar/OfrecerApoyoWS.xsd_1.xsd"/>
+    <system systemId="http://192.168.43.176:9100/BienestarESBService/BienestarESBPort?wsdl" uri="src/conf/xml-resources/web-service-references/BienestarESBPort/wsdl/192.168.43.176_9100/BienestarESBService/BienestarESBPort.wsdl"/>
 </catalog>

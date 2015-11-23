@@ -14,4 +14,9 @@
     <system systemId="http://deshibasara:9088/RuntESBService/RuntESBPort?wsdl" uri="wsdl/deshibasara_9088/RuntESBService/RuntESBPort.wsdl"/>
     <system systemId="http://localhost:9088/BusESBService/BusESBPort?wsdl" uri="wsdl/localhost_9088/BusESBService/BusESBPort.wsdl"/>
     <system systemId="http://localhost:8080/Runt/MakeTransactionWS?xsd=1" uri="wsdl/localhost_8080/Runt/MakeTransactionWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/Runt/MakeTransactionWS?wsdl" uri="wsdl/localhost_8080/Runt/MakeTransactionWS.wsdl"/>
+    <system systemId="http://192.168.43.143:8080/bienestar/OfrecerApoyoWS?wsdl" uri="wsdl/192.168.43.143_8080/bienestar/OfrecerApoyoWS.wsdl"/>
+    <system systemId="http://192.168.43.143:8080/bienestar/OfrecerApoyoWS?xsd=1" uri="wsdl/192.168.43.143_8080/bienestar/OfrecerApoyoWS.xsd_1.xsd"/>
+    <system systemId="http://192.168.43.176:9100/AgenciaESBService/AgenciaESBPort?wsdl" uri="wsdl/192.168.43.176_9100/AgenciaESBService/AgenciaESBPort.wsdl"/>
+    <system systemId="http://192.168.43.176:9100/BienestarESBService/BienestarESBPort?wsdl" uri="wsdl/192.168.43.176_9100/BienestarESBService/BienestarESBPort.wsdl"/>
 </catalog>

@@ -44,8 +44,8 @@
         
         
         <c:if test="#{loginUserBean.emailU == true}">
-            <c:if test="${(discount != null and planId_discount != null)}">
-                <c:if test="${discount != 0 and planId_discount != 0}">
+            <c:if test="${(planId_discount != null)}">
+                <c:if test="${planId_discount != 0}">
     <div id="myModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -54,13 +54,30 @@
                 <h2 class="modal-title" style="text-align: center">Información</h2>
             </div>
             <div class="modal-body">
-                <p class="text-warning"><h2>Usted tiene un descuento de $ ${discount} pesos en el plan con Id ${planId_discount}, de acuerdo al apoyo que usted tiene de Bienestar</h2></p>
+                <p class="text-warning"><h2>Usted tiene un descuento del 100% en el plan con Id ${planId_discount}, de acuerdo al apoyo que usted tiene de Bienestar</h2></p>
+            </div>
+        </div>      
+    </div>
+    </div>
+        </c:if>
+                
+                 <c:if test="${planId_discount == 0}">
+    <div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title" style="text-align: center">Información</h2>
+            </div>
+            <div class="modal-body">
+                <p class="text-warning"><h2>Usted no tiene ningun apoyo de bienestar en el momento</h2></p>
             </div>
         </div>      
     </div>
     </div>
         </c:if>
             </c:if>
+            
     </c:if>
         <c:if test="${role != 'Admin'}" >
         <ui:include src="/header.xhtml"></ui:include>    

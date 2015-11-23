@@ -5,6 +5,7 @@
  */
 package BusinessLogic.Controller;
 
+import BusinessLogic.Service2.Rob;
 import DataAccess.DAO.*;
 import DataAccess.Entity.*;
 import java.text.DateFormat;
@@ -28,27 +29,39 @@ import javax.transaction.UserTransaction;
 public class MakeTransaction {
     
     public ROB make(String email, String password, Long planId){  
-        
+        GetResource gr = new GetResource();
+        String message = null;
+        double price;        
+        Rob validate = gr.getResource2(email);        
         UserDAO userDAO= new UserDAO();
+        //GetResource gr = new GetResource();
         TicketDAO ticketDAO = new TicketDAO();
         PlanDAO planDAO = new PlanDAO();
         Plan plan = planDAO.getPlan(planId);
         HotelDAO hotelDAO= new HotelDAO();
-        Hotel hotel = hotelDAO.getHotel(plan.getPlanId());
-        double price;
+        Hotel hotel = hotelDAO.getHotel(plan.getHotelhotelId().getHotelId());
+        
         ROB rob = new ROB();
         //Verifica si la cuenta existe
         
         if(UserDAO.validateEmail(email)){    
             String username = userDAO.getUsername(email);
             if(UserDAO.validatePassword(username,userDAO.sha256(password))){
+                //String var = gr.getResource(email);
                 User user = userDAO.getUser2(username);                
-                //int quantityAdult=2;
-                //int quantityChild=1;                
+                int quantityAdult=1;
+                int quantityChild=0;                
                 int status = 1;
                 long ticketId=1;
-                //price = (plan.getBaseCostByAdult() * quantityAdult) + (plan.getBaseCostByChild() * quantityChild) + hotel.getPrice()*(quantityAdult + quantityChild);
-                price = 500000;
+                if (validate.isSuccess() && validate.getData().equals(planId.toString())){
+                    price =0;
+                    message="Transacción Satisfactoria, Su tiquete fue cubierto en su totalidad por el apoyo con el que ud cuenta de bienestar, su numero de tiquete es: ";
+                } 
+                else{
+                    message="Transacción Satisfactoria, su numero de tiquete es: ";
+                    price = (plan.getBaseCostByAdult() * quantityAdult) + (plan.getBaseCostByChild() * quantityChild) + hotel.getPrice()*(quantityAdult + quantityChild);
+                    System.out.println("preciooooo" + hotel.getName() + " " + price);
+                }
                 if(user.getBalance()>= price){
                     double newBalance = user.getBalance() - price;
                     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
@@ -73,7 +86,7 @@ public class MakeTransaction {
                     }
                     if(ticketE!=null){
                         rob.setSuccess(true);
-                        rob.setErr_message("Transacción Satisfactoria, su numero de tiquete es: " + ticketE);  
+                        rob.setErr_message(message + ticketE);  
                         rob.setData(ticketE.toString());
                     }
                 }            

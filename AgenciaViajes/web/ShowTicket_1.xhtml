@@ -80,17 +80,16 @@
                       </div>
                       <div class="modal-body">
                           <c:if test="#{loginUserBean.emailU == true}">
-                            <c:if test="${(discount != null and planId_discount != null)}">
-                            <c:if test="${discount != 0 and planId_discount != 0}">
+                            <c:if test="${(planId_discount != null)}">
+                            <c:if test="${planId_discount != 0}">
                                 <c:if test="${planId_discount == planIdBuy}">
                           <h3>¿Esta seguro de que desea comprar el plan? por valor de $
                               #{(manageTicket.plan.getBaseCostByAdult() * quantityAdult) + (manageTicket.plan.getBaseCostByChild() * quantityChild) + (manageTicket.hotel.getPrice()*(quantityAdult + quantityChild))}</h3>
-                            <h3>Con el descuento con el que usted cuenta de $ ${discount}, el valor de su tiquete es $
-                              #{(manageTicket.plan.getBaseCostByAdult() * quantityAdult) + (manageTicket.plan.getBaseCostByChild() * quantityChild) + (manageTicket.hotel.getPrice()*(quantityAdult + quantityChild)) - discount}</h3>
+                            <h3>Como usted cuent con un apoyo de bienestr, el valor de su tiquete es $0 pesos</h3>
                             </c:if>
                             </c:if>
                           </c:if>
-                              <c:if test="${(discount == null or planId_discount == null) or(discount == 0 and planId_discount==0) or (planId_discount != planIdBuy)}">
+                              <c:if test="${(planId_discount == null) or(planId_discount==0) or (planId_discount != planIdBuy)}">
                                   <h3>¿Esta seguro de que desea comprar el plan? por valor de $
                               #{(manageTicket.plan.getBaseCostByAdult() * quantityAdult) + (manageTicket.plan.getBaseCostByChild() * quantityChild) + (manageTicket.hotel.getPrice()*(quantityAdult + quantityChild))}</h3>
                               </c:if>

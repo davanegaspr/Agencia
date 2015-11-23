@@ -125,7 +125,7 @@ public class PlanDAO implements Serializable{
     }
     
     public Plan getPlan(long planId) {
-    Connection con = null;
+        Connection con = null;
         PreparedStatement ps = null;
         Plan plan = new Plan();
         HotelDAO h = new HotelDAO();
@@ -178,5 +178,43 @@ public class PlanDAO implements Serializable{
             Database.close(con);
         }   
         
+    }
+
+    public Plan getPlan2(String departureCity, String arrivalCity) {
+     
+        Connection con = null;
+        PreparedStatement ps = null;
+        Plan plan = new Plan();
+        HotelDAO h = new HotelDAO();
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from plan where departureCity= ? and arrivalCity=?");
+            ps.setString(1,String.valueOf(departureCity));
+            ps.setString(2,String.valueOf(arrivalCity));
+            ResultSet rs = ps.executeQuery();
+            
+             if (rs.next()){
+                 plan.setPlanId(rs.getLong("planId"));
+                 plan.setName(rs.getString("name"));
+                 plan.setDepartureCity(rs.getString("departureCity"));
+                 plan.setArrivalCity(rs.getString("arrivalCity"));
+                 plan.setDepartureDate(rs.getString("departureDate"));
+                 plan.setReturnDate(rs.getString("returnDate"));
+                 plan.setModeTransport(rs.getString("modeTransport"));
+                 plan.setBaseCostByAdult(rs.getDouble("baseCostByAdult"));
+                 plan.setBaseCostByChild(rs.getDouble("baseCostByChild"));
+                 plan.setHotelhotelId(h.getHotel(rs.getLong("hotel_hotelId")));
+                 
+             } // found
+            
+        } catch (Exception ex) {
+            System.out.println("Error in hotel2() -->" + ex.getMessage());
+            return null;
+        } finally {
+            Database.close(con);
+        }   
+    return plan;
+    
     }
 }
